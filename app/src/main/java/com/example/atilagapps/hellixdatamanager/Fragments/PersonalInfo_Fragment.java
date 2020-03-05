@@ -26,6 +26,7 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
     private Spinner spinner;
 
     DataBaseHelper dbRef;
+
     RadioButton radioButton;
     String Cast_text,Gender_text;
 
