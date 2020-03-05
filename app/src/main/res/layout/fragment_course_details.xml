@@ -5,10 +5,43 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.CourseDetails">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
 
+        <RelativeLayout
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+            <Button
+                android:id="@+id/FromTimeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="From" />
+
+            <TextView
+                android:id="@+id/FromTextViewId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/FromTimeId"
+                android:paddingLeft="10dp"
+                android:text="Select time"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>
