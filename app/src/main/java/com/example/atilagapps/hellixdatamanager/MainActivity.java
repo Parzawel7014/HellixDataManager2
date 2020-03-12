@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.atilagapps.hellixdatamanager.Fragments.CourseDetails;
+import com.example.atilagapps.hellixdatamanager.Fragments.HomeFragment;
 import com.example.atilagapps.hellixdatamanager.Fragments.PersonalInfo_Fragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -58,10 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState == null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            fragmentTransaction.add(R.id.containerId, new PersonalInfo_Fragment());
+            fragmentTransaction.replace(R.id.containerId, new HomeFragment());
             fragmentTransaction.commit();
             navigationView.setCheckedItem(R.id.nav_homeId);
         }
+
 
     }
 
@@ -81,20 +84,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_homeId:
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-                fragmentTransaction.add(R.id.containerId, new PersonalInfo_Fragment());
+                fragmentTransaction.replace(R.id.containerId, new HomeFragment()).addToBackStack(null);
                 fragmentTransaction.commit();
 
                 break;
             case R.id.nav_Add_Student_Id:
 
                 FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-                fm.replace(R.id.containerId, new CourseDetails()).addToBackStack(null).commit();
+                fm.replace(R.id.containerId, new PersonalInfo_Fragment()).addToBackStack(null).commit();
                 break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     /*private void ShowData() {
 

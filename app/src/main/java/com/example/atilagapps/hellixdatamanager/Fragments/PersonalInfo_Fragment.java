@@ -22,13 +22,13 @@ import com.example.atilagapps.hellixdatamanager.R;
 
 public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private EditText editTextName,editTextAddress,editTextPhone;
+    private EditText editTextName, editTextAddress, editTextPhone;
     private Spinner spinner;
 
     DataBaseHelper dbRef;
 
     RadioButton radioButton;
-    String Cast_text,Gender_text;
+    String Cast_text, Gender_text;
 
 
     @Override
@@ -36,26 +36,26 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View v=inflater.inflate(R.layout.fragment_personal_info_,container,false);
+        View v = inflater.inflate(R.layout.fragment_personal_info_, container, false);
 
         Button btn = v.findViewById(R.id.btn1Id);
 
 
         //RadioButton radioBtnFemale = v.findViewById(R.id.FemaleRadioButtId);
 
-        spinner=v.findViewById(R.id.spinnerId);
-        dbRef=new DataBaseHelper(getContext());
-        editTextName=v.findViewById(R.id.editTextNameId);
-        editTextAddress=v.findViewById(R.id.editTextAddressId);
-        editTextPhone=v.findViewById(R.id.editTextPhoneId);
+        spinner = v.findViewById(R.id.spinnerId);
+        dbRef = new DataBaseHelper(getContext());
+        editTextName = v.findViewById(R.id.editTextNameId);
+        editTextAddress = v.findViewById(R.id.editTextAddressId);
+        editTextPhone = v.findViewById(R.id.editTextPhoneId);
 
-        RadioGroup radioGroup=v.findViewById(R.id.radioGroupId);
+        RadioGroup radioGroup = v.findViewById(R.id.radioGroupId);
 
-        int selectedBtn=radioGroup.getCheckedRadioButtonId();
+        int selectedBtn = radioGroup.getCheckedRadioButtonId();
 
         radioButton = v.findViewById(selectedBtn);
 
-        Gender_text= radioButton.getText().toString();
+        Gender_text = radioButton.getText().toString();
 
 
 
@@ -75,7 +75,6 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
                 //add db code
             }
         });*/
-
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(),
@@ -99,33 +98,30 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         });
 
 
-
         return v;
 
 
     }
 
     private void insertPersonalData() {
-        String name=editTextName.getText().toString().trim();
-        String address=editTextAddress.getText().toString().trim();
-        String Phone=editTextPhone.getText().toString().trim();
+        String name = editTextName.getText().toString().trim();
+        String address = editTextAddress.getText().toString().trim();
+        String Phone = editTextPhone.getText().toString().trim();
 
 
+        boolean isInserted = dbRef.insert_PersonalData_Stu_Table(name, address, Phone, Gender_text, Cast_text);
 
-        boolean isInserted=dbRef.insert_PersonalData_Stu_Table(name,address,Phone,Gender_text,Cast_text);
 
-
-        if (isInserted==true){
+        if (isInserted == true) {
             Toast.makeText(getContext(), "Date inserted", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(getContext(), "Data insertion Unsuccessful", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-         Cast_text=parent.getItemAtPosition(position).toString();
-
+        Cast_text = parent.getItemAtPosition(position).toString();
 
 
     }
