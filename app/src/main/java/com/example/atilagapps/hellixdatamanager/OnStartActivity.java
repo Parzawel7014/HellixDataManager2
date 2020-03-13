@@ -10,7 +10,7 @@ import android.widget.Toast;
 public class OnStartActivity extends AppCompatActivity {
 
     DataBaseHelper dbRef;
-    private static int SPLASH_TIMEOUT=4000;
+    private static int SPLASH_TIMEOUT=1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

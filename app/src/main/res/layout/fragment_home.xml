@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/AddStudentCardId"
+                android:id="@+id/StudentCardId"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
                 android:layout_margin="10dp"
@@ -37,13 +37,13 @@
                         android:layout_height="64dp"
                         android:background="@drawable/circlebackgroundpurple"
                         android:padding="10dp"
-                        android:src="@drawable/ic_add_student"></ImageView>
+                        android:src="@drawable/ic_add_student"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="New Entry"
+                        android:text="New Admission"
                         android:textStyle="bold" />
 
                     <View
@@ -52,19 +52,13 @@
                         android:layout_margin="10dp"
                         android:background="@color/lightGray" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Click to add new Student"
-                        android:textColor="#93918E" />
+
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2Id"
+                android:id="@+id/FeesCardViewId"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
                 android:layout_margin="10dp"
@@ -82,13 +76,13 @@
                         android:layout_height="64dp"
                         android:background="@drawable/circlebackgroundpink"
                         android:padding="10dp"
-                        android:src="@drawable/ic_add_student"></ImageView>
+                        android:src="@drawable/ic_add_student"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Find Student"
+                        android:text="Tuition Fees"
                         android:textStyle="bold" />
 
                     <View
@@ -97,13 +91,7 @@
                         android:layout_margin="10dp"
                         android:background="@color/lightGray" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Click to Find the Student"
-                        android:textColor="#93918E" />
+
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -118,6 +106,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/BatchesCardViewId"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
                 android:layout_margin="10dp"
@@ -135,13 +124,13 @@
                         android:layout_height="64dp"
                         android:background="@drawable/circlebackgroundyellow"
                         android:padding="10dp"
-                        android:src="@drawable/ic_add_student"></ImageView>
+                        android:src="@drawable/ic_add_student"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="New Entry"
+                        android:text="Batches"
                         android:textStyle="bold" />
 
                     <View
@@ -150,18 +139,12 @@
                         android:layout_margin="10dp"
                         android:background="@color/lightGray" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Click to add new Student"
-                        android:textColor="#93918E" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/StaffCardViewId"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
                 android:layout_margin="10dp"
@@ -179,13 +162,13 @@
                         android:layout_height="64dp"
                         android:background="@drawable/circlebackgroundgreen"
                         android:padding="10dp"
-                        android:src="@drawable/ic_add_student"></ImageView>
+                        android:src="@drawable/ic_add_student"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Find Student"
+                        android:text="Staff Manager"
                         android:textStyle="bold" />
 
                     <View
@@ -194,13 +177,6 @@
                         android:layout_margin="10dp"
                         android:background="@color/lightGray" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Click to Find the Student"
-                        android:textColor="#93918E" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

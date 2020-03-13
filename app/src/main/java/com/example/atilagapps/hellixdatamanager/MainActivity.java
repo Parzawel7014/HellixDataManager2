@@ -2,35 +2,28 @@ package com.example.atilagapps.hellixdatamanager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 //import android.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.atilagapps.hellixdatamanager.Fragments.CourseDetails;
+import com.example.atilagapps.hellixdatamanager.Fragments.ConfirmationFragment;
 import com.example.atilagapps.hellixdatamanager.Fragments.HomeFragment;
 import com.example.atilagapps.hellixdatamanager.Fragments.PersonalInfo_Fragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
     DataBaseHelper dbRef;
-    Button nextButton;
+    //Button nextButton;
     private DrawerLayout drawerLayout;
 
 
@@ -98,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 

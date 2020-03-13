@@ -14,7 +14,7 @@ import com.example.atilagapps.hellixdatamanager.R;
 
 public class HomeFragment extends Fragment {
 
-    private CardView addStudentCardView, cardView2;
+    private CardView StudentCardView, fees,batch,staff;
 
 
     @Override
@@ -24,14 +24,16 @@ public class HomeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        addStudentCardView = v.findViewById(R.id.AddStudentCardId);
-        cardView2 = v.findViewById(R.id.cardView2Id);
+        StudentCardView = v.findViewById(R.id.StudentCardId);
+        fees = v.findViewById(R.id.FeesCardViewId);
+        batch=v.findViewById(R.id.BatchesCardViewId);
+        staff=v.findViewById(R.id.StaffCardViewId);
 
-        addStudentCardView.setOnClickListener(new View.OnClickListener() {
+        StudentCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fm = getFragmentManager().beginTransaction();
-                fm.replace(R.id.containerId, new PersonalInfo_Fragment()).addToBackStack(null).commit();
+                fm.replace(R.id.containerId, new StudentFragment()).addToBackStack(null).commit();
             }
         });
 
