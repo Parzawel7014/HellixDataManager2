@@ -33,15 +33,11 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
     String Cast_text, Gender_text;
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_personal_info_, container, false);
-
-
 
 
         Button NextBtn = v.findViewById(R.id.btn1Id);
@@ -51,26 +47,14 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         editTextAddress = v.findViewById(R.id.editTextAddressId);
         editTextPhone = v.findViewById(R.id.editTextPhoneId);
         RadioGroup radioGroup = v.findViewById(R.id.radioGroupId);
-
         int selectedBtn = radioGroup.getCheckedRadioButtonId();
         radioButton = v.findViewById(selectedBtn);
-
         Gender_text = radioButton.getText().toString();
-
-
-
-
-
-
-
-
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(),
                 R.array.Caste, android.R.layout.simple_spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
@@ -79,34 +63,29 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
 
-                //insertPersonalData();
+                String name = editTextName.getText().toString().trim();
+                String address = editTextAddress.getText().toString().trim();
+                String Phone = editTextPhone.getText().toString().trim();
 
-             String name=editTextName.getText().toString().trim();
-                String address=editTextAddress.getText().toString().trim();
-                String Phone =editTextPhone.getText().toString().trim();
-
-                Bundle bundle=new Bundle();
-                bundle.putString("Name",name);
-                bundle.putString("Address",address);
-                bundle.putString("Phone",Phone);
+                Bundle bundle = new Bundle();
+                bundle.putString("Name", name);
+                bundle.putString("Address", address);
+                bundle.putString("Phone", Phone);
 
 
-
-
-
-
-
-               FragmentTransaction fm = getFragmentManager().beginTransaction();
-
-
-                ConfirmationFragment confirmationFragment=new ConfirmationFragment();
-               confirmationFragment.setArguments(bundle);
+                FragmentTransaction fm = getFragmentManager().beginTransaction();
+                ConfirmationFragment confirmationFragment = new ConfirmationFragment();
+                confirmationFragment.setArguments(bundle);
+                fm.replace(R.id.container2, confirmationFragment).addToBackStack(null).commit();
 
 
 
-                fm.replace(R.id.containerId,confirmationFragment).addToBackStack(null).commit();
+                editTextName.setText("");
+                editTextAddress.setText("");
+                editTextPhone.setText("");
             }
         });
+
         return v;
     }
 
@@ -125,14 +104,15 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         } else {
             Toast.makeText(getContext(), "Data insertion Unsuccessful", Toast.LENGTH_SHORT).show();
         }*/
- //   }
+    //   }
+
+
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Cast_text = parent.getItemAtPosition(position).toString();
-
-
-    }
+ }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
