@@ -19,6 +19,9 @@ import com.example.atilagapps.hellixdatamanager.Fragments.HomeFragment;
 import com.example.atilagapps.hellixdatamanager.Fragments.PersonalInfo_Fragment;
 import com.google.android.material.navigation.NavigationView;
 
+
+
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
@@ -27,12 +30,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbRef = new DataBaseHelper(this);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 

@@ -4,8 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +25,17 @@ import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.SharedViewModel;
 
 public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private EditText editTextName, editTextAddress, editTextPhone;
+    public EditText editTextName, editTextAddress, editTextPhone;
     private Spinner spinner;
-
     DataBaseHelper dbRef;
-
     RadioButton radioButton;
     String Cast_text, Gender_text;
+    CharSequence name,address,Phone;
+    SharedViewModel viewModel;
 
 
     @Override
@@ -38,6 +43,9 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_personal_info_, container, false);
+
+
+
 
 
         Button NextBtn = v.findViewById(R.id.btn1Id);
@@ -63,10 +71,10 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
 
-                String name = editTextName.getText().toString().trim();
-                String address = editTextAddress.getText().toString().trim();
-                String Phone = editTextPhone.getText().toString().trim();
-
+                name = editTextName.getText();
+                address = editTextAddress.getText();
+                Phone = editTextPhone.getText();
+                /*
                 Bundle bundle = new Bundle();
                 bundle.putString("Name", name);
                 bundle.putString("Address", address);
@@ -76,18 +84,35 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
                 FragmentTransaction fm = getFragmentManager().beginTransaction();
                 ConfirmationFragment confirmationFragment = new ConfirmationFragment();
                 confirmationFragment.setArguments(bundle);
-                fm.replace(R.id.container2, confirmationFragment).addToBackStack(null).commit();
-
+                fm.replace(R.id.container2, new ConfirmationFragment()).addToBackStack(null).commit();
 
 
                 editTextName.setText("");
                 editTextAddress.setText("");
-                editTextPhone.setText("");
+                editTextPhone.setText("");*/
+
+
+                viewModel.setName(name);
+                viewModel.setAddress(address);
+                viewModel.setPhone(Phone);
+
+                FragmentTransaction fm = getFragmentManager().beginTransaction();
+                //ConfirmationFragment confirmationFragment = new ConfirmationFragment();
+                fm.replace(R.id.container2, new CourseDetails()).addToBackStack(null).commit();
+
             }
         });
 
         return v;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        viewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+
+    }
+
 
 
     //private void insertPersonalData() {
@@ -107,12 +132,10 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
     //   }
 
 
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Cast_text = parent.getItemAtPosition(position).toString();
- }
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

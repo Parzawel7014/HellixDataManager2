@@ -29,6 +29,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Phone" />
+
+      <TextView
+          android:id="@+id/batchTimingId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Batch Timing"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subjects"
+            android:id="@+id/subjectTextId"/>
     </LinearLayout>
 
 </FrameLayout>

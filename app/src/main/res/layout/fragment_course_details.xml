@@ -45,5 +45,25 @@
 
 
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/SubjectButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ok"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="amount"
+            android:id="@+id/amountText"/>
+
+        <Button
+            android:id="@+id/ConfirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm"/>
+
     </LinearLayout>
 </FrameLayout>

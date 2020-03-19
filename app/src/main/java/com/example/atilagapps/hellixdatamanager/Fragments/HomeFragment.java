@@ -1,5 +1,6 @@
 package com.example.atilagapps.hellixdatamanager.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.Students.StudentAddActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -28,6 +31,7 @@ public class HomeFragment extends Fragment {
         fees = v.findViewById(R.id.FeesCardViewId);
         batch=v.findViewById(R.id.BatchesCardViewId);
         staff=v.findViewById(R.id.StaffCardViewId);
+        batch=v.findViewById(R.id.BatchesCardViewId);
 
         StudentCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +40,14 @@ public class HomeFragment extends Fragment {
                 fm.replace(R.id.containerId, new StudentFragment()).addToBackStack(null).commit();
             }
         });
+
+        batch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), BatchesActivity.class));
+            }
+        });
+
 
 
         return v;

@@ -4,22 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.atilagapps.hellixdatamanager.Fragments.ConfirmationFragment;
 import com.example.atilagapps.hellixdatamanager.Fragments.HomeFragment;
 import com.example.atilagapps.hellixdatamanager.Fragments.PersonalInfo_Fragment;
 import com.example.atilagapps.hellixdatamanager.R;
 
 public class StudentAddActivity extends AppCompatActivity {
 
+    private static final String TAG = "MyActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_add);
-
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.container2, new PersonalInfo_Fragment());
         fragmentTransaction.commit();
     }
+
+
 }
