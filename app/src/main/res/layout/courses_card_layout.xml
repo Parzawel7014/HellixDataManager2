@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/SubjectCardID"
+            android:id="@+id/CourseSubjectCardID"
             android:text="Subject"
             android:textColor="@android:color/black"
             android:textStyle="bold"
@@ -41,20 +41,20 @@
             android:text="Time"
             android:textColor="@android:color/black"
             android:textStyle="italic"
-            android:id="@+id/TimeIdBatches"
+            android:id="@+id/CourseTimeIdBatches"
             android:layout_marginTop="10dp"
             android:textSize="15sp" />
         </LinearLayout>
 
             <TextView
-                android:id="@+id/TeacherCardId"
+                android:id="@+id/AmountCardId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginEnd="10dp"
                 android:gravity="end|bottom"
                 android:maxLines="1"
-                android:text="Teacher"
+                android:text="Amount"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 tools:ignore="RtlHardcoded" />

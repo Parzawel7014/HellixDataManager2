@@ -3,6 +3,7 @@ package com.example.atilagapps.hellixdatamanager.Students;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,6 +24,10 @@ public class StudentAddActivity extends AppCompatActivity {
 
         fragmentTransaction.replace(R.id.container2, new PersonalInfo_Fragment());
         fragmentTransaction.commit();
+
+
+
+
     }
 
 

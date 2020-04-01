@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,13 @@ import android.widget.TextView;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.SharedViewModel;
 
+import java.util.ArrayList;
+
 public class ConfirmationFragment extends Fragment {
 
-
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public TextView nameText,addressText,phoneText,batch_time,subjectText;
     SharedViewModel viewModel;
@@ -36,27 +42,19 @@ public class ConfirmationFragment extends Fragment {
         batch_time=v.findViewById(R.id.batchTimingId);
         subjectText=v.findViewById(R.id.subjectTextId);
 
+        mRecyclerView =v.findViewById(R.id.ConfirmationRecyclerViewId);
+        mRecyclerView.setHasFixedSize(true);
+
+        ArrayList<CoursesClass> coursesClass=new ArrayList<>();
+
+        mLayoutManager=new LinearLayoutManager(getContext());
+        mAdapter=new CourseRecyclerAdapter(coursesClass);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
 
- /*      Bundle bundle=getArguments();
-        String name=bundle.getString("Name");
-        String address=bundle.getString("Address");
-        String phone=bundle.getString("Phone");
-        String batch=bundle.getString("Batch");
-        String[] sub=bundle.getStringArray("Subject");
 
-        StringBuffer sb = new StringBuffer();
-        for(int i = 0; i < sub.length; i++) {
-            sb.append(sub[i]);
-        }
-        String str = sb.toString();
-
-        nameText.setText(name);
-        addressText.setText(address);
-        phoneText.setText(phone);
-        batch_time.setText(batch);
-        subjectText.setText(str);
-*/
         return v;
     }
 
@@ -90,12 +88,7 @@ public class ConfirmationFragment extends Fragment {
                 phoneText.setText(phone);
             }
         });
-        viewModel.getBatch().observe(getViewLifecycleOwner(), new Observer<CharSequence>() {
-            @Override
-            public void onChanged(CharSequence batch) {
-                batch_time.setText(batch);
-            }
-        });
+
 
     }
 

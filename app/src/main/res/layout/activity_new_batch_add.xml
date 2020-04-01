@@ -37,6 +37,7 @@
             android:paddingStart="10dp"
             android:textColor="@android:color/black"
             android:textStyle="bold"
+            android:focusable="false"
             tools:ignore="RtlSymmetry" />
 
         <EditText
@@ -70,6 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Batch"
+            android:clickable="false"
             android:id="@+id/addBatchButton"/>
     </LinearLayout>
 </LinearLayout>

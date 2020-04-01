@@ -36,6 +36,25 @@
           android:layout_height="wrap_content"
           android:text="Batch Timing"/>
 
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:scrollbars="vertical"
+                    android:id="@+id/ConfirmationRecyclerViewId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="2dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/darker_gray"/>
+            </ScrollView>
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atilagapps.hellixdatamanager.R;
 
+import java.text.BreakIterator;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -22,6 +23,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.batches_card_layout,parent,false);
         ViewHolder vh=new ViewHolder(v);
+        
         return vh;
     }
 
@@ -35,6 +37,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SubjectAdapter currentItem=mList.get(position);
         holder.subText.setText(currentItem.getMsubject());
+        holder.batchTime.setText(currentItem.getmTime());
+        holder.teacherText.setText(currentItem.getmTeacher());
+
 
 
     }
@@ -46,11 +51,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView subText;
+        public TextView subText,batchTime,teacherText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             subText=itemView.findViewById(R.id.SubjectCardID);
+            batchTime=itemView.findViewById(R.id.TimeIdBatches);
+            teacherText=itemView.findViewById(R.id.TeacherCardId);
         }
     }
 }

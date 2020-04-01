@@ -23,11 +23,12 @@ public class BatchesActivity extends AppCompatActivity {
 
     private FloatingActionButton subFloatButt;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batches);
-        RecyclerView recyclerView=findViewById(R.id.RecyclerVieId);
+        //RecyclerView recyclerView=findViewById(R.id.RecyclerVieId);
 
 
         DataBaseHelper db=new DataBaseHelper(this);
@@ -51,6 +52,7 @@ public class BatchesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),NewBatchAddActivity.class));
+                finish();
             }
         });
 

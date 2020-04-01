@@ -59,7 +59,6 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         radioButton = v.findViewById(selectedBtn);
         Gender_text = radioButton.getText().toString();
 
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(),
                 R.array.Caste, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -74,30 +73,14 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
                 name = editTextName.getText();
                 address = editTextAddress.getText();
                 Phone = editTextPhone.getText();
-                /*
-                Bundle bundle = new Bundle();
-                bundle.putString("Name", name);
-                bundle.putString("Address", address);
-                bundle.putString("Phone", Phone);
-
-
-                FragmentTransaction fm = getFragmentManager().beginTransaction();
-                ConfirmationFragment confirmationFragment = new ConfirmationFragment();
-                confirmationFragment.setArguments(bundle);
-                fm.replace(R.id.container2, new ConfirmationFragment()).addToBackStack(null).commit();
-
-
-                editTextName.setText("");
-                editTextAddress.setText("");
-                editTextPhone.setText("");*/
-
 
                 viewModel.setName(name);
                 viewModel.setAddress(address);
                 viewModel.setPhone(Phone);
+                viewModel.setCastText(Cast_text);
+                viewModel.setGenderText(Gender_text);
 
                 FragmentTransaction fm = getFragmentManager().beginTransaction();
-                //ConfirmationFragment confirmationFragment = new ConfirmationFragment();
                 fm.replace(R.id.container2, new CourseDetails()).addToBackStack(null).commit();
 
             }
@@ -112,24 +95,6 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         viewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
 
     }
-
-
-
-    //private void insertPersonalData() {
-       /* String name = editTextName.getText().toString().trim();
-        String address = editTextAddress.getText().toString().trim();
-        String Phone = editTextPhone.getText().toString().trim();
-
-
-        boolean isInserted = dbRef.insert_PersonalData_Stu_Table(name, address, Phone, Gender_text, Cast_text);
-
-
-        if (isInserted == true) {
-            Toast.makeText(getContext(), "Date inserted", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getContext(), "Data insertion Unsuccessful", Toast.LENGTH_SHORT).show();
-        }*/
-    //   }
 
 
     @Override
