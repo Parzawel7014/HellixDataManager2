@@ -3,15 +3,14 @@ package com.example.atilagapps.hellixdatamanager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.atilagapps.hellixdatamanager.Batches.SubjectAdapter;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudent;
+import com.example.atilagapps.hellixdatamanager.TuitionFess.StudentClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +60,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String BATCH_COL_4="Admission_Date";
     public static final String BATCH_COL_2="STUDENT_ID";
     public static final String BATCH_COL_3="Paid";
+    public static final String BATCH_COL_5="UnPaid";
+
     //public static final String BATCH_COL_1="BATCH_ID";
 
     public static final String ALL_BATCH_COL_1="ALL_BATCH_ID";
@@ -288,7 +289,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String TableName=newBatchName+newBatchTime;
         long result1;
         db.execSQL("CREATE TABLE " + TableName + "(" + BATCH_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," + BATCH_COL_2 + " INTEGER, " + BATCH_COL_3 + " BOOLEAN, " +
-                   BATCH_COL_4+" TEXT, " +"FOREIGN KEY" + "(" + BATCH_COL_2 + ")" + " REFERENCES " + STUDENT_TABLE + "(" + STU_COL_1 + ")" + ")" );
+                   BATCH_COL_4+" TEXT, "+BATCH_COL_5+" TEXT, " +"FOREIGN KEY" + "(" + BATCH_COL_2 + ")" + " REFERENCES " + STUDENT_TABLE + "(" + STU_COL_1 + ")" + ")" );
 
         ContentValues contentValues=new ContentValues();
         contentValues.put(ALL_BATCH_COL_2,BatchName);
@@ -302,7 +303,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertIntoTables(String TableName,String StudentName){
+    public boolean insertIntoTables(String TableName,String StudentName,String date){
 
         String StudentID = null;
         SQLiteDatabase db=this.getWritableDatabase();
@@ -317,11 +318,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
         //db.close();
-
-
         ContentValues cn=new ContentValues();
 
         cn.put(BATCH_COL_2,StudentID);
+        cn.put(BATCH_COL_4,date);
         long result1=db.insert(TableName,null,cn);
 
         db.close();
@@ -392,6 +392,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // returning lables
         return labels;
+    }
+
+
+
+    public ArrayList<StudentClass> getAllStudents(String TableName){
+        ArrayList<StudentClass> labels=new ArrayList();
+
+        String selectQuery = "SELECT "+ STUDENT_TABLE+"."+STU_COL_2  +" FROM " + TableName +
+                " INNER JOIN "+STUDENT_TABLE +" ON "+ TableName+"."+BATCH_COL_2+"="+STUDENT_TABLE+"."+STU_COL_1 ;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(new StudentClass(cursor.getString(0)));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return labels;
+
+
     }
 
 

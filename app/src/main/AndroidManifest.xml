@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Students.DetailsActivity"></activity>
+        <activity android:name=".TuitionFess.Students_In_Batch"></activity>
+        <activity android:name=".TuitionFess.PaymentGateway" />
+        <activity android:name=".TuitionFess.AddFeesActivity" />
+        <activity android:name=".TuitionFess.TuitionFeesActivity" />
+        <activity android:name=".Students.DetailsActivity" />
         <activity android:name=".Batches.NewBatchAddActivity" />
         <activity android:name=".Batches.BatchesActivity" />
         <activity

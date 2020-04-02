@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.Students.StudentAddActivity;
+import com.example.atilagapps.hellixdatamanager.TuitionFess.TuitionFeesActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -47,6 +48,15 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(v.getContext(), BatchesActivity.class));
             }
         });
+
+        fees.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), TuitionFeesActivity.class));
+            }
+        });
+
+
 
 
 

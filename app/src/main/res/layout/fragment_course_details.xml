@@ -43,6 +43,14 @@
             android:text="amount"
             android:id="@+id/amountText"/>
 
+        <EditText
+            android:id="@+id/dateEditText"
+            android:hint="Admission Date"
+            android:inputType="date"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <Button
             android:id="@+id/ConfirmButton"
             android:layout_width="wrap_content"

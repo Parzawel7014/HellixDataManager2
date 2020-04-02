@@ -5,16 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Students.DetailsActivity">
+    tools:context=".TuitionFess.Students_In_Batch">
 
     <TextView
-        android:id="@+id/DetailNameTextID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp" />
+        android:id="@+id/name"/>
 
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:scrollbars="vertical"
+        android:id="@+id/GetStudentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"/>
 
 
 </LinearLayout>

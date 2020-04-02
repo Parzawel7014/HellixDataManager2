@@ -2,6 +2,7 @@ package com.example.atilagapps.hellixdatamanager.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +32,10 @@ import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.SharedViewModel;
 import com.example.atilagapps.hellixdatamanager.Students.StudentAddActivity;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -45,6 +50,8 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
     SharedViewModel viewModel;
+
+    EditText dateEditText;
 
     HashMap<String, String> data = new HashMap<String, String>();
     int n = 0;
@@ -65,6 +72,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
         subjectButton = v.findViewById(R.id.SubjectButt);
         amountTextV = v.findViewById(R.id.amountText);
         confirmButt = v.findViewById(R.id.ConfirmButton);
+        dateEditText=v.findViewById(R.id.dateEditText);
 
         DataBaseHelper db = new DataBaseHelper(getContext());
         listItems = db.getDistinctDialogueLabels().toArray(new String[0]);
@@ -78,6 +86,30 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 OpenDialogue();
             }
         });
+
+
+        Calendar c = Calendar.getInstance();
+        final int year=c.get(Calendar.YEAR);
+        final int month=c.get(Calendar.MONTH);
+        final int day=c.get(Calendar.DAY_OF_MONTH);
+
+        dateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog datePickerDialog=new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dateEditText.setText(dayOfMonth + "/"+month+"/"+year);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
+
+
+
 
 
         confirmButt.setOnClickListener(new View.OnClickListener() {
@@ -263,7 +295,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     private void insertData() {
 
         DataBaseHelper db=new DataBaseHelper(getContext());
-
+        String date=dateEditText.getText().toString().trim();
 
         boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString,GenderString,CastString);
 
@@ -280,7 +312,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 String TableName=newBatchName+newBatchTime;
 
 
-                boolean isInsertedTable=db.insertIntoTables(TableName,StudentNameString);
+                boolean isInsertedTable=db.insertIntoTables(TableName,StudentNameString,date);
                 if (isInsertedTable) {
                     Toast.makeText(getContext(), "Table inserted", Toast.LENGTH_SHORT).show();
 
