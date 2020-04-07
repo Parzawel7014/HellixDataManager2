@@ -11,7 +11,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/StudentNameTextIdCard"
@@ -19,12 +20,25 @@
             android:layout_height="wrap_content"
             android:text="Student"
             android:textSize="25sp"
-
             android:padding="6dp"
-            android:layout_marginStart="20dp"
-
 
             />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/AmountPaidStatusId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:layout_gravity="end"
+                android:layout_alignParentEnd="true"
+                android:text="UnPaid"
+                android:textColor="@android:color/holo_red_dark"/>
+
+            </RelativeLayout>
+
 
 
 

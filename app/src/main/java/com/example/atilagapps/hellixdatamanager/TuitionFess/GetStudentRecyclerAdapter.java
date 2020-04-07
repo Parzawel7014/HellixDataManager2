@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.Students.FindStudentRecyclerAdapter;
 
 import java.util.List;
 
@@ -21,13 +22,24 @@ public class GetStudentRecyclerAdapter extends RecyclerView.Adapter<GetStudentRe
         this.mList = mList;
     }
 
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener=listener;
+    }
+
     @NonNull
     @Override
     public GetStudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.get_students_card,parent,false);
 
-        GetStudentViewHolder vh=new GetStudentViewHolder(v);
+        GetStudentViewHolder vh=new GetStudentViewHolder(v,mListener);
 
         return vh;
     }
@@ -50,11 +62,21 @@ public class GetStudentRecyclerAdapter extends RecyclerView.Adapter<GetStudentRe
 
         TextView studentName;
 
-        public GetStudentViewHolder(@NonNull View itemView) {
+        public GetStudentViewHolder(@NonNull View itemView,final OnItemClickListener listener) {
             super(itemView);
 
             studentName=itemView.findViewById(R.id.StudentNameTextIdCard);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener!=null){
+                        int position =getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 

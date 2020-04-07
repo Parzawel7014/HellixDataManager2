@@ -45,9 +45,12 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     Button subjectButton, confirmButt;
     TextView amountTextV;
     int amount = 0;
-    String[] listItems, timeItems, finalArray,finalTimeArray;
+    String[] listItems, timeItems, finalArray, finalTimeArray, regFeeArray;
     boolean[] checkedItem;
+    boolean[] checkedItemFinal;
     ArrayList<Integer> mUserItems = new ArrayList<>();
+
+    ArrayList<Integer> mUserItemsFinal = new ArrayList<>();
 
     SharedViewModel viewModel;
 
@@ -60,7 +63,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    String sub, time, amt, StudentNameString, AddressString, PhoneString,GenderString,CastString;
+    String sub, time, amt, StudentNameString, AddressString, PhoneString, GenderString, CastString;
     ArrayList<CoursesClass> coursesClass;
 
     @Override
@@ -72,7 +75,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
         subjectButton = v.findViewById(R.id.SubjectButt);
         amountTextV = v.findViewById(R.id.amountText);
         confirmButt = v.findViewById(R.id.ConfirmButton);
-        dateEditText=v.findViewById(R.id.dateEditText);
+        dateEditText = v.findViewById(R.id.dateEditText);
 
         DataBaseHelper db = new DataBaseHelper(getContext());
         listItems = db.getDistinctDialogueLabels().toArray(new String[0]);
@@ -89,34 +92,32 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
 
         Calendar c = Calendar.getInstance();
-        final int year=c.get(Calendar.YEAR);
-        final int month=c.get(Calendar.MONTH);
-        final int day=c.get(Calendar.DAY_OF_MONTH);
+        final int year = c.get(Calendar.YEAR);
+        final int month = c.get(Calendar.MONTH);
+        final int day = c.get(Calendar.DAY_OF_MONTH);
 
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DatePickerDialog datePickerDialog=new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        dateEditText.setText(dayOfMonth + "/"+month+"/"+year);
+                        dateEditText.setText(dayOfMonth + "/" + month + "/" + year);
                     }
-                },year,month,day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
 
 
-
-
-
         confirmButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertData();
-                Objects.requireNonNull(getActivity()).finish();
+
+                openRegistrationFeesDialogue();
+
 
             }
         });
@@ -124,8 +125,6 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
         return v;
     }
-
-
 
 
     @Override
@@ -154,14 +153,14 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
         viewModel.getCastValue().observe(getViewLifecycleOwner(), new Observer<CharSequence>() {
             @Override
             public void onChanged(CharSequence gender) {
-                CastString=gender.toString();
+                CastString = gender.toString();
             }
         });
 
         viewModel.getGenderValue().observe(getViewLifecycleOwner(), new Observer<CharSequence>() {
             @Override
             public void onChanged(CharSequence cast) {
-                GenderString=cast.toString();
+                GenderString = cast.toString();
             }
         });
 
@@ -180,10 +179,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                     if (!mUserItems.contains(position)) {
                         mUserItems.add(position);
                         n = position;
-
-                        //sub=listItems[position];
                         openTimeDialogue(listItems[position]);
-                     //   data.put(listItems[position],time);
 
                     }
                 } else if (mUserItems.contains(position)) {
@@ -208,19 +204,22 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 mRecyclerView.setAdapter(mAdapter);
                 finalArray = new String[mUserItems.size()];
                 //finalTimeArray = new String[mUserTimeItems.size()];
-                finalTimeArray=new String[finalArray.length];
+                finalTimeArray = new String[finalArray.length];
                 for (int i = 0; i < mUserItems.size(); i++) {
                     item = item + listItems[mUserItems.get(i)];
                     sub = listItems[mUserItems.get(i)];
                     amt = db.getAmount(listItems[mUserItems.get(i)]);
                     coursesClass.add(new CoursesClass(sub, data.get(sub), amt));
-                    finalArray[i]=listItems[mUserItems.get(i)];
-                    finalTimeArray[i]=data.get(sub);
+                    finalArray[i] = listItems[mUserItems.get(i)];
+                    finalTimeArray[i] = data.get(sub);
+
 
                     if (i != mUserItems.size() - 1) {
                         item = item + ",";
                     }
                 }
+
+                checkedItemFinal = new boolean[finalArray.length];
                 Log.i(TAG, Arrays.toString(finalArray));
 
                 for (int i = 0; i < mUserItems.size(); i++) {
@@ -264,7 +263,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 time = timeItems[which];
-                data.put(listItem,time);
+                data.put(listItem, time);
                 Toast.makeText(getContext(), "Selected Value" + timeItems[which], Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
@@ -291,44 +290,127 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
-
     private void insertData() {
 
-        DataBaseHelper db=new DataBaseHelper(getContext());
-        String date=dateEditText.getText().toString().trim();
+        DataBaseHelper db = new DataBaseHelper(getContext());
+        String date = dateEditText.getText().toString().trim();
 
-        boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString,GenderString,CastString);
+        boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString, GenderString, CastString);
 
         if (isInserted) {
             Toast.makeText(getContext(), "Date inserted", Toast.LENGTH_SHORT).show();
 
-            for(int i=0;i<finalArray.length;i++){
-                String BatchName=finalArray[i];
-                String BatchTime=finalTimeArray[i];
-                String newBatchName=BatchName.replace(" ","_");
+            for (int i = 0; i < finalArray.length; i++) {
+                String BatchName = finalArray[i];
+                String BatchTime = finalTimeArray[i];
+                String newBatchName = BatchName.replace(" ", "_");
                 String newBatchTime = BatchTime.replace(":", "_");
-                newBatchTime=newBatchTime.replace(" ","_");
+                newBatchTime = newBatchTime.replace(" ", "_");
 
-                String TableName=newBatchName+newBatchTime;
-
-
-                boolean isInsertedTable=db.insertIntoTables(TableName,StudentNameString,date);
-                if (isInsertedTable) {
-                    Toast.makeText(getContext(), "Table inserted", Toast.LENGTH_SHORT).show();
-
-                }else {
-                    Toast.makeText(getContext(), "Table insertion Unsuccessful", Toast.LENGTH_SHORT).show();
+                String TableName = newBatchName + newBatchTime;
+                String RegFeeStatus = "";
+                boolean isInsertedTable = true;
+                if (!Arrays.asList(regFeeArray).contains(finalArray[i])) {
+                    RegFeeStatus = "Unpaid";
+                    isInsertedTable = db.insertIntoTables(TableName, StudentNameString, date, RegFeeStatus);
+                }
+                if (Arrays.asList(regFeeArray).contains(finalArray[i])) {
+                    RegFeeStatus = "Paid";
+                    isInsertedTable = db.insertIntoTables(TableName, StudentNameString, date, RegFeeStatus);
                 }
 
 
+                if (isInsertedTable) {
+                    Toast.makeText(getContext(), "Table inserted", Toast.LENGTH_SHORT).show();
 
+                } else {
+                    Toast.makeText(getContext(), "Table insertion Unsuccessful", Toast.LENGTH_SHORT).show();
+                }
 
             }
-
 
         } else {
             Toast.makeText(getContext(), "Data insertion Unsuccessful", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openRegistrationFeesDialogue() {
+
+        AlertDialog.Builder mBuilder1 = new AlertDialog.Builder(getContext());
+        mBuilder1.setTitle("Fees");
+        mBuilder1.setMultiChoiceItems(finalArray, checkedItemFinal, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
+
+                if (isChecked) {
+
+                    if (!mUserItemsFinal.contains(position)) {
+                        mUserItemsFinal.add(position);
+
+                    }
+                } else if (mUserItemsFinal.contains(position)) {
+                    mUserItemsFinal.remove((Integer) position);
+
+                }
+            }
+        });
+        mBuilder1.setCancelable(false);
+        mBuilder1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                DataBaseHelper db = new DataBaseHelper(getContext());
+                regFeeArray = new String[mUserItemsFinal.size()];
+                for (int i = 0; i < mUserItemsFinal.size(); i++) {
+                    //sub = finalArray[mUserItemsFinal.get(i)];
+                    regFeeArray[i] = finalArray[mUserItemsFinal.get(i)];
+
+                }
+                Log.i(TAG, Arrays.toString(regFeeArray));
+
+                AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(getContext());
+                reconfirmBuilder.setTitle("Confirm");
+                reconfirmBuilder.setMessage("Are you Sure all the detail are Accurate as per your Knowledge");
+                reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        insertData();
+                        Objects.requireNonNull(getActivity()).finish();
+                    }
+                });
+                reconfirmBuilder.setNegativeButton("Re-Evaluate", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog cnfDialogue = reconfirmBuilder.create();
+                cnfDialogue.show();
+
+            }
+        });
+
+        mBuilder1.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        mBuilder1.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < checkedItemFinal.length; i++) {
+                    checkedItemFinal[i] = false;
+                    mUserItemsFinal.clear();
+                }
+            }
+        });
+        AlertDialog mDialogue1 = mBuilder1.create();
+        mDialogue1.show();
+
     }
 
 

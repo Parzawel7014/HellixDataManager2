@@ -59,8 +59,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String BATCH_COL_1="SR_NO_ID";
     public static final String BATCH_COL_4="Admission_Date";
     public static final String BATCH_COL_2="STUDENT_ID";
-    public static final String BATCH_COL_3="Paid";
-    public static final String BATCH_COL_5="UnPaid";
+    public static final String BATCH_COL_3="REG_FEE_STATUS";
+    public static final String BATCH_COL_5="Registration_Amount";
+
+
+
+    public static final String Fess_COl_1="SR_NO";
+    public static final String Fess_COl_2="STUDENT_ID";
+    public static final String Fess_COl_3="DATE_FROM";
+    public static final String Fess_COl_4="DATE_TO";
+
+
 
     //public static final String BATCH_COL_1="BATCH_ID";
 
@@ -291,6 +300,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TableName + "(" + BATCH_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," + BATCH_COL_2 + " INTEGER, " + BATCH_COL_3 + " BOOLEAN, " +
                    BATCH_COL_4+" TEXT, "+BATCH_COL_5+" TEXT, " +"FOREIGN KEY" + "(" + BATCH_COL_2 + ")" + " REFERENCES " + STUDENT_TABLE + "(" + STU_COL_1 + ")" + ")" );
 
+
+        db.execSQL("CREATE TABLE "+"FEES_"+TableName+"("+Fess_COl_1+" INTEGER PRIMARY KEY AUTOINCREMENT,"+Fess_COl_2+" INTEGER, "+ Fess_COl_3+
+                " TEXT, "+Fess_COl_4+" TEXT " +")");
+
+
+
         ContentValues contentValues=new ContentValues();
         contentValues.put(ALL_BATCH_COL_2,BatchName);
         contentValues.put(ALL_BATCH_COL_3,BatchTime);
@@ -300,10 +315,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return result1 != -1;
 
 
+/*
+        public static final String BATCH_COL_1="SR_NO_ID";
+        public static final String BATCH_COL_2="STUDENT_ID";
+        public static final String BATCH_COL_3="Paid";
+        public static final String BATCH_COL_4="Admission_Date";
+        public static final String BATCH_COL_5="Registration_Amount";
+
+
+
+    public static final String Fess_COl_1="SR_NO";
+    public static final String Fess_COl_2="STUDENT_ID";
+    public static final String Fess_COl_3="DATE_FROM";
+    public static final String Fess_COl_4="DATE_TO";
+
+
+        */
+
+
     }
 
 
-    public boolean insertIntoTables(String TableName,String StudentName,String date){
+    public boolean insertIntoTables(String TableName,String StudentName,String date,String RegFeeStatus){
 
         String StudentID = null;
         SQLiteDatabase db=this.getWritableDatabase();
@@ -317,16 +350,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        //db.close();
+
+        //Cursor cr=db.rawQuery("SELECT "+ STU_COL_1 + " FROM " + STUDENT_TABLE + " where "+STU_COL_2+"="+"'"+StudentName+"'",null)
+
+
         ContentValues cn=new ContentValues();
 
         cn.put(BATCH_COL_2,StudentID);
         cn.put(BATCH_COL_4,date);
+        cn.put(BATCH_COL_3,RegFeeStatus);
+        cn.put(BATCH_COL_5,"500");
         long result1=db.insert(TableName,null,cn);
 
-        db.close();
 
+
+        db.close();
         return result1 != -1;
+
+
+/*
+       public static final String BATCH_COL_1="SR_NO_ID";
+
+    public static final String BATCH_COL_2="STUDENT_ID";
+    public static final String BATCH_COL_3="REG_FEE_STATUS";
+    public static final String BATCH_COL_4="Admission_Date";
+    public static final String BATCH_COL_5="Registration_Amount";*/
+
 
     }
 
