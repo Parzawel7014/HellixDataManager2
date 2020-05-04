@@ -8,9 +8,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 //import android.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar;
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("Home");
         drawerLayout = findViewById(R.id.drawer_layout);
+
+
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -50,6 +57,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView=navigationView.getHeaderView(0);
+        TextView tuiName=headerView.findViewById(R.id.navHeadAdmin);
+        TextView email=headerView.findViewById(R.id.navHeadEmail);
+
+        SharedPreferences sharedPreferences=getSharedPreferences("TuitionInfo",MODE_PRIVATE);
+        String name=sharedPreferences.getString("Tuition Name","");
+        String Email=sharedPreferences.getString("Tuition Email","");
+
+        tuiName.setText(name);
+        email.setText(Email);
+
+
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -96,37 +115,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
-
-
-
-
-    /*private void ShowData() {
-
-
-            Cursor res= dbRef.getAllData();
-            if (res.getCount()==0){
-                Toast.makeText(this, "No Data to return", Toast.LENGTH_SHORT).show();
-            }else{
-                StringBuffer buffer=new StringBuffer();
-                while(res.moveToNext()){
-                    buffer.append("ID:"+res.getString(0)+"\n");
-                    buffer.append("SUBJECT:"+res.getString(1)+"\n");
-                    buffer.append("MONTHS:"+res.getString(2)+"\n");
-                    buffer.append("TEACHER:"+res.getString(3)+"\n\n");
-                }
-                showMessage("Data Dialogue",buffer.toString());
-
-        }
-    }*/
-
-    /*private void showMessage(String title, String message) {
-
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.show();
-
-    }*/
 }

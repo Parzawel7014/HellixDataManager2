@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context=".Batches.NewBatchAddActivity">
 
+
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/AddBatchesActivityToolbar"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,17 +18,7 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="10dp"
-            android:paddingTop="20dp"
-            android:text="Add Batch"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+
 
         <EditText
             android:id="@+id/BatchNameId"
@@ -61,7 +55,33 @@
             android:layout_marginBottom="10dp"
             android:hint="Batch Teacher"
             android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+        <EditText
+            android:id="@+id/RegAmountEditId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Registration Fee"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:text="500"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+        <EditText
+            android:id="@+id/MonthlyAmountEditId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Monthly Fee"
+            android:inputType="text"
             android:paddingLeft="10dp"
+            android:text="500"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             />

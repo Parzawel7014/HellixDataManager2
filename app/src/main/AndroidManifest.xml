@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.atilagapps.hellixdatamanager">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,18 +12,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TuitionFess.Students_In_Batch"></activity>
-        <activity android:name=".TuitionFess.PaymentGateway" />
-        <activity android:name=".TuitionFess.AddFeesActivity" />
-        <activity android:name=".TuitionFess.TuitionFeesActivity" />
-        <activity android:name=".Students.DetailsActivity" />
-        <activity android:name=".Batches.NewBatchAddActivity" />
-        <activity android:name=".Batches.BatchesActivity" />
+        <activity android:name=".GetTuitionInfo"></activity>
+        <activity
+            android:name=".TuitionFess.GetAllStudentActvity"
+            android:parentActivityName=".TuitionFess.TuitionFeesActivity" />
+        <activity android:name=".Reciept.CreatePDF" />
+        <activity
+            android:name=".Batches.RemoveStudentActivity"
+            android:parentActivityName=".Batches.BatchesActivity" />
+        <activity
+            android:name=".Batches.AddExistingStudentToBatch"
+            android:parentActivityName=".Batches.BatchesActivity" />
+        <activity
+            android:name=".Batches.UpdateBatchActivity"
+            android:parentActivityName=".Batches.BatchesActivity" />
+        <activity
+            android:name=".Fragments.StudentActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TuitionFess.Students_In_Batch"
+            android:parentActivityName=".TuitionFess.AddFeesActivity" />
+        <activity
+            android:name=".TuitionFess.AddFeesActivity"
+            android:parentActivityName=".TuitionFess.TuitionFeesActivity" />
+        <activity
+            android:name=".TuitionFess.TuitionFeesActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Students.DetailsActivity"
+            android:parentActivityName=".Students.FindStudentActivity" />
+        <activity
+            android:name=".Batches.NewBatchAddActivity"
+            android:parentActivityName=".Batches.BatchesActivity" />
+        <activity
+            android:name=".Batches.BatchesActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Students.FindStudentActivity" />
-        <activity android:name=".Students.StudentAddActivity" />
+        <activity
+            android:name=".Students.FindStudentActivity"
+            android:parentActivityName=".Fragments.StudentActivity" />
+        <activity
+            android:name=".Students.StudentAddActivity"
+            android:parentActivityName=".Fragments.StudentActivity" />
         <activity android:name=".OnStartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +63,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.atilagapps.hellixdatamanager.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

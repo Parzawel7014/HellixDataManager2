@@ -7,6 +7,9 @@
     android:orientation="vertical"
     tools:context=".Students.FindStudentActivity">
 
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/FindStuToolbar"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:scrollbars="vertical"

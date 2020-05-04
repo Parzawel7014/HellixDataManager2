@@ -6,15 +6,37 @@ import android.os.Parcelable;
 public class FindStudent implements Parcelable {
 
     private String mStudentName;
+    private String mStudentID;
+    private String mStudentRegId;
+    private String mStudentPhone;
+    private String mStudentAddress;
+    private String mStudentGender;
+    private String mStudentEducation;
 
 
-    public FindStudent(String mStudentName) {
+
+    public FindStudent(String mStudentName,String Id,String regId) {
+
         this.mStudentName = mStudentName;
+        this.mStudentID=Id;
+        this.mStudentRegId=regId;
     }
 
 
-    protected FindStudent(Parcel in) {
+    protected FindStudent(Parcel in)
+    {
         mStudentName = in.readString();
+        mStudentID=in.readString();
+        mStudentRegId=in.readString();
+
+    }
+
+    public String getmStudentRegId() {
+        return mStudentRegId;
+    }
+
+    public void setmStudentRegId(String mStudentRegId) {
+        this.mStudentRegId = mStudentRegId;
     }
 
     public static final Creator<FindStudent> CREATOR = new Creator<FindStudent>() {
@@ -37,6 +59,14 @@ public class FindStudent implements Parcelable {
         this.mStudentName = mStudentName;
     }
 
+    public String getmStudentID() {
+        return mStudentID;
+    }
+
+    public void setmStudentID(String mStudentID) {
+        this.mStudentID = mStudentID;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -45,5 +75,7 @@ public class FindStudent implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mStudentName);
+        dest.writeString(mStudentID);
+        dest.writeString(mStudentRegId);
     }
 }

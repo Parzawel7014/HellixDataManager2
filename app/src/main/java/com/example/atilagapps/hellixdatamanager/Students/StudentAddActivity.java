@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager.Students;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.FragmentManager;
@@ -19,6 +20,15 @@ public class StudentAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_add);
+
+
+        Toolbar toolbar=findViewById(R.id.StudentAddToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("New Student");
+        //getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 

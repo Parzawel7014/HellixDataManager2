@@ -6,9 +6,11 @@ import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -24,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +36,13 @@ import com.example.atilagapps.hellixdatamanager.SharedViewModel;
 import com.example.atilagapps.hellixdatamanager.Students.StudentAddActivity;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Random;
 
 
 public class CourseDetails extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -50,10 +55,13 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     boolean[] checkedItemFinal;
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
+    ArrayList<String> amtArray;
+
     ArrayList<Integer> mUserItemsFinal = new ArrayList<>();
 
     SharedViewModel viewModel;
-
+    RelativeLayout relativeLayout;
+    ArrayList<String> regIds;
     EditText dateEditText;
 
     HashMap<String, String> data = new HashMap<String, String>();
@@ -62,8 +70,8 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
-    String sub, time, amt, StudentNameString, AddressString, PhoneString, GenderString, CastString;
+    String regId;
+    String sub, time, amt, StudentNameString, AddressString, PhoneString, GenderString, CastString,EmailString,EduString;
     ArrayList<CoursesClass> coursesClass;
 
     @Override
@@ -76,6 +84,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
         amountTextV = v.findViewById(R.id.amountText);
         confirmButt = v.findViewById(R.id.ConfirmButton);
         dateEditText = v.findViewById(R.id.dateEditText);
+        relativeLayout=v.findViewById(R.id.SelectedSubLayoutId);
 
         DataBaseHelper db = new DataBaseHelper(getContext());
         listItems = db.getDistinctDialogueLabels().toArray(new String[0]);
@@ -90,10 +99,15 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+        regIds=new ArrayList<>();
+
+        regIds=db.getAllRegistrationNumbers();
+
 
         Calendar c = Calendar.getInstance();
         final int year = c.get(Calendar.YEAR);
         final int month = c.get(Calendar.MONTH);
+        final int finalMonth=month+1;
         final int day = c.get(Calendar.DAY_OF_MONTH);
 
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +118,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        dateEditText.setText(dayOfMonth + "/" + month + "/" + year);
+                        dateEditText.setText(dayOfMonth + "/" + finalMonth + "/" + year);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -164,6 +178,20 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+        viewModel.getEmailValue().observe(getViewLifecycleOwner(), new Observer<CharSequence>() {
+            @Override
+            public void onChanged(CharSequence email) {
+                EmailString = email.toString();
+            }
+        });
+
+        viewModel.getEduValue().observe(getViewLifecycleOwner(), new Observer<CharSequence>() {
+            @Override
+            public void onChanged(CharSequence edu) {
+                EduString = edu.toString();
+            }
+        });
+
     }
 
     private void OpenDialogue() {
@@ -197,6 +225,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(DialogInterface dialog, int which) {
                 String item = "";
                 DataBaseHelper db = new DataBaseHelper(getContext());
+                amtArray=new ArrayList<>();
                 coursesClass = new ArrayList<>();
                 mLayoutManager = new LinearLayoutManager(getContext());
                 mAdapter = new CourseRecyclerAdapter(coursesClass);
@@ -208,11 +237,23 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 for (int i = 0; i < mUserItems.size(); i++) {
                     item = item + listItems[mUserItems.get(i)];
                     sub = listItems[mUserItems.get(i)];
-                    amt = db.getAmount(listItems[mUserItems.get(i)]);
-                    coursesClass.add(new CoursesClass(sub, data.get(sub), amt));
+
                     finalArray[i] = listItems[mUserItems.get(i)];
                     finalTimeArray[i] = data.get(sub);
 
+                    String BatchName = finalArray[i];
+                    String BatchTime = finalTimeArray[i];
+                    String newBatchName = BatchName.replace(" ", "_");
+                    String newBatchTime = BatchTime.replace(":", "_");
+                    newBatchTime = newBatchTime.replace(" ", "_");
+
+                    String TableName = newBatchName + newBatchTime;
+
+                    amt = db.getAmount(TableName);
+                    amtArray.add(amt);
+
+
+                    coursesClass.add(new CoursesClass(sub, data.get(sub), amt));
 
                     if (i != mUserItems.size() - 1) {
                         item = item + ",";
@@ -227,6 +268,8 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 }
                 Toast.makeText(getContext(), "Val " + item, Toast.LENGTH_SHORT).show();
                 amountTextV.setText(Integer.toString(amount));
+
+                relativeLayout.setVisibility(View.VISIBLE);
 
             }
         });
@@ -290,16 +333,25 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void insertData() {
 
         DataBaseHelper db = new DataBaseHelper(getContext());
         String date = dateEditText.getText().toString().trim();
+        String r;
+        do {
+            Random rnd = new Random();
+            int n = 10000 + rnd.nextInt(90000);
+            r = Integer.toString(n);
+        }
+        while (regIds.contains(r));
+        regId=r;
 
-        boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString, GenderString, CastString);
+        boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString, GenderString, CastString,EmailString,EduString,regId);
 
         if (isInserted) {
             Toast.makeText(getContext(), "Date inserted", Toast.LENGTH_SHORT).show();
-
+            int cnt=db.getcnt();
             for (int i = 0; i < finalArray.length; i++) {
                 String BatchName = finalArray[i];
                 String BatchTime = finalTimeArray[i];
@@ -309,14 +361,17 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
                 String TableName = newBatchName + newBatchTime;
                 String RegFeeStatus = "";
+
                 boolean isInsertedTable = true;
                 if (!Arrays.asList(regFeeArray).contains(finalArray[i])) {
-                    RegFeeStatus = "Unpaid";
-                    isInsertedTable = db.insertIntoTables(TableName, StudentNameString, date, RegFeeStatus);
+                    RegFeeStatus = "Pending";
+                    isInsertedTable = db.insertIntoTables(TableName, StudentNameString, date, RegFeeStatus,amtArray.get(i));
+                    db.updateEnrolledBatches(TableName,cnt);
                 }
                 if (Arrays.asList(regFeeArray).contains(finalArray[i])) {
                     RegFeeStatus = "Paid";
-                    isInsertedTable = db.insertIntoTables(TableName, StudentNameString, date, RegFeeStatus);
+                    isInsertedTable = db.insertIntoTables(TableName, StudentNameString, date, RegFeeStatus,amtArray.get(i));
+                    db.updateEnrolledBatches(TableName,cnt);
                 }
 
 
@@ -373,10 +428,11 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 reconfirmBuilder.setTitle("Confirm");
                 reconfirmBuilder.setMessage("Are you Sure all the detail are Accurate as per your Knowledge");
                 reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         insertData();
-                        Objects.requireNonNull(getActivity()).finish();
+                        requireActivity().finish();
                     }
                 });
                 reconfirmBuilder.setNegativeButton("Re-Evaluate", new DialogInterface.OnClickListener() {

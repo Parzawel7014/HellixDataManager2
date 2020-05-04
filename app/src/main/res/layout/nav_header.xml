@@ -16,6 +16,7 @@
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView
+        android:id="@+id/navHeadAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
@@ -23,6 +24,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
+        android:id="@+id/navHeadEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="koche.guidance@gmail.com" />

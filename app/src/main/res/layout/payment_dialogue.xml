@@ -6,11 +6,34 @@
 
 
     <EditText
+        android:id="@+id/regAmountPaidEditId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Registration Amount"/>
+
+
+    <EditText
         android:id="@+id/amountPaidEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Amount"
         />
+
+    <EditText
+        android:id="@+id/PaidWithId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:text="Paid With"/>
+
+    <EditText
+        android:id="@+id/ReceivedById"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Received By"
+        android:focusable="false"/>
+
+
 
 
 </LinearLayout>

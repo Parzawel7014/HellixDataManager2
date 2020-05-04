@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.Reciept.CreatePDF;
 import com.example.atilagapps.hellixdatamanager.Students.StudentAddActivity;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.TuitionFeesActivity;
 
@@ -36,9 +37,7 @@ public class HomeFragment extends Fragment {
 
         StudentCardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                FragmentTransaction fm = getFragmentManager().beginTransaction();
-                fm.replace(R.id.containerId, new StudentFragment()).addToBackStack(null).commit();
+            public void onClick(View v) { startActivity(new Intent(v.getContext(), StudentActivity.class));
             }
         });
 
@@ -53,6 +52,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), TuitionFeesActivity.class));
+            }
+        });
+
+        staff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), CreatePDF.class));
             }
         });
 

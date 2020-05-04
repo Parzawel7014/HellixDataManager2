@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Batches.UpdateBatchActivity">
+
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/UpdateBatchToolbar"/>
+
+    <RelativeLayout
+        android:layout_below="@+id/UpdateBatchToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+
+        <EditText
+            android:id="@+id/BatchNameId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="10dp"
+            android:focusable="false"
+            android:hint="Batch Name"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/BatchTimeId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:focusable="false"
+            android:hint="Batch Time"
+            android:inputType="datetime"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/BatchTeacherId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Batch Teacher"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+
+        <EditText
+            android:id="@+id/MonthlyAmtId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Monthly Fee"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/RegistrationAmtId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Registration Amount"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:id="@+id/UpdateBatchButtonId"
+            />
+
+    </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

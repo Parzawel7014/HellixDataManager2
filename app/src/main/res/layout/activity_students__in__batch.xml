@@ -7,19 +7,31 @@
     android:orientation="vertical"
     tools:context=".TuitionFess.Students_In_Batch">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name"/>
 
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/StuInBatchActivityToolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
         android:scrollbars="vertical"
         android:id="@+id/GetStudentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="2dp"
-        android:layout_margin="5dp"
-        android:background="@android:color/darker_gray"/>
+        android:padding="1dp"
+        android:background="#FFFFFF"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightGray"
+            />
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

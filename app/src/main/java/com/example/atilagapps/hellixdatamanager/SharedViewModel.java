@@ -15,6 +15,8 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<CharSequence> phone = new MutableLiveData<>();
     private MutableLiveData<CharSequence> GenderText = new MutableLiveData<>();
     private MutableLiveData<CharSequence> CastText = new MutableLiveData<>();
+    private MutableLiveData<CharSequence> emailTxt = new MutableLiveData<>();
+    private MutableLiveData<CharSequence> EduTxt = new MutableLiveData<>();
 
 
     public void setName(CharSequence Name) {
@@ -29,6 +31,13 @@ public class SharedViewModel extends ViewModel {
         phone.setValue(Phone);
     }
 
+    public void setEmailTxt(CharSequence Email){
+        emailTxt.setValue(Email);
+    }
+
+    public  void setEduTxt(CharSequence Edu){
+        EduTxt.setValue(Edu);
+    }
 
     public void setGenderText(CharSequence genderText){
         GenderText.setValue(genderText);
@@ -61,6 +70,15 @@ public class SharedViewModel extends ViewModel {
     public LiveData<CharSequence> getGenderValue(){
         return GenderText;
     }
+
+    public LiveData<CharSequence> getEmailValue(){
+        return emailTxt;
+    }
+    public LiveData<CharSequence> getEduValue(){
+        return EduTxt;
+    }
+
+
 
     /*public LiveData<CharSequence> getBatch(){
         return batch;

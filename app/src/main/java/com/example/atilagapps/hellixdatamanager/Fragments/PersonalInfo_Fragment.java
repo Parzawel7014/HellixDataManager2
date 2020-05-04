@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -29,12 +30,12 @@ import com.example.atilagapps.hellixdatamanager.SharedViewModel;
 
 public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    public EditText editTextName, editTextAddress, editTextPhone;
+    public EditText editTextName, editTextAddress, editTextPhone,editTextEmail,editTextEducation;
     private Spinner spinner;
     DataBaseHelper dbRef;
     RadioButton radioButton;
     String Cast_text, Gender_text;
-    CharSequence name,address,Phone;
+    CharSequence name,address,Phone,email,edu;
     SharedViewModel viewModel;
 
 
@@ -47,13 +48,15 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
 
 
 
-
         Button NextBtn = v.findViewById(R.id.btn1Id);
         spinner = v.findViewById(R.id.spinnerId);
         dbRef = new DataBaseHelper(getContext());
         editTextName = v.findViewById(R.id.editTextNameId);
         editTextAddress = v.findViewById(R.id.editTextAddressId);
         editTextPhone = v.findViewById(R.id.editTextPhoneId);
+        editTextEmail=v.findViewById(R.id.editTextEmailId);
+        editTextEducation=v.findViewById(R.id.editTextEducationId);
+
         RadioGroup radioGroup = v.findViewById(R.id.radioGroupId);
         int selectedBtn = radioGroup.getCheckedRadioButtonId();
         radioButton = v.findViewById(selectedBtn);
@@ -73,12 +76,16 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
                 name = editTextName.getText();
                 address = editTextAddress.getText();
                 Phone = editTextPhone.getText();
+                email=editTextEmail.getText();
+                edu=editTextEducation.getText();
 
                 viewModel.setName(name);
                 viewModel.setAddress(address);
                 viewModel.setPhone(Phone);
                 viewModel.setCastText(Cast_text);
                 viewModel.setGenderText(Gender_text);
+                viewModel.setEduTxt(edu);
+                viewModel.setEmailTxt(email);
 
                 FragmentTransaction fm = getFragmentManager().beginTransaction();
                 fm.replace(R.id.container2, new CourseDetails()).addToBackStack(null).commit();

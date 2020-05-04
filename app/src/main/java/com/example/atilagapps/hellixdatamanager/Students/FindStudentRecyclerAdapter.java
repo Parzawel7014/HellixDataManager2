@@ -39,6 +39,7 @@ public class FindStudentRecyclerAdapter extends RecyclerView.Adapter<FindStudent
 
 
 
+
     @NonNull
     @Override
     public FIndStudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,7 +54,7 @@ public class FindStudentRecyclerAdapter extends RecyclerView.Adapter<FindStudent
 
         FindStudent currentItem=mList.get(position);
         holder.StudentNameText.setText(currentItem.getmStudentName());
-
+        holder.RegId.setText(currentItem.getmStudentRegId());
 
     }
 
@@ -101,12 +102,13 @@ public class FindStudentRecyclerAdapter extends RecyclerView.Adapter<FindStudent
 
     public static class FIndStudentViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView StudentNameText;
+        public TextView StudentNameText,RegId;
 
 
         public FIndStudentViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             StudentNameText=itemView.findViewById(R.id.FindStudentNameCardId);
+            RegId=itemView.findViewById(R.id.regId);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

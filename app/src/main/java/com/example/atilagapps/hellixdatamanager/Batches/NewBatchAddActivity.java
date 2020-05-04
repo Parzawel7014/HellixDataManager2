@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager.Batches;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 
 public class NewBatchAddActivity extends AppCompatActivity {
 
-    EditText batchName,batchTeacher,batchTime;
+    EditText batchName,batchTeacher,batchTime,regFee,monthlyFee;
     Button addBatch;
     String[] listItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
@@ -42,8 +43,18 @@ public class NewBatchAddActivity extends AppCompatActivity {
         batchTeacher=findViewById(R.id.BatchTeacherId);
         batchTime=findViewById(R.id.BatchTimeId);
         addBatch=findViewById(R.id.addBatchButton);
+        regFee=findViewById(R.id.RegAmountEditId);
+        monthlyFee=findViewById(R.id.MonthlyAmountEditId);
 
-      //  addBatch.setEnabled(false);
+        Toolbar toolbar=findViewById(R.id.AddBatchesActivityToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("NEW BATCH");
+        //getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        //  addBatch.setEnabled(false);
 
         Calendar c = Calendar.getInstance();
         final int hr = c.get(Calendar.HOUR_OF_DAY);
@@ -107,7 +118,7 @@ public class NewBatchAddActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String BatchName=batchName.getText().toString().trim();
-               String newBatchName=BatchName.replace(" ","_");
+                String newBatchName=BatchName.replace(" ","_");
                 String BatchTeacher=batchTeacher.getText().toString().trim();
                 String BatchTime=batchTime.getText().toString().trim();
                 String newBatchTime=BatchTime.replace(":","_");
@@ -116,12 +127,15 @@ public class NewBatchAddActivity extends AppCompatActivity {
 
                 String TableName=newBatchName+newBatchTime1;
 
+                String RegFee=regFee.getText().toString().trim();
+                String MonthlyFee=monthlyFee.getText().toString().trim();
+
                 boolean isExist=db.isTableExist(TableName);
 
-                if (isExist!=true){
+                if (!isExist){
 
-                boolean isInserted =db.CreateBatch(BatchName,BatchTime,BatchTeacher);
-                if (isInserted == true) {
+                boolean isInserted =db.CreateBatch(BatchName,BatchTime,BatchTeacher,RegFee,MonthlyFee);
+                if (isInserted) {
                     Toast.makeText(getApplicationContext(), "Table Created", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Table creation Unsuccessful", Toast.LENGTH_SHORT).show();

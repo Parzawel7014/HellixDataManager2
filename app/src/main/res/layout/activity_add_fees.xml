@@ -6,17 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".TuitionFess.AddFeesActivity">
 
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/FeesActivityToolbar"/>
 
+<LinearLayout
+    android:layout_below="@+id/FeesActivityToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/FeesActivityToolbar"
         android:scrollbars="vertical"
         android:id="@+id/FeesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="2dp"
-        android:layout_margin="5dp"
-        android:background="@android:color/darker_gray"/>
+        android:padding="1dp"
+        android:background="#FFFFFF"/>
 
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightGray"
+        />
 
+
+</LinearLayout>
 
 </RelativeLayout>

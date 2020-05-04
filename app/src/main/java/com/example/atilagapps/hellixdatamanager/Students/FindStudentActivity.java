@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager.Students;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,14 +32,15 @@ public class FindStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_student);
         ArrayList<FindStudent> findStudents=new ArrayList<>();
         DataBaseHelper db=new DataBaseHelper(this);
-        findStudents=db.getStudentName();
+        findStudents=db.getStudentInfo();
         RecyclerView mRecyclerView = findViewById(R.id.FindStudentRecyclerViewId);
         mRecyclerView.setHasFixedSize(true);
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mAdapter=new FindStudentRecyclerAdapter(findStudents);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+
 
 
         final ArrayList<FindStudent> finalFindStudents = findStudents;
@@ -51,7 +53,15 @@ public class FindStudentActivity extends AppCompatActivity {
             }
         });
 
+       // getSupportActionBar().setTitle("Find Student");
 
+
+        Toolbar toolbar=findViewById(R.id.FindStuToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Find Student");
+        //getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
