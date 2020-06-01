@@ -13,6 +13,19 @@
         <item>NT</item>
         <item>Others</item>
     </string-array>
+    <string-array name="Gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+    </string-array>
+
+
+    <string-array name="PaymentType">
+        <item>Select Payment Type</item>
+        <item>Income</item>
+        <item>Expense</item>
+    </string-array>
+
     <string name="title_activity_home_screen">HomeScreenActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

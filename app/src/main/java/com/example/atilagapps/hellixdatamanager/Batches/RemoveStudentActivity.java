@@ -2,6 +2,7 @@ package com.example.atilagapps.hellixdatamanager.Batches;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
@@ -64,7 +68,7 @@ public class RemoveStudentActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Remove Student");
         //getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         final ArrayList<FindStudent> finalFindStudents = findStudents;
@@ -104,6 +108,30 @@ public class RemoveStudentActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.find_student_menu,menu);
+        MenuItem searchItem=menu.findItem(R.id.action_search);
+        androidx.appcompat.widget.SearchView searchView=(androidx.appcompat.widget.SearchView)searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ((FindStudentRecyclerAdapter) mAdapter).getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
     }
 
 

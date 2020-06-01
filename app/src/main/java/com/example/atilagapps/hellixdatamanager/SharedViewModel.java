@@ -1,5 +1,7 @@
 package com.example.atilagapps.hellixdatamanager;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -17,6 +19,10 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<CharSequence> CastText = new MutableLiveData<>();
     private MutableLiveData<CharSequence> emailTxt = new MutableLiveData<>();
     private MutableLiveData<CharSequence> EduTxt = new MutableLiveData<>();
+    private MutableLiveData<byte[]> profilePic = new MutableLiveData<>();
+
+
+
 
 
     public void setName(CharSequence Name) {
@@ -47,6 +53,11 @@ public class SharedViewModel extends ViewModel {
         CastText.setValue(castText);
     }
 
+    public void setProfilePic(byte[] pro_pic){
+        profilePic.setValue(pro_pic);
+    }
+
+
 
 
 
@@ -76,6 +87,10 @@ public class SharedViewModel extends ViewModel {
     }
     public LiveData<CharSequence> getEduValue(){
         return EduTxt;
+    }
+
+    public LiveData<byte[]> getProfilePic(){
+        return profilePic;
     }
 
 

@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -74,6 +75,8 @@ public class CreatePDF extends AppCompatActivity {
     String monthVal, yearVal;
     String stuRegId, stuName, id;
 
+    String TuitionName,TuitionAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +85,10 @@ public class CreatePDF extends AppCompatActivity {
         batchName = findViewById(R.id.BatchNameEditId);
         feeMonth = findViewById(R.id.FeeMonthEditId);
         feeYear = findViewById(R.id.FeeYearEditId);
+        final DataBaseHelper db = new DataBaseHelper(this);
+       // SharedPreferences sharedPreferences=getSharedPreferences("TuitionInfo",MODE_PRIVATE);
+        TuitionName=db.getTuitionName();
+        TuitionAddress=db.getTuitionAddress();
 
 
         Intent intent = getIntent();
@@ -92,7 +99,7 @@ public class CreatePDF extends AppCompatActivity {
         stuName = findStudent.getmStudentName();
         stuRegId = findStudent.getmStudentRegId();
 
-        final DataBaseHelper db = new DataBaseHelper(this);
+
 
         ArrayList<RegSubClass> regSubClasses = new ArrayList<>();
         regSubClasses = db.getAllRegisteredBathes(id);
@@ -263,10 +270,10 @@ public class CreatePDF extends AppCompatActivity {
 
             //Create Title
             Font CoachingTitle = new Font(fontName, 20.0f, Font.NORMAL, BaseColor.BLACK);
-            addNewItem(document, "Koche Guidance Center", Element.ALIGN_CENTER, CoachingTitle);
+            addNewItem(document, TuitionName, Element.ALIGN_CENTER, CoachingTitle);
             Font address = new Font(fontName, 9.0f, Font.NORMAL, BaseColor.BLACK);
-            addNewItem(document, "Shyam Nagar,Congress Nagar Road", Element.ALIGN_CENTER, address);
-            addNewItem(document, "Amravati, Maharashta", Element.ALIGN_CENTER, address);
+            addNewItem(document, TuitionAddress, Element.ALIGN_CENTER, address);
+           // addNewItem(document, "Amravati, Maharashta", Element.ALIGN_CENTER, address);
             addLineSpace(document);
             addLineSeparator(document);
             addLineSpace(document);
@@ -287,22 +294,27 @@ public class CreatePDF extends AppCompatActivity {
             //addNewItem(document,"Date: "+formattedDate,Element.ALIGN_LEFT,DateFont);
 
             //Add Receipt Number
-
-            ArrayList<String> ReceiptNum = new ArrayList<>();
-            ReceiptNum = db.getReceiptNumber();
-
             String r, receiptNumber;
-            do {
-                Random rnd = new Random();
-                int n = 1000000 + rnd.nextInt(9000000);
-                r = Integer.toString(n);
+            String ForIdReceiptNum=db.getReceiptNumberForId(id,monthVal,yearVal);
+            if (ForIdReceiptNum==null) {
+                ArrayList<String> ReceiptNum = new ArrayList<>();
+                ReceiptNum = db.getReceiptNumber();
+
+                do {
+                    Random rnd = new Random();
+                    int n = 1000000 + rnd.nextInt(9000000);
+                    r = Integer.toString(n);
+                }
+                while (ReceiptNum.contains(r));
+                receiptNumber = r;
+                db.addReceiptNo(receiptNumber, monthVal, yearVal, id);
             }
-            while (ReceiptNum.contains(r));
-            receiptNumber = r;
-            db.addReceiptNo(receiptNumber);
+            else {
+                receiptNumber=ForIdReceiptNum;
+            }
+
+
             Font ReceiptNumberFont = new Font(fontName, fontSize, Font.NORMAL, BaseColor.BLACK);
-
-
             addNewItemWithLeftAndRight(document, "Date: " + formattedDate, "Receipt number: " + receiptNumber, DateFont, ReceiptNumberFont);
 
             ArrayList<PaymentInfoClass> paymentInfoClasses = new ArrayList<>();

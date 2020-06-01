@@ -108,7 +108,7 @@ public class AddFeesActivity extends AppCompatActivity {
 
                 }else {
 
-                    LocalDate date = LocalDate.now();
+                /*    LocalDate date = LocalDate.now();
 
                     int month = db.getLastMonth(TableName);
                     int year = db.getLastYear(TableName);
@@ -139,7 +139,7 @@ public class AddFeesActivity extends AppCompatActivity {
                             }
                         }
                     }
-
+*/
 
                     Intent intent = new Intent(getApplicationContext(), Students_In_Batch.class);
                     intent.putExtra("Name", finalArray.get(position));

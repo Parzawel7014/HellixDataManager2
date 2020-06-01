@@ -18,16 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="2dp"
-        android:layout_margin="5dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="#FFFFFF"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_add_floating"
         android:id="@+id/SubjectFloatingButtonId"/>
 
 </RelativeLayout>

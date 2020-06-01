@@ -2,6 +2,7 @@ package com.example.atilagapps.hellixdatamanager.TuitionFess;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +22,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -180,6 +180,7 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
                 SharedPreferences sharedPreferences=getSharedPreferences("TuitionInfo",MODE_PRIVATE);
                 String admin1=sharedPreferences.getString("Tuition Admin1","");
                 String admin2=sharedPreferences.getString("Tuition Admin2","");
+                String tuitionName=sharedPreferences.getString("Tuition Name","");
 
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("RegAmountPaid", finalStudentClass.get(position));
@@ -187,6 +188,7 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
                 bundle.putString("MonthlyPayment", MonthlyPayment);
                 bundle.putString("Admin1",admin1);
                 bundle.putString("Admin2",admin2);
+                bundle.putString("tuitionName",tuitionName);
                 AmountDialogueClass amountDialogueClass = new AmountDialogueClass();
                 amountDialogueClass.setArguments(bundle);
                 amountDialogueClass.show(getSupportFragmentManager(), null);
@@ -204,7 +206,8 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.find_student_menu,menu);
         MenuItem searchItem=menu.findItem(R.id.action_search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        androidx.appcompat.widget.SearchView searchView=(androidx.appcompat.widget.SearchView)searchItem.getActionView();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -214,7 +217,6 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
             @Override
             public boolean onQueryTextChange(String newText) {
                 ((GetStudentRecyclerAdapter) mAdapter).getFilter().filter(newText);
-
                 return false;
             }
         });

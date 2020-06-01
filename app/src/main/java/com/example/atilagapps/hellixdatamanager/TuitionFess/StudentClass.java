@@ -7,19 +7,20 @@ public class StudentClass implements Parcelable {
 
 private String StudentName;
 private String RegFeePaymentStatus;
-
 private String RemainingPayment;
 private String StudentId;
+private String srNo;
 
 
 
 
-    public StudentClass(String studentName,String studentId,String remainingPayment,String RegFeeStatus) {
+    public StudentClass(String studentName,String studentId,String remainingPayment,String RegFeeStatus,String SrNo) {
         StudentName = studentName;
 
         RemainingPayment=remainingPayment;
         StudentId=studentId;
         RegFeePaymentStatus=RegFeeStatus;
+        srNo=SrNo;
     }
 
     public StudentClass(Parcel in) {
@@ -27,6 +28,7 @@ private String StudentId;
         StudentId=in.readString();
         RemainingPayment=in.readString();
         RegFeePaymentStatus=in.readString();
+        srNo=in.readString();
     }
 
     public static final Creator<StudentClass> CREATOR = new Creator<StudentClass>() {
@@ -40,6 +42,15 @@ private String StudentId;
             return new StudentClass[size];
         }
     };
+
+
+    public String getSrNo() {
+        return srNo;
+    }
+
+    public void setSrNo(String srNo) {
+        this.srNo = srNo;
+    }
 
     public String getRegFeePaymentStatus() {
         return RegFeePaymentStatus;
@@ -86,5 +97,6 @@ private String StudentId;
       //dest.writeString(MonthlyAmountStatus);
         dest.writeString(StudentId);
         dest.writeString(RemainingPayment);
+        dest.writeString(srNo);
     }
 }

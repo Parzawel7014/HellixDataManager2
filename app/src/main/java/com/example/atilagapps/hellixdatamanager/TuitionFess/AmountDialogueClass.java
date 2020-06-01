@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,9 @@ public class AmountDialogueClass extends DialogFragment {
     ProgressDialog progressDialog;
     String remainingAmt, Reg_amt;
     String selectedText,admin1,admin2;
+    String srNo;
+    String StudentName;
+    String TuitionName;
 
 
 
@@ -92,7 +96,7 @@ public class AmountDialogueClass extends DialogFragment {
         if (getArguments() != null) {
             studentClass = getArguments().getParcelable("RegAmountPaid");
             assert studentClass != null;
-
+            StudentName=studentClass.getStudentName();
             StudentID = studentClass.getStudentId();
             tableName = getArguments().getString("TableName");
             regStatus = db.getRegFeePaymentStatus(tableName, StudentID);
@@ -100,6 +104,8 @@ public class AmountDialogueClass extends DialogFragment {
             Reg_amt = db.getRegFee(tableName);
             admin1=getArguments().getString("Admin1");
             admin2=getArguments().getString("Admin2");
+            TuitionName=getArguments().getString("tuitionName");
+            srNo=studentClass.getSrNo();
 
         }
 
@@ -119,9 +125,7 @@ public class AmountDialogueClass extends DialogFragment {
 
 
 
-        final String[] admins=new String[]{
-        admin1,admin2
-        };
+        final String[] admins=db.getAdminNames();
 
 
 
@@ -183,8 +187,19 @@ public class AmountDialogueClass extends DialogFragment {
                         String payedTo=receivedBy.getText().toString().trim();
 
                         if (amountEdit != null) {
-                            boolean result2 = db.UpdateFeeTable(tableName, StudentID, amount,paymentBy,payedTo);
+                            boolean result2 = db.UpdateFeeTable(tableName, StudentID, amount,paymentBy,payedTo,srNo);
                             if (result2) {
+                                ArrayList<PaymentRecievedSMSClass> paymentRecievedSMSClasses=new ArrayList<>();
+                                paymentRecievedSMSClasses=db.getpaymentRecievedSMS(tableName,srNo);
+
+                                SmsManager smsManager = SmsManager.getDefault();
+                                String finalSMS = "Dear "+ StudentName+","+"\n" +"We have received your tuition fee payment for the month-" +"\n"+
+                                        paymentRecievedSMSClasses.get(0).getDate()+"/"+ paymentRecievedSMSClasses.get(0).getMonth()+"/"+ paymentRecievedSMSClasses.get(0).getYear()+"\n"+
+                                        " Have a nice day ahead!" +"\n"+
+                                        "-" + TuitionName;
+                                String contact=db.getContact(StudentID);
+                                smsManager.sendTextMessage(contact, null, finalSMS, null, null);
+
                                 Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getActivity(), "UnSuccessful", Toast.LENGTH_SHORT).show();

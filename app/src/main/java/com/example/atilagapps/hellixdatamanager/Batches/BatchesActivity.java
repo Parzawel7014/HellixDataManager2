@@ -118,12 +118,33 @@ public class BatchesActivity extends AppCompatActivity {
 
 
                         if (selectedText.equals("Add Existing Student")) {
+
+
+                            int res1 = db.checkStudentsPresents();
+                            if (res1 == 1) {
+                                AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                                reconfirmBuilder.setTitle("Alert");
+                                reconfirmBuilder.setMessage("No Students to Add");
+                                reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @RequiresApi(api = Build.VERSION_CODES.O)
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                AlertDialog cnfDialogue = reconfirmBuilder.create();
+                                cnfDialogue.show();
+
+                            }
+                            else {
                                 Intent intent = new Intent(getApplicationContext(), AddExistingStudentToBatch.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("BatchName", batchName);
                                 bundle.putString("BatchTime", batchTime);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
+                            }
 
                         }
                             if (selectedText.equals("Remove Student")) {

@@ -6,6 +6,8 @@ import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +47,8 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class CourseDetails extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -56,7 +61,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
     ArrayList<String> amtArray;
-
+    byte[] image;
     ArrayList<Integer> mUserItemsFinal = new ArrayList<>();
 
     SharedViewModel viewModel;
@@ -191,6 +196,14 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 EduString = edu.toString();
             }
         });
+
+        viewModel.getProfilePic().observe(getViewLifecycleOwner(), new Observer<byte[]>() {
+            @Override
+            public void onChanged(byte[] img) {
+                image = img;
+            }
+        });
+
 
     }
 
@@ -347,7 +360,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
         while (regIds.contains(r));
         regId=r;
 
-        boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString, GenderString, CastString,EmailString,EduString,regId);
+        boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString, GenderString, CastString,EmailString,EduString,regId,image);
 
         if (isInserted) {
             Toast.makeText(getContext(), "Date inserted", Toast.LENGTH_SHORT).show();
@@ -378,6 +391,18 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 if (isInsertedTable) {
                     Toast.makeText(getContext(), "Table inserted", Toast.LENGTH_SHORT).show();
 
+                    SharedPreferences sharedPreferences= this.requireActivity().getSharedPreferences("TuitionInfo",MODE_PRIVATE);
+
+                    String tuitionName=sharedPreferences.getString("Tuition Name","");
+
+                    SmsManager smsManager = SmsManager.getDefault();
+                    String finalSMS = "Welcome "+ StudentNameString+","+"\n" +"Please find the registration number attached to the message-" +"\n"+
+                            "Registration Number-"+regId+"\n"+
+                            "-" + tuitionName;
+
+                    smsManager.sendTextMessage(PhoneString, null, finalSMS, null, null);
+
+
                 } else {
                     Toast.makeText(getContext(), "Table insertion Unsuccessful", Toast.LENGTH_SHORT).show();
                 }
@@ -392,7 +417,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     private void openRegistrationFeesDialogue() {
 
         AlertDialog.Builder mBuilder1 = new AlertDialog.Builder(getContext());
-        mBuilder1.setTitle("Fees");
+        mBuilder1.setTitle("Registration Fees Paid?");
         mBuilder1.setMultiChoiceItems(finalArray, checkedItemFinal, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position, boolean isChecked) {

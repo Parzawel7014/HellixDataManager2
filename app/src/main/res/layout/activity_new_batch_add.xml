@@ -18,73 +18,120 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-
-
-        <EditText
-            android:id="@+id/BatchNameId"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/text_input_batch_name_id"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="10dp"
+            app:errorEnabled="true"
             android:hint="Batch Name"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:focusable="false"
-            tools:ignore="RtlSymmetry" />
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:id="@+id/BatchNameId"
+                android:focusable="false"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/BatchTimeId"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/text_input_batch_time_id"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
+            app:errorEnabled="true"
             android:hint="Batch Time"
-            android:inputType="datetime"
-            android:paddingLeft="10dp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:focusable="false" />
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:id="@+id/BatchTimeId"
+                android:focusable="false"
+                android:clickable="true"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/BatchTeacherId"
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/text_input_batch_teacher_id"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
+            app:errorEnabled="true"
             android:hint="Batch Teacher"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            tools:ignore="RtlSymmetry" />
-        <EditText
-            android:id="@+id/RegAmountEditId"
+            android:visibility="gone"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+
+                android:id="@+id/BatchTeacherId"
+                android:focusable="false"
+                android:clickable="true"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/text_input_reg_amt_id"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:hint="Registration Fee"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:text="500"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            tools:ignore="RtlSymmetry" />
-        <EditText
-            android:id="@+id/MonthlyAmountEditId"
+            app:errorEnabled="true"
+            android:hint="Registration Amount"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:id="@+id/RegAmountEditId"
+
+
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/text_input_month_amt_id"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:hint="Monthly Fee"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:text="500"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            />
+            app:errorEnabled="true"
+            android:hint="Monthly Amount"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:id="@+id/MonthlyAmountEditId"
+
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
         <Button

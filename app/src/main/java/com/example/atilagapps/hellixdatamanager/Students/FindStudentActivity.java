@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager.Students;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Adapter;
-import android.widget.SearchView;
 
 import com.example.atilagapps.hellixdatamanager.Batches.RecyclerAdapter;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.Fragments.CoursesClass;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.StaffManager.Staff_Recycler_Adapter;
 
 import java.util.ArrayList;
 
@@ -74,7 +75,8 @@ public class FindStudentActivity extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.find_student_menu,menu);
         MenuItem searchItem=menu.findItem(R.id.action_search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        androidx.appcompat.widget.SearchView searchView=(androidx.appcompat.widget.SearchView)searchItem.getActionView();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -84,10 +86,10 @@ public class FindStudentActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 ((FindStudentRecyclerAdapter) mAdapter).getFilter().filter(newText);
-
                 return false;
             }
         });
+
         return true;
     }
 }

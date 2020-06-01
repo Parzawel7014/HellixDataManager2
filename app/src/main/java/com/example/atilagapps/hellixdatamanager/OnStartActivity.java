@@ -3,6 +3,7 @@ package com.example.atilagapps.hellixdatamanager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -18,8 +19,11 @@ public class OnStartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_on_start);
         dbRef=new DataBaseHelper(this);
 
+        int count =dbRef.getTuitionInfoCount();
+
         boolean isFirstRun=getSharedPreferences("PREFERENCES",MODE_PRIVATE)
                 .getBoolean("isFirstRun",true);
+
 
         if (isFirstRun){
             new Handler().postDelayed(new Runnable() {
@@ -32,15 +36,20 @@ public class OnStartActivity extends AppCompatActivity {
             getSharedPreferences("PREFERENCES",MODE_PRIVATE).edit()
                     .putBoolean("isFirstRun",false).apply();
         }else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-                }
-            }, SPLASH_TIMEOUT);
+            if (count==0) {
+                startActivity(new Intent(getApplicationContext(), GetTuitionInfo.class));
+                finish();
 
+            }else {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                }, SPLASH_TIMEOUT);
 
+            }
         }
 
     }

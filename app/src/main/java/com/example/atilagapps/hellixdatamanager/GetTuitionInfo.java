@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -32,6 +33,11 @@ public class GetTuitionInfo extends AppCompatActivity {
         phoneNum=findViewById(R.id.editTextTuitionPhoneId);
         submit=findViewById(R.id.btn1Id);
 
+        Toolbar toolbar=findViewById(R.id.TuitionInfoToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Organization Info");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         if (admin1Name!=null || admin2Name!=null) {
 
             submit.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +49,10 @@ public class GetTuitionInfo extends AppCompatActivity {
                     S_admin1Name = admin1Name.getText().toString().trim();
                     S_admin2Name = admin2Name.getText().toString().trim();
                     S_phoneNum=phoneNum.getText().toString().trim();
+
+                    db.insertIntoTuitionTable(S_instName,S_instEmail,S_instAddress,S_admin1Name,S_admin2Name,S_phoneNum);
+
+
 
                     SharedPreferences sharedPreferences=getSharedPreferences("TuitionInfo",MODE_PRIVATE);
                     @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -56,6 +66,7 @@ public class GetTuitionInfo extends AppCompatActivity {
 
                   //  db.insertIntoTuitionTable(S_instName,S_instEmail,S_instAddress,S_admin1Name,S_admin2Name,S_phoneNum);
                     startActivity(new Intent(GetTuitionInfo.this,MainActivity.class));
+                    finish();
                 }
             });
         }

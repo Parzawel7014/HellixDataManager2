@@ -2,6 +2,7 @@ package com.example.atilagapps.hellixdatamanager.Batches;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
@@ -133,7 +133,8 @@ public class AddExistingStudentToBatch extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.find_student_menu,menu);
         MenuItem searchItem=menu.findItem(R.id.action_search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        androidx.appcompat.widget.SearchView searchView=(androidx.appcompat.widget.SearchView)searchItem.getActionView();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -143,7 +144,6 @@ public class AddExistingStudentToBatch extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 ((FindStudentRecyclerAdapter) mAdapter).getFilter().filter(newText);
-
                 return false;
             }
         });

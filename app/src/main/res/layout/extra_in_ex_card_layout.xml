@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/ExtraImgId"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    />
+
+                <LinearLayout
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Received_From_Id"
+                    android:textSize="18sp"
+                    android:text="Received From"
+                    android:textColor="#070707"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Received_Name_Id"
+                    android:textSize="15sp"
+                    android:textColor="#070707"
+                    android:text="Received From"
+
+                    />
+                </LinearLayout>
+
+            <TextView
+                android:id="@+id/ExtraAmountId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:textColor="#070707"
+                android:layout_marginStart="140dp"
+                />
+
+        </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Extra_Date_Text_Id"
+                android:textSize="13sp"
+                android:textColor="#070707"
+                android:text="17/04/2020"/>
+
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

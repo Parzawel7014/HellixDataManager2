@@ -38,10 +38,11 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="Subject"
+                    android:maxLines="1"
                     android:layout_marginBottom="5dp"
                     android:textColor="#0E0E0E"
                     android:textStyle="italic"
-                    android:textSize="18sp" />
+                    />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

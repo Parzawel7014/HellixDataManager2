@@ -15,7 +15,7 @@
             android:layout_below="@+id/DetailsToolbar"
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
             android:background="@drawable/grad"
             android:paddingBottom="10dp">
 
@@ -25,17 +25,18 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/circle_border">
+              >
 
-                <ImageView
+                <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/ProfileImageID"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_margin="9dp"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/circle"
-                    android:padding="3dp"
-                    android:scaleType="centerInside"
+
+                    app:civ_border_color="#0C0C0C"
+                    app:civ_border_width="1dp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="2dp"
+                    app:civ_shadow_color="#0C0C0C"
                     android:src="@drawable/ic_add_person" />
 
             </RelativeLayout>
@@ -141,14 +142,72 @@
                         android:layout_marginTop="5dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Phone"
+                                android:textColor="@color/heading"
+                                android:textSize="13sp"
+
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/PhoneEditButtonId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="end"
+                                android:clickable="true"
+                                android:layout_alignParentEnd="true"
+                                android:focusable="true">
+
+                                <ImageView
+                                    android:paddingTop="2dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="13dp"
+                                    android:src="@drawable/ic_edit"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="end"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Edit"
+                                    android:textSize="13sp"
+                                    android:paddingEnd="2dp"
+                                    android:textColor="@color/colorPrimary"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/HiddenPhoneLinearLayoutId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Phone"
-                            android:textColor="@color/heading"
-                            android:textSize="13sp"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/PhoneEditTextEditId"
+                                android:hint="Phone Number"
+                                />
+                            <ImageView
+                                android:clickable="true"
+                                android:id="@+id/PhoneDoneImageId"
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_done"/>
 
-                            />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/PhoneId"
@@ -174,14 +233,74 @@
                         android:layout_marginTop="5dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Email"
+                                android:textColor="@color/heading"
+                                android:textSize="13sp"
+
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/EmailEditButtonId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="end"
+                                android:clickable="true"
+                                android:layout_alignParentEnd="true"
+                                android:focusable="true">
+
+                                <ImageView
+                                    android:paddingTop="2dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="13dp"
+                                    android:src="@drawable/ic_edit"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="end"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Edit"
+                                    android:textSize="13sp"
+                                    android:paddingEnd="2dp"
+                                    android:textColor="@color/colorPrimary"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/HiddenEmailLinearLayoutId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Email"
-                            android:textColor="@color/heading"
-                            android:textSize="13sp"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/EmailEditTextEditId"
+                                android:hint="Email Address"
+                                />
+                            <ImageView
+                                android:clickable="true"
+                                android:id="@+id/EmailDoneImageId"
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_done"/>
 
-                            />
+                        </LinearLayout>
+
+
 
                         <TextView
                             android:id="@+id/EmailId"
@@ -206,15 +325,74 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                        <TextView
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Address"
+                                android:textColor="@color/heading"
+                                android:textSize="13sp"
+
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/AddressEditButtonId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="end"
+                                android:clickable="true"
+                                android:layout_alignParentEnd="true"
+                                android:focusable="true">
+
+                                <ImageView
+                                    android:paddingTop="2dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="13dp"
+                                    android:src="@drawable/ic_edit"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="end"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Edit"
+                                    android:textSize="13sp"
+                                    android:paddingEnd="2dp"
+                                    android:textColor="@color/colorPrimary"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/HiddenAddressLinearLayoutId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Address"
-                            android:textColor="@color/heading"
-                            android:textSize="13sp"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/AddressEditTextEditId"
+                                android:hint="Address"
+                                android:inputType="textMultiLine"
 
-                            />
+                                />
+                            <ImageView
+                                android:clickable="true"
+                                android:id="@+id/AddressDoneImageId"
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_done"/>
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/AddressId"
@@ -235,11 +413,18 @@
 
                     </LinearLayout>
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -249,6 +434,58 @@
                             android:textSize="13sp"
 
                             />
+
+                            <LinearLayout
+                                android:id="@+id/genderEditButtonId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="end"
+                                android:clickable="true"
+                                android:layout_alignParentEnd="true"
+                                android:focusable="true">
+
+                            <ImageView
+                                android:paddingTop="2dp"
+                                android:layout_width="14dp"
+                                android:layout_height="13dp"
+                                android:src="@drawable/ic_edit"
+                                android:layout_alignParentEnd="true"
+                                android:layout_gravity="end"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Edit"
+                                android:textSize="13sp"
+                                android:paddingEnd="2dp"
+                                android:textColor="@color/colorPrimary"
+                                tools:ignore="RtlSymmetry" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/HiddenGenderLinearLayoutId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+                            <Spinner
+                                android:id="@+id/GenderSpinnerId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginRight="100dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_toEndOf="@+id/DummytxtId"
+                                android:paddingLeft="10dp">
+
+                            </Spinner>
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/GenderId"
@@ -268,20 +505,81 @@
 
                     </LinearLayout>
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Education"
+                                android:textColor="@color/heading"
+                                android:textSize="13sp"
+
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/EducationEditButtonId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="end"
+                                android:clickable="true"
+                                android:layout_alignParentEnd="true"
+                                android:focusable="true">
+
+                                <ImageView
+                                    android:paddingTop="2dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="13dp"
+                                    android:src="@drawable/ic_edit"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="end"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Edit"
+                                    android:textSize="13sp"
+                                    android:paddingEnd="2dp"
+                                    android:textColor="@color/colorPrimary"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/HiddenEducationLinearLayoutId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Education"
-                            android:textColor="@color/heading"
-                            android:textSize="13sp"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/EducationEditTextEditId"
+                                android:hint="Education"
+                                android:inputType="textMultiLine"
 
-                            />
+                                />
+                            <ImageView
+                                android:clickable="true"
+                                android:id="@+id/EducationDoneImageId"
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_done"/>
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/EducationId"
@@ -307,14 +605,71 @@
                         android:layout_marginTop="5dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cast"
+                                android:textColor="@color/heading"
+                                android:textSize="13sp"
+
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/CastEditButtonId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="end"
+                                android:clickable="true"
+                                android:layout_alignParentEnd="true"
+                                android:focusable="true">
+
+                                <ImageView
+                                    android:paddingTop="2dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="13dp"
+                                    android:src="@drawable/ic_edit"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="end"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Edit"
+                                    android:textSize="13sp"
+                                    android:paddingEnd="2dp"
+                                    android:textColor="@color/colorPrimary"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/HiddenCastLinearLayoutId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cast"
-                            android:textColor="@color/heading"
-                            android:textSize="13sp"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+                            <Spinner
+                                android:id="@+id/CastSpinnerId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginRight="100dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_toEndOf="@+id/DummytxtId"
+                                android:paddingLeft="10dp">
 
-                            />
+                            </Spinner>
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/CastId"

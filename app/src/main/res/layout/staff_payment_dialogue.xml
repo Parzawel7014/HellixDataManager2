@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="20dp"
+        android:id="@+id/text_input_name_id"
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        android:hint="Amount to Pay"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/salaryAmountPaidEditId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:paddingStart="10dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="20dp"
+
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        android:hint="Pay With"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/salaryAmountPayWithEditId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:focusable="false"
+            tools:ignore="RtlSymmetry" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+</LinearLayout>

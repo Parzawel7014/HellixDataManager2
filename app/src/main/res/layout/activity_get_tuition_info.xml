@@ -7,7 +7,12 @@
     tools:context=".GetTuitionInfo">
 
 
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/TuitionInfoToolbar"/>
+
+
     <ScrollView
+        android:layout_below="@+id/TuitionInfoToolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">

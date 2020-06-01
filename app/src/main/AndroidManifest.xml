@@ -3,7 +3,11 @@
     package="com.example.atilagapps.hellixdatamanager">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +16,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GetTuitionInfo"></activity>
+        <activity android:name=".Charts.ChartActivity"></activity>
+        <activity android:name=".Charts.AddIncomeExenseActivity" />
+        <activity android:name=".Charts.IncomeExpenseDetailsActivity" />
+        <activity android:name=".Charts.ExtraIncomeExpense" />
+        <activity android:name=".Charts.IncomeExpenseActivity" />
+        <activity android:name=".StaffManager.StaffPaymentActivity" />
+        <activity android:name=".StaffManager.StaffDetailsActivity" />
+        <activity
+            android:name=".StaffManager.AddStaffActivity"
+            android:parentActivityName=".StaffManager.All_Staff" />
+        <activity
+            android:name=".StaffManager.All_Staff"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SendSMS.SendSMSActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".GetTuitionInfo" />
         <activity
             android:name=".TuitionFess.GetAllStudentActvity"
             android:parentActivityName=".TuitionFess.TuitionFeesActivity" />
@@ -56,6 +76,9 @@
         <activity
             android:name=".Students.StudentAddActivity"
             android:parentActivityName=".Fragments.StudentActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".OnStartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
