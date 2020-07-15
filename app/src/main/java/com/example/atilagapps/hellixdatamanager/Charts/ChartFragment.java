@@ -41,7 +41,7 @@ public class ChartFragment extends Fragment {
         DataBaseHelper db=new DataBaseHelper(v.getContext());
 
         double MonthlyExpense=db.getAllExpenses();
-
+      //  double x=MonthlyExpense;
         double monthly=db.getAllIncome();
         double TotalRegAmount=db.getAllRegAmount();
 
@@ -54,7 +54,22 @@ public class ChartFragment extends Fragment {
         double Expense=MonthlyExpense+extraExpense;
 
 
+
+
         double Profit=Income-Expense;
+
+        int retVal=Double.compare(Profit, 0.0);
+
+        String profitStat;
+
+        if (retVal<0){
+            profitStat="Loss";
+        }else {
+            profitStat="Profit";
+        }
+
+        CmListener.getProfitType(profitStat);
+
         CmListener.getChartIncome(Income);
         CmListener.getChartExpense(Expense);
         CmListener.getChartProfit(Profit);
@@ -63,6 +78,7 @@ public class ChartFragment extends Fragment {
         CmListener.getExtraIncome(extraIncome);
         CmListener.getTeacherSal(MonthlyExpense);
         CmListener.getExtraExpense(extraExpense);
+
 
 
 
@@ -134,6 +150,8 @@ public class ChartFragment extends Fragment {
         void getExtraExpense(double C_Extra_Expense);
         void getChartExpense(double C_expense);
 
+
+        void getProfitType(String profitType);
 
         void getChartProfit(double C_profit);
 

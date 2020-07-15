@@ -19,9 +19,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.Batches.NewBatchAddActivity;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -69,6 +71,8 @@ public class AddStaffActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add Staff");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
 
@@ -91,7 +95,9 @@ public class AddStaffActivity extends AppCompatActivity {
         edtTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddStaffActivity.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(AddStaffActivity.this);
+
+                //AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddStaffActivity.this);
                 mBuilder.setTitle("Subjects");
                 mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -100,8 +106,8 @@ public class AddStaffActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+               // AlertDialog mDialogue = mBuilder.create();
+                mBuilder.show();
             }
         });
 

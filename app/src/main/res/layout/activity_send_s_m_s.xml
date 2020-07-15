@@ -1,37 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grad"
+    android:orientation="vertical"
     tools:context=".SendSMS.SendSMSActivity">
 
 
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/SMSActivityToolbar"/>
+    <include
+        android:id="@+id/SMSActivityToolbar"
+        layout="@layout/toolbar_layout" />
+
 
     <LinearLayout
-        android:layout_below="@+id/SMSActivityToolbar"
+        android:id="@+id/nothingToShowSMSId"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+
+        >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_nothing" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nothing To Show!"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.recyclerview.widget.RecyclerView
-            android:scrollbars="vertical"
             android:id="@+id/SMSRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="1dp"
-            android:background="#FFFFFF"/>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/lightGray"
-            />
+            android:scrollbars="vertical" />
 
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

@@ -68,7 +68,7 @@ public class RemoveStudentActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Remove Student");
         //getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         final ArrayList<FindStudent> finalFindStudents = findStudents;

@@ -21,7 +21,7 @@
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/grad"
+        android:background="@drawable/grad2"
         android:paddingBottom="10dp">
 
         <RelativeLayout
@@ -37,13 +37,12 @@
                 android:id="@+id/StaffProfileImageID"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-
                 app:civ_border_color="#0C0C0C"
                 app:civ_border_width="1dp"
                 app:civ_shadow="true"
                 app:civ_shadow_radius="2dp"
                 app:civ_shadow_color="#0C0C0C"
-                android:src="@drawable/ic_add_person" />
+                android:background="@drawable/user" />
 
         </RelativeLayout>
 
@@ -116,7 +115,7 @@
                 android:textStyle="bold|italic"
                 android:textSize="13sp"
                 android:paddingEnd="2dp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#FFFFFF"
                 tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
@@ -141,7 +140,7 @@
             android:layout_height="10dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="#1BC3C3"
+            android:background="@color/colorPrimary"
             android:gravity="left"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
@@ -161,6 +160,7 @@
         tools:ignore="ScrollViewCount">
 
         <LinearLayout
+            android:background="@color/purpleShade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -169,7 +169,7 @@
                 android:id="@+id/rellay2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linlay1">
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -582,7 +582,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/StaffRegisteredSubRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="220dp" />
 
 
                 </LinearLayout>

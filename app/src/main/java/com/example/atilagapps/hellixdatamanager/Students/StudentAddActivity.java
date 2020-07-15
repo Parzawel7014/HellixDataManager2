@@ -4,12 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.example.atilagapps.hellixdatamanager.Fragments.ConfirmationFragment;
-import com.example.atilagapps.hellixdatamanager.Fragments.HomeFragment;
 import com.example.atilagapps.hellixdatamanager.Fragments.PersonalInfo_Fragment;
 import com.example.atilagapps.hellixdatamanager.R;
 
@@ -32,7 +28,7 @@ public class StudentAddActivity extends AppCompatActivity {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        fragmentTransaction.replace(R.id.container2, new PersonalInfo_Fragment());
+        fragmentTransaction.add(R.id.container2, new PersonalInfo_Fragment());
         fragmentTransaction.commit();
 
 

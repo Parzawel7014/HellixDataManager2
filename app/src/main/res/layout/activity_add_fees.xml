@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grad"
     tools:context=".TuitionFess.AddFeesActivity">
 
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/FeesActivityToolbar"/>
+    <include
+        android:id="@+id/FeesActivityToolbar"
+        layout="@layout/toolbar_layout" />
 
-<LinearLayout
-    android:layout_below="@+id/FeesActivityToolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/FeesActivityToolbar"
-        android:scrollbars="vertical"
-        android:id="@+id/FeesRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="1dp"
-        android:background="#FFFFFF"/>
+        android:layout_below="@+id/FeesActivityToolbar"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/nothingToShowId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_nothing" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Nothing To Show!"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/FeesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="1dp"
+            android:scrollbars="vertical" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/lightGray"
-        />
-
-
-</LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

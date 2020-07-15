@@ -52,7 +52,9 @@ public class Staff_Recycler_Adapter extends RecyclerView.Adapter<Staff_Recycler_
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.staff_card_layout, parent, false);
         Staff_ViewHolder vh=new Staff_ViewHolder(v,mListener);
+        //notifyDataSetChanged();
         return vh;
+
 
     }
 

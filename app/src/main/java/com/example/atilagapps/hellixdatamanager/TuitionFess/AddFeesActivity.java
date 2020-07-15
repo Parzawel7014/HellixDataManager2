@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
@@ -20,6 +22,8 @@ import com.example.atilagapps.hellixdatamanager.Batches.RecyclerAdapter.OnItemCl
 import com.example.atilagapps.hellixdatamanager.Batches.SubjectAdapter;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.Students.FindStudentActivity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -65,10 +69,19 @@ public class AddFeesActivity extends AppCompatActivity {
 
         Toolbar toolbar=findViewById(R.id.FeesActivityToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Batches");
+        getSupportActionBar().setTitle("Add Fees");
         //getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        LinearLayout nothingLL=findViewById(R.id.nothingToShowId);
+
+        if (subjectAdapters.isEmpty()){
+            nothingLL.setVisibility(View.VISIBLE);
+        }
+
+
 
 
         final ArrayList<SubjectAdapter> finalSubjectAdapters = subjectAdapters;
@@ -92,7 +105,9 @@ public class AddFeesActivity extends AppCompatActivity {
                 int res=db.checkStudentsPresent(TableName);
 
                 if (res==1){
-                    AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(AddFeesActivity.this);
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddFeesActivity.this);
+
+                   // AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(AddFeesActivity.this);
                     reconfirmBuilder.setTitle("Alert");
                     reconfirmBuilder.setMessage("No Students In Batch");
                     reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -103,8 +118,8 @@ public class AddFeesActivity extends AppCompatActivity {
                         }
                     });
 
-                    AlertDialog cnfDialogue = reconfirmBuilder.create();
-                    cnfDialogue.show();
+                    //AlertDialog cnfDialogue = reconfirmBuilder.create();
+                    reconfirmBuilder.show();
 
                 }else {
 

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
@@ -44,6 +46,13 @@ public class GetAllStudentActvity extends AppCompatActivity {
         //getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        LinearLayout nothingLL=findViewById(R.id.nothingToShowReceiptId);
+
+        if (findStudents.isEmpty()){
+            nothingLL.setVisibility(View.VISIBLE);
+        }
 
 
         final ArrayList<FindStudent> finalFindStudents = findStudents;

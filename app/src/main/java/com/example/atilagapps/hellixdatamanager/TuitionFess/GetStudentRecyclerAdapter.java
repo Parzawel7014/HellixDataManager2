@@ -17,6 +17,7 @@ import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudent;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudentRecyclerAdapter;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -111,6 +112,9 @@ public class GetStudentRecyclerAdapter extends RecyclerView.Adapter<GetStudentRe
         holder.regAmountPaid.setText(currentItem.getRegFeePaymentStatus());
         holder.monthlyRemainingAmount.setText(currentItem.getRemainingPayment());
         holder.IDText.setText(currentItem.getStudentId());
+        if (currentItem.getStuImg()!=null) {
+            holder.stuImgV.setImageBitmap(currentItem.getStuImg());
+        }
 
     }
 
@@ -124,9 +128,12 @@ public class GetStudentRecyclerAdapter extends RecyclerView.Adapter<GetStudentRe
     public static class GetStudentViewHolder extends RecyclerView.ViewHolder {
 
         TextView studentName,regAmountPaid,monthlyRemainingAmount,IDText;
+        CircularImageView stuImgV;
 
         public GetStudentViewHolder(@NonNull View itemView,final OnItemClickListener listener) {
             super(itemView);
+
+            stuImgV=itemView.findViewById(R.id.tui_stu_Image_id);
 
             studentName=itemView.findViewById(R.id.StudentNameTextIdCard);
             regAmountPaid=itemView.findViewById(R.id.RegAmountPaidStatusId);

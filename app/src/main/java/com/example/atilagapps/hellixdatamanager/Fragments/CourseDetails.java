@@ -33,10 +33,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
+import com.example.atilagapps.hellixdatamanager.Batches.NewBatchAddActivity;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.Reciept.CreatePDF;
 import com.example.atilagapps.hellixdatamanager.SharedViewModel;
 import com.example.atilagapps.hellixdatamanager.Students.StudentAddActivity;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DateFormat;
 import java.time.LocalDate;
@@ -52,7 +58,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class CourseDetails extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    Button subjectButton, confirmButt;
+    Button subjectButton;
+    MaterialButton confirmButt;
     TextView amountTextV;
     int amount = 0;
     String[] listItems, timeItems, finalArray, finalTimeArray, regFeeArray;
@@ -67,7 +74,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     SharedViewModel viewModel;
     RelativeLayout relativeLayout;
     ArrayList<String> regIds;
-    EditText dateEditText;
+    TextInputEditText dateEditText;
 
     HashMap<String, String> data = new HashMap<String, String>();
     int n = 0;
@@ -135,7 +142,12 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
 
-                openRegistrationFeesDialogue();
+
+                if (!validateDate()) {
+                    return;
+                } else {
+
+                    openRegistrationFeesDialogue();}
 
 
             }
@@ -143,6 +155,20 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
 
         return v;
+    }
+
+
+
+    private boolean validateDate(){
+        String eduInput=dateEditText.getText().toString().trim();
+        if (eduInput.isEmpty()){
+            dateEditText.setError("Field can't be empty");
+            return false;
+        }else {
+            dateEditText.setError(null);
+            // editTextEmail.setErrorEnabled(false);
+            return true;
+        }
     }
 
 
@@ -209,8 +235,10 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
     private void OpenDialogue() {
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-        mBuilder.setTitle("Subjects");
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireContext());
+
+       // AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+        mBuilder.setTitle("Select Subjects");
         mBuilder.setMultiChoiceItems(listItems, checkedItem, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position, boolean isChecked) {
@@ -247,6 +275,12 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 finalArray = new String[mUserItems.size()];
                 //finalTimeArray = new String[mUserTimeItems.size()];
                 finalTimeArray = new String[finalArray.length];
+
+                if (finalArray.length!=0){
+                    confirmButt.setVisibility(View.VISIBLE);
+
+                }
+
                 for (int i = 0; i < mUserItems.size(); i++) {
                     item = item + listItems[mUserItems.get(i)];
                     sub = listItems[mUserItems.get(i)];
@@ -277,7 +311,9 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 Log.i(TAG, Arrays.toString(finalArray));
 
                 for (int i = 0; i < mUserItems.size(); i++) {
-                    amount += 500;
+
+                    amount+=Integer.parseInt(amtArray.get(i));
+                    //amount += 500;
                 }
                 Toast.makeText(getContext(), "Val " + item, Toast.LENGTH_SHORT).show();
                 amountTextV.setText(Integer.toString(amount));
@@ -300,12 +336,19 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 for (int i = 0; i < checkedItem.length; i++) {
                     checkedItem[i] = false;
                     mUserItems.clear();
+                    amtArray=new ArrayList<>();
+                    coursesClass = new ArrayList<>();
+                    mLayoutManager = new LinearLayoutManager(getContext());
+                    mAdapter = new CourseRecyclerAdapter(coursesClass);
+                    mRecyclerView.setLayoutManager(mLayoutManager);
+                    mRecyclerView.setAdapter(mAdapter);
+                    confirmButt.setVisibility(View.GONE);
                 }
             }
         });
 
-        AlertDialog mDialogue = mBuilder.create();
-        mDialogue.show();
+       // AlertDialog mDialogue = mBuilder.create();
+        mBuilder.show();
 
     }
 
@@ -313,8 +356,10 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
         DataBaseHelper db = new DataBaseHelper(getContext());
         timeItems = db.getBatchTime(listItem).toArray(new String[0]);
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-        mBuilder.setTitle("Time");
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity());
+
+      //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+        mBuilder.setTitle("Select Slot");
         mBuilder.setSingleChoiceItems(timeItems, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -324,8 +369,9 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 dialog.dismiss();
             }
         });
-        AlertDialog mDialogue = mBuilder.create();
-        mDialogue.show();
+        mBuilder.setCancelable(false);
+       // AlertDialog mDialogue = mBuilder.create();
+        mBuilder.show();
 
     }
 
@@ -363,7 +409,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
         boolean isInserted = db.insert_PersonalData_Stu_Table(StudentNameString, AddressString, PhoneString, GenderString, CastString,EmailString,EduString,regId,image);
 
         if (isInserted) {
-            Toast.makeText(getContext(), "Date inserted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Student Personal Details Registered!", Toast.LENGTH_SHORT).show();
             int cnt=db.getcnt();
             for (int i = 0; i < finalArray.length; i++) {
                 String BatchName = finalArray[i];
@@ -389,18 +435,9 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
 
                 if (isInsertedTable) {
-                    Toast.makeText(getContext(), "Table inserted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Student Academic Details Registered", Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences sharedPreferences= this.requireActivity().getSharedPreferences("TuitionInfo",MODE_PRIVATE);
-
-                    String tuitionName=sharedPreferences.getString("Tuition Name","");
-
-                    SmsManager smsManager = SmsManager.getDefault();
-                    String finalSMS = "Welcome "+ StudentNameString+","+"\n" +"Please find the registration number attached to the message-" +"\n"+
-                            "Registration Number-"+regId+"\n"+
-                            "-" + tuitionName;
-
-                    smsManager.sendTextMessage(PhoneString, null, finalSMS, null, null);
+                   // SharedPreferences sharedPreferences= this.requireActivity().getSharedPreferences("TuitionInfo",MODE_PRIVATE);
 
 
                 } else {
@@ -415,8 +452,9 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void openRegistrationFeesDialogue() {
+        MaterialAlertDialogBuilder mBuilder1=new MaterialAlertDialogBuilder(requireActivity());
 
-        AlertDialog.Builder mBuilder1 = new AlertDialog.Builder(getContext());
+      //  AlertDialog.Builder mBuilder1 = new AlertDialog.Builder(getContext());
         mBuilder1.setTitle("Registration Fees Paid?");
         mBuilder1.setMultiChoiceItems(finalArray, checkedItemFinal, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -440,7 +478,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                DataBaseHelper db = new DataBaseHelper(getContext());
+                final DataBaseHelper db = new DataBaseHelper(getContext());
                 regFeeArray = new String[mUserItemsFinal.size()];
                 for (int i = 0; i < mUserItemsFinal.size(); i++) {
                     //sub = finalArray[mUserItemsFinal.get(i)];
@@ -448,16 +486,46 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
                 }
                 Log.i(TAG, Arrays.toString(regFeeArray));
+                MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(requireActivity());
 
-                AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(getContext());
+             //   AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(getContext());
                 reconfirmBuilder.setTitle("Confirm");
                 reconfirmBuilder.setMessage("Are you Sure all the detail are Accurate as per your Knowledge");
                 reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        insertData();
-                        requireActivity().finish();
+
+                        MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(requireActivity());
+                        //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                        reconfirmBuilder.setMessage("Do you want to send welcome message with students registration number to students?\n\nCaution:This may cause you charges as messages will be sent by your network carrier!");
+                        reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                insertData();
+                                String tuitionName=db.getTuitionName();
+
+                                SmsManager smsManager = SmsManager.getDefault();
+                                String finalSMS = "Welcome "+ StudentNameString+","+"\n" +"Please find the registration number attached to the message-" +"\n"+
+                                        "Registration Number-"+regId+"\n"+
+                                        "-" + tuitionName;
+
+                                smsManager.sendTextMessage(PhoneString, null, finalSMS, null, null);
+
+                                requireActivity().finish();
+
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                insertData();
+                                requireActivity().finish();
+                            }
+                        }).setCancelable(false).show();
+
                     }
                 });
                 reconfirmBuilder.setNegativeButton("Re-Evaluate", new DialogInterface.OnClickListener() {
@@ -467,8 +535,8 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                     }
                 });
 
-                AlertDialog cnfDialogue = reconfirmBuilder.create();
-                cnfDialogue.show();
+               // AlertDialog cnfDialogue = reconfirmBuilder.create();
+                reconfirmBuilder.show();
 
             }
         });
@@ -489,8 +557,8 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                 }
             }
         });
-        AlertDialog mDialogue1 = mBuilder1.create();
-        mDialogue1.show();
+       // AlertDialog mDialogue1 = mBuilder1.create();
+        mBuilder1.show();
 
     }
 

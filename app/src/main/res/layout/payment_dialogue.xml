@@ -1,37 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/purpleShade"
+    android:paddingTop="20dp"
+    >
 
+    <com.google.android.material.textfield.TextInputLayout
 
-    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Registration Amount"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        >
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/regAmountPaidEditId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Registration Amount"/>
+      />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <EditText
-        android:id="@+id/amountPaidEditText"
+    <com.google.android.material.textfield.TextInputLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Amount"
-        />
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        >
 
-    <EditText
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/amountPaidEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Paid With"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        >
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/PaidWithId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="false"
-        android:text="Paid With"/>
+        />
 
-    <EditText
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Received By"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        >
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/ReceivedById"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Received By"
+
         android:focusable="false"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close Transaction"
+            android:textSize="18sp"
+            android:id="@+id/closeTransactCheckBoxId"
+
+            />
+
+        <ImageView
+            android:id="@+id/instructId"
+            android:layout_marginTop="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/alert"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send SMS Notification"
+            android:textSize="18sp"
+            android:id="@+id/sendMessageCheckBoxId"
+
+            />
+
+
+
+    </LinearLayout>
 
 
 

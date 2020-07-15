@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
@@ -23,12 +25,14 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 
-public class StaffDetailsActivity extends AppCompatActivity {
+public class StaffDetailsActivity extends AppCompatActivity implements StaffImageDialogueClass.StaffImageDialogueListener {
 
 
     TextView nameText,  phoneTxt, emailTxt, salaryTxt,addressTxt;
     CircularImageView proPic;
     StaffRegSubRecyclerAdapter mAdapter;
+    byte[] thumb;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class StaffDetailsActivity extends AppCompatActivity {
 
         assert staff_class != null;
         String name = staff_class.getStaff_name();
-        final String id = staff_class.getId();
+         id = staff_class.getId();
         nameText = findViewById(R.id.StaffDetailNameTextID);
         phoneTxt = findViewById(R.id.StaffPhoneId);
         emailTxt = findViewById(R.id.StaffEmailId);
@@ -49,6 +53,20 @@ public class StaffDetailsActivity extends AppCompatActivity {
         proPic=findViewById(R.id.StaffProfileImageID);
 
         nameText.setText(name);
+
+
+        proPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putByteArray("Staff_IMG",thumb);
+                StaffImageDialogueClass staffImageDialogueClass=new StaffImageDialogueClass();
+                staffImageDialogueClass.setArguments(bundle);
+                staffImageDialogueClass.show(getSupportFragmentManager(), null);
+
+            }
+        });
+
 
        final DataBaseHelper db=new DataBaseHelper(this);
 
@@ -60,8 +78,11 @@ public class StaffDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Staff Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bitmap img=db.getStaffProImage(id);
+        thumb=db.getStaffThumb(id);
+
         if (img!=null) {
             proPic.setImageBitmap(img);
         }
@@ -245,6 +266,19 @@ public class StaffDetailsActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+
+    }
+
+    @Override
+    public void getStaffImage(byte[] img) {
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        proPic.setImageBitmap(bitmap);
+        DataBaseHelper db=new DataBaseHelper(this);
+        boolean res= db.updateStaffProPic(id,img);
+        if (res){
+            Toast.makeText(this, "Profile Image Updated Successfully", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

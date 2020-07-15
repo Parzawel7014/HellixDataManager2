@@ -2,6 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="2dp"
+    app:cardBackgroundColor="@color/purpleShade"
     android:padding="10dp">
 
     <RelativeLayout
@@ -24,6 +27,10 @@
                     android:id="@+id/ExtraImgId"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:layout_marginBottom="5dp"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="2dp"
+
                     />
 
                 <LinearLayout
@@ -32,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/Received_From_Id"
                     android:textSize="18sp"
@@ -52,13 +59,13 @@
 
             <TextView
                 android:id="@+id/ExtraAmountId"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Amount"
                 android:maxLines="1"
                 android:textStyle="bold"
                 android:textColor="#070707"
-                android:layout_marginStart="140dp"
+                android:gravity="end"
                 />
 
         </LinearLayout>

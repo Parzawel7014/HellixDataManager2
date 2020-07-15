@@ -164,7 +164,7 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
         mRecyclerView.setAdapter(mAdapter);
 
 
-        final ArrayList<StudentClass> finalStudentClass = studentClasses;
+    //    final ArrayList<StudentClass> finalStudentClass = studentClasses;
 
 
         mAdapter.notifyDataSetChanged();
@@ -175,7 +175,7 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
             // StudentClass studentClass = null;
             @Override
             public void onItemClick(int position) {
-                String Id = finalStudentClass.get(position).getStudentId();
+                String Id = studentClasses.get(position).getStudentId();
 
                 SharedPreferences sharedPreferences=getSharedPreferences("TuitionInfo",MODE_PRIVATE);
                 String admin1=sharedPreferences.getString("Tuition Admin1","");
@@ -183,11 +183,13 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
                 String tuitionName=sharedPreferences.getString("Tuition Name","");
 
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("RegAmountPaid", finalStudentClass.get(position));
+
+                bundle.putParcelable("RegAmountPaid", studentClasses.get(position));
                 bundle.putString("TableName", TableName);
                 bundle.putString("MonthlyPayment", MonthlyPayment);
                 bundle.putString("Admin1",admin1);
                 bundle.putString("Admin2",admin2);
+                bundle.putInt("Position",position);
                 bundle.putString("tuitionName",tuitionName);
                 AmountDialogueClass amountDialogueClass = new AmountDialogueClass();
                 amountDialogueClass.setArguments(bundle);
@@ -225,13 +227,24 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void getAmount(String amount) {
+    public void getAmount(String amount,int position) {
         MonthlyPayment = amount;
 
-        Intent intent = getIntent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        startActivity(intent);
+
+
+      //  Intent intent = getIntent();
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        //finish();
+        //startActivity(intent);
+
+        studentClasses.remove(position);
+        mAdapter.notifyItemRemoved(position);
+
+        if (studentClasses.isEmpty()){
+            startActivity(new Intent(Students_In_Batch.this,AddFeesActivity.class));
+            finish();
+        }
+
 
     }
 

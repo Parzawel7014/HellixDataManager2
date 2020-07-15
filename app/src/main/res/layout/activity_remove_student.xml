@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grad"
     tools:context=".Batches.RemoveStudentActivity">
 
 
-
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/RemoveStudentToolbar"/>
+    <include
+        android:id="@+id/RemoveStudentToolbar"
+        layout="@layout/toolbar_layout" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/RemoveStudentToolbar"
         android:id="@+id/RemoveStudentRecyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp"
-        android:background="#FFFFFF"/>
+        android:layout_below="@+id/RemoveStudentToolbar"
+        android:background="#FFFFFF"
+        android:padding="5dp" />
 
 </RelativeLayout>

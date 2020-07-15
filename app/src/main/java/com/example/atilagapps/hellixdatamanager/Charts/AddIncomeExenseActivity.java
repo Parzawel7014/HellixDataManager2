@@ -1,10 +1,14 @@
 package com.example.atilagapps.hellixdatamanager.Charts;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,9 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -59,6 +65,15 @@ public class AddIncomeExenseActivity extends AppCompatActivity implements Adapte
         final int month = c.get(Calendar.MONTH);
         final int finalMonth = month + 1;
         final int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+        Toolbar toolbar=findViewById(R.id.AddInExToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Add Transaction");
+        //getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         paymentDateEdit.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +134,24 @@ public class AddIncomeExenseActivity extends AppCompatActivity implements Adapte
 
 
                     }
+                }else if (paymentType.equals("Select Payment Type")){
+
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddIncomeExenseActivity.this);
+                    //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                    reconfirmBuilder.setTitle("Alert");
+                    reconfirmBuilder.setCancelable(false);
+                    reconfirmBuilder.setMessage("Please select the payment type");
+                    reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.O)
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+
                 }
+
+
 
 
             }
@@ -201,6 +233,11 @@ public class AddIncomeExenseActivity extends AppCompatActivity implements Adapte
         if (paymentType.equals("Expense")) {
             l1.setVisibility(View.GONE);
             l2.setVisibility(View.VISIBLE);
+        }
+
+        if (paymentType.equals("Select Payment Type")){
+            l1.setVisibility(View.GONE);
+            l2.setVisibility(View.GONE);
         }
 
     }

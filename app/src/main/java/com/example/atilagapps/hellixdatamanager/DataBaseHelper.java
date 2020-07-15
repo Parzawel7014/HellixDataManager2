@@ -2,22 +2,21 @@ package com.example.atilagapps.hellixdatamanager;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.atilagapps.hellixdatamanager.Batches.SubjectAdapter;
 import com.example.atilagapps.hellixdatamanager.Batches.TeacherClass;
+import com.example.atilagapps.hellixdatamanager.Charts.ExtraDetailsClass;
 import com.example.atilagapps.hellixdatamanager.Charts.ExtraInExClass;
+import com.example.atilagapps.hellixdatamanager.Fragments.RemainingStuBatchClass;
 import com.example.atilagapps.hellixdatamanager.Reciept.PaymentInfoClass;
 import com.example.atilagapps.hellixdatamanager.SendSMS.SMSInfoClass;
 import com.example.atilagapps.hellixdatamanager.StaffManager.StaffInfo;
@@ -27,13 +26,11 @@ import com.example.atilagapps.hellixdatamanager.StaffManager.Staff_Class;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudent;
 import com.example.atilagapps.hellixdatamanager.Students.RegSubClass;
 import com.example.atilagapps.hellixdatamanager.Students.StudentInfo;
-import com.example.atilagapps.hellixdatamanager.TuitionFess.GetStudentRecyclerAdapter;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.PaymentRecievedSMSClass;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.ReceiptMonthClass;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.StudentClass;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +38,8 @@ import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "test7.db";
+
+    public static final String DATABASE_NAME = "HellixDataManage.db";
 
     public static final String STUDENT_TABLE = "student_table";
     public static final String SUBJECT_TABLE = "subject_table";
@@ -103,6 +101,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String TUITION_INFO_COL5 = "Tuition_Address";
     public static final String TUITION_INFO_COL6 = "Tuition_Admin_1";
     public static final String TUITION_INFO_COL7 = "Tuition_Admin_2";
+    public static final String TUITION_INFO_COL8 = "Tuition_ProPic";
 
 
     public static final String Fess_COl_1 = "SR_NO";
@@ -140,7 +139,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String IN_EX_COL_7 = "Payment_Type_Code";
 
 
-
     //public static final String BATCH_COL_1="BATCH_ID";
 
     public static final String ALL_BATCH_COL_1 = "ALL_BATCH_ID";
@@ -172,11 +170,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String TEACHER_COL_9 = "Active_Status";
 
 
-
-
     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -212,15 +209,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(" CREATE TABLE " + TUITION_INFO_TABLE + "(" + TUITION_INFO_COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TUITION_INFO_COL2 + " TEXT," + TUITION_INFO_COL3 + " TEXT," + TUITION_INFO_COL4 + " TEXT," + TUITION_INFO_COL5 + " TEXT," +
-                TUITION_INFO_COL6 + " TEXT," + TUITION_INFO_COL7 + " TEXT" + ")");
+                TUITION_INFO_COL6 + " TEXT," + TUITION_INFO_COL7 + " TEXT," + TUITION_INFO_COL8 + " BLOB" + ")");
 
 
         db.execSQL("CREATE TABLE " + TEACHER_TABLE + "(" + TEACHER_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TEACHER_COL_2 + " TEXT, " + TEACHER_COL_3 + " TEXT, " +
-                TEACHER_COL_4 + " TEXT, " + TEACHER_COL_8 + " TEXT," + TEACHER_COL_5 + " TEXT, " + TEACHER_COL_6 + " TEXT," + TEACHER_COL_7 + " BLOB, "+TEACHER_COL_9+" TEXT" + ")");
+                TEACHER_COL_4 + " TEXT, " + TEACHER_COL_8 + " TEXT," + TEACHER_COL_5 + " TEXT, " + TEACHER_COL_6 + " TEXT," + TEACHER_COL_7 + " BLOB, " + TEACHER_COL_9 + " TEXT" + ")");
 
 
         db.execSQL("CREATE TABLE " + INCOME_EXPENSE_TABLE + "(" + IN_EX_COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                IN_EX_COL_2 + " TEXT, " + IN_EX_COL_3 + " TEXT," + IN_EX_COL_4 + " INTEGER," + IN_EX_COL_5 + " DATE," + IN_EX_COL_6 + " TEXT,"+IN_EX_COL_7+" TEXT"
+                IN_EX_COL_2 + " TEXT, " + IN_EX_COL_3 + " TEXT," + IN_EX_COL_4 + " INTEGER," + IN_EX_COL_5 + " DATE," + IN_EX_COL_6 + " TEXT," + IN_EX_COL_7 + " TEXT"
                 + ")");
 
 
@@ -331,6 +328,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(TUITION_INFO_COL7, S_admin2Name);
 
         db.insert(TUITION_INFO_TABLE, null, contentValues);
+        db.close();
 
     }
 
@@ -363,10 +361,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         cursor2.close();
 */
-
+        db.close();
         return labels;
 
     }
+
+    // public static String getDBName() {
+
+    //  DataBaseHelper db = new DataBaseHelper();
+    //if (BuildConfig.DEBUG) {
+    //  throw new AssertionError("Assertion failed");
+    // }
+    // assert false;
+    //return db.getDatabaseName();
+
+    //}
 
 
     public boolean insert_PersonalData_Stu_Table(String name, String address, String contact, String gender, String caste, String EmailString, String EduString, String RegId, byte[] img) {
@@ -384,7 +393,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(STU_COL_13, img);
         long result = db.insert(STUDENT_TABLE, null, contentValues);
 
-
+        db.close();
         return result != -1;
     }
 
@@ -406,6 +415,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // closing connection
         cursor.close();
+        db.close();
 
         return ids;
     }
@@ -426,7 +436,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // closing connection
         cursor.close();
-
+        db.close();
         return regId;
 
     }
@@ -452,7 +462,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // closing connection
         cursor.close();
-
+        db.close();
         return recNo;
 
 
@@ -491,7 +501,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(Receipt_Col_5, yearVal);
 
         db.insert(RECEIPT_NO_TABLE, null, contentValues);
-
+        db.close();
 
     }
 
@@ -616,7 +626,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         //   String query2="Update "+STUDENT_TABLE+" SET "+STU_COL_5+"=CONCAT("+STU_COL_5+","+"'"+id+"')";
         db.execSQL("Update " + STUDENT_TABLE + " SET " + STU_COL_5 + "=" + STU_COL_5 + "||" + "'," + id + "'" + " WHERE " +
                 STU_COL_1 + "+" + cnt);
-
+        db.close();
 
     }
 
@@ -644,14 +654,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public ArrayList<FindStudent> getStudentInfo() {
         ArrayList<FindStudent> labels = new ArrayList();
 
-        String selectQuery = "SELECT " + STU_COL_2 + "," + STU_COL_1 + "," + STU_COL_12 + " FROM " + STUDENT_TABLE;
+        String selectQuery = "SELECT " + STU_COL_2 + "," + STU_COL_1 + "," + STU_COL_12 + "," + STU_COL_13 + " FROM " + STUDENT_TABLE;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
+        Bitmap bitmap = null;
         if (cursor.moveToFirst()) {
             do {
-                labels.add(new FindStudent(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+
+                byte[] img = cursor.getBlob(3);
+                if (img == null) {
+                    bitmap = null;
+                } else {
+                    bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                }
+                labels.add(new FindStudent(cursor.getString(0), cursor.getString(1), cursor.getString(2), bitmap));
             } while (cursor.moveToNext());
         }
 
@@ -666,7 +683,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ArrayList<FindStudent> labels = new ArrayList();
         String active = "Active";
 
-        String selectQuery = "SELECT " + STUDENT_TABLE + "." + STU_COL_2 + "," + STUDENT_TABLE + "." + STU_COL_1 + "," + STUDENT_TABLE + "." + STU_COL_12 + " FROM " + STUDENT_TABLE +
+        Bitmap bitmap = null;
+
+        String selectQuery = "SELECT " + STUDENT_TABLE + "." + STU_COL_2 + "," + STUDENT_TABLE + "." + STU_COL_1 + "," + STUDENT_TABLE + "." + STU_COL_12 + "," + STUDENT_TABLE + "." + STU_COL_13 + " FROM " + STUDENT_TABLE +
                 " INNER JOIN " + TableName + " ON " + TableName + "." + BATCH_COL_2 + "=" + STUDENT_TABLE + "." + STU_COL_1
                 + " WHERE " + TableName + "." + BATCH_COL_10 + "=" + "'" + active + "'";
 
@@ -675,7 +694,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                labels.add(new FindStudent(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                byte[] img = cursor.getBlob(3);
+                if (img == null) {
+                    bitmap = null;
+                } else {
+                    bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                }
+                labels.add(new FindStudent(cursor.getString(0), cursor.getString(1), cursor.getString(2), bitmap));
             } while (cursor.moveToNext());
         }
 
@@ -694,7 +719,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
         long result = db.update(TableName, contentValues, BATCH_COL_2 + "=" + id, null);
-
+        db.close();
         return result != -1;
 
     }
@@ -761,6 +786,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(ALL_BATCH_COL_9, teacherId);
 
         result1 = db.insert(BATCHES_TABLE, null, contentValues);
+
+        db.close();
         return result1 != -1;
 
 
@@ -807,7 +834,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cn.put(Staff_Fess_COl_3, "0");
 
         db.insert("Staff_Fees_" + TableName, null, cn);
-
+        db.close();
     }
 
 
@@ -866,6 +893,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cn.put(BATCH_COL_2, StudentID);
         cn.put(BATCH_COL_3, RegFeeStatus);
         cn.put(BATCH_COL_4, date);
+        cn.put(BATCH_COL_8, "Pending");
         if (RegFeeStatus.equals("Paid")) {
             cn.put(BATCH_COL_5, regAmt);
             cn.put(BATCH_COL_9, 0);
@@ -936,7 +964,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
 
-
+        db.close();
         int finalCnt = Integer.parseInt(cnt);
         return finalCnt > 0;
 
@@ -973,6 +1001,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             ContentValues contentValues = new ContentValues();
 
             contentValues.put(BATCH_COL_10, "Active");
+            contentValues.put(BATCH_COL_8,"Pending");
             db.update(TableName, contentValues, BATCH_COL_2 + "=" + id, null);
 
         } else {
@@ -1010,6 +1039,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             cn.put(BATCH_COL_2, id);
             cn.put(BATCH_COL_3, RegFeeStatus);
             cn.put(BATCH_COL_4, date);
+            cn.put(BATCH_COL_8,"Pending");
             if (RegFeeStatus.equals("Paid")) {
                 cn.put(BATCH_COL_5, regAmt);
                 cn.put(BATCH_COL_9, 0);
@@ -1067,6 +1097,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // closing connection
         cursor.close();
+        db.close();
         int cnt1 = Integer.parseInt(cnt);
         return cnt1;
 
@@ -1075,9 +1106,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public List<String> getBatchTime(String SubjectName) {
         List<String> labels = new ArrayList<String>();
-
+String stat="Active";
         // Select All Query
-        String selectQuery = "SELECT * FROM " + BATCHES_TABLE + " where " + ALL_BATCH_COL_2 + "=" + "'" + SubjectName + "'";
+        String selectQuery = "SELECT * FROM " + BATCHES_TABLE + " where " + ALL_BATCH_COL_2 + "=" + "'" + SubjectName + "'"+
+                " AND "+ALL_BATCH_COL_8+"='"+stat+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -1105,10 +1137,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             if (cursor != null) {
                 if (cursor.getCount() > 0) {
                     return true;
+
                 }
+                db.close();
             }
             return false;
+
         }
+
     }
 
 
@@ -1119,11 +1155,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ALL_BATCH_COL_8, "In-Active");
 
-        db.update(BATCHES_TABLE, contentValues, ALL_BATCH_COL_5 + "=" + TableName, null);
+        db.update(BATCHES_TABLE, contentValues, ALL_BATCH_COL_5 + "='" + TableName+"'", null);
 
         db.execSQL("DROP TABLE IF EXISTS " + TableName);
 
-
+        db.close();
     }
 
 
@@ -1147,7 +1183,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String active = "Active";
         for (int i = 0; i < batches.size(); i++) {
 
-            String query1 = "Select " + BATCH_COL_2 + " FROM " + batches.get(i) + " Where " + BATCH_COL_10 + "='" + active + "'";
+            String query1 = "Select " + BATCH_COL_2 + " FROM " + batches.get(i) + " Where " + BATCH_COL_10 + "='" + active + "'" +
+                    " AND " + BATCH_COL_2 + "=" + id;
             String StuId = null;
             Cursor cursor1 = db.rawQuery(query1, null);
             if (cursor1.moveToFirst()) {
@@ -1172,6 +1209,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 cursor2.close();
 
             }
+
         }
 
         ArrayList<RegSubClass> array = new ArrayList<>();
@@ -1203,7 +1241,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             cursor4.close();
 
         }
-
+        db.close();
         return array;
 
     }
@@ -1225,7 +1263,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-
+        db.close();
         return labels;
     }
 
@@ -1256,20 +1294,36 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateBatchInfo(String TableName, String batchTeacher, String regAmount, String monthAmount) {
+    public boolean updateBatchInfo(String TableName, String idVal, String regAmount, String monthAmount,String Teacher) {
 
 
         SQLiteDatabase db = this.getWritableDatabase();
 
+        String batchTeacher = null;
+
+        String query = "select " + TEACHER_COL_2 + " from " + TEACHER_TABLE + " where " + TEACHER_COL_1 + "=" + idVal;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                batchTeacher = (cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(ALL_BATCH_COL_4, batchTeacher);
+        //contentValues.put(ALL_BATCH_COL_4, batchTeacher);
         contentValues.put(ALL_BATCH_COL_6, regAmount);
         contentValues.put(ALL_BATCH_COL_7, monthAmount);
+        contentValues.put(ALL_BATCH_COL_4,Teacher);
 
-        long result = db.update(BATCHES_TABLE, contentValues, ALL_BATCH_COL_5 + "=" + TableName, null);
-
+        long result = db.update(BATCHES_TABLE, contentValues, ALL_BATCH_COL_5 + "='" + TableName+"'", null);
+        db.close();
         return result != -1;
 
     }
@@ -1351,7 +1405,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public boolean UpdateFeeTable(String TableName, String StudentId, String Amount, String paymentBy, String paymentTo, String srNo) {
+    public boolean UpdateFeeTableIsChecked(String TableName, String StudentId, String Amount, String paymentBy, String paymentTo, String srNo) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         LocalDate today = LocalDate.now();
@@ -1378,15 +1432,77 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         cn.put(Fess_COl_6, formattedDate);
         cn.put(Fess_COl_3, Amount);
+        cn.put(Fess_COl_8, "0");
+        cn.put(Fess_COl_10, paymentBy);
+        cn.put(Fess_COl_11, paymentTo);
+        //  if (remaining_amount == 0) {
+        cn.put(Fess_COl_7, "Paid");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(BATCH_COL_8, "Paid");
+        db.update(TableName, contentValues, BATCH_COL_2 + "=" + StudentId, null);
+
+
+        long result = db.update("Fees_" + TableName, cn, Fess_COl_1 + "=" + srNo, null);
+        db.close();
+        return result != -1;
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean UpdateFeeTable(String TableName, String StudentId, String Amount, String paymentBy, String paymentTo, String srNo) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        LocalDate today = LocalDate.now();
+        String formattedDate = today.format(DateTimeFormatter.ofPattern("d/M/yyyy"));
+
+        ContentValues cn = new ContentValues();
+
+        String query = "SELECT " + ALL_BATCH_COL_7 + " FROM " + BATCHES_TABLE + " WHERE " +
+                ALL_BATCH_COL_5 + "=" + "'" + TableName + "'";
+
+        String monthlyFee = null;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                monthlyFee = cursor.getString(0);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+
+        assert monthlyFee != null;
+        int remaining_amount = Integer.parseInt(monthlyFee) - Integer.parseInt(Amount);
+
+        cn.put(Fess_COl_6, formattedDate);
+        cn.put(Fess_COl_3, Amount);
         cn.put(Fess_COl_8, remaining_amount);
         cn.put(Fess_COl_10, paymentBy);
         cn.put(Fess_COl_11, paymentTo);
+
         if (remaining_amount == 0) {
             cn.put(Fess_COl_7, "Paid");
+            ContentValues contentValues = new ContentValues();
+            String idS = "select " + STU_COL_1 + " from " + STUDENT_TABLE + " where " + STU_COL_12 + "=" + StudentId;
+            String idValS = null;
+            Cursor cursor1 = db.rawQuery(idS, null);
+
+            if (cursor1.moveToFirst()) {
+                do {
+                    idValS = cursor1.getString(0);
+                } while (cursor1.moveToNext());
+            }
+
+            cursor1.close();
+            contentValues.put(BATCH_COL_8, "Paid");
+            db.update(TableName, contentValues, BATCH_COL_2 + "=" + idValS, null);
+
         }
 
         long result = db.update("Fees_" + TableName, cn, Fess_COl_1 + "=" + srNo, null);
-
+        db.close();
         return result != -1;
 
 
@@ -1423,9 +1539,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cn.put(BATCH_COL_13, String.valueOf(date));
 
         long result = db.update(tableName, cn, BATCH_COL_2 + "=" + StudentID, null);
-
+        db.close();
         return result != -1;
 
+
+    }
+
+
+    public boolean deleteStudentEntry(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> tables = new ArrayList<>();
+
+        String query = "select " + ALL_BATCH_COL_5 + " from " + BATCHES_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                tables.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        long res = 0;
+        db.delete(STUDENT_TABLE, STU_COL_1 + "=" + id, null);
+        String stat = "Pending";
+        for (int i = 0; i < tables.size(); i++) {
+            res = db.delete(tables.get(i), BATCH_COL_2 + "=" + id, null);
+            db.delete("Fees_" + tables.get(i), Fess_COl_2 + "=" + id + " AND " + Fess_COl_7 + "='" + stat + "'", null);
+        }
+
+
+        return res != -1;
 
     }
 
@@ -1465,7 +1607,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (icount == 0) {
             res = 1;
         }
-
+        db.close();
         return res;
 
     }
@@ -1480,7 +1622,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (icount == 0) {
             res = 1;
         }
-
+        db.close();
         return res;
     }
 
@@ -1493,19 +1635,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         String stat = "Pending";
         String active = "Active";
-        String query = "SELECT " + STUDENT_TABLE + "." + STU_COL_2 + "," + STUDENT_TABLE + "." + STU_COL_1 + "," +
-                "Fees_" + TableName + "." + Fess_COl_8 + "," + TableName + "." + BATCH_COL_3 + "," + "Fees_" + TableName + "." + Fess_COl_1 +
+        String query = "SELECT " + STUDENT_TABLE + "." + STU_COL_2 + "," + STUDENT_TABLE + "." + STU_COL_12 + "," +
+                "Fees_" + TableName + "." + Fess_COl_8 + "," + TableName + "." + BATCH_COL_3 + "," + "Fees_" + TableName + "." + Fess_COl_1 + "," + STUDENT_TABLE + "." + STU_COL_13 +
                 " FROM " + STUDENT_TABLE +
                 " INNER JOIN " + "Fees_" + TableName + " ON " + STUDENT_TABLE + "." + STU_COL_1 + "=" + "Fees_" + TableName + "." + Fess_COl_2 +
                 " AND " + "Fees_" + TableName + "." + Fess_COl_7 + "=" + "'" + stat + "'" +
                 " INNER JOIN " + TableName + " ON " + "Fees_" + TableName + "." + Fess_COl_2 + "=" + TableName + "." + BATCH_COL_2;
 
-
+        Bitmap bitmap = null;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             do {
-                labels.add(new StudentClass(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+                byte[] img = cursor.getBlob(5);
+                if (img == null) {
+                    bitmap = null;
+                } else {
+                    bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                }
+                labels.add(new StudentClass(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), bitmap));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -1529,7 +1677,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         return amt;
 
 
@@ -1551,7 +1699,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         return amt;
 
 
@@ -1574,7 +1722,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         assert val != null;
         int newval = Integer.parseInt(val);
         return newval;
@@ -1596,7 +1744,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         assert val != null;
         int newval = Integer.parseInt(val);
         return newval;
@@ -1616,7 +1764,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         assert val != null;
         int newval = Integer.parseInt(val);
         return newval;
@@ -1635,7 +1783,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         assert val != null;
         int newval = Integer.parseInt(val);
         return newval;
@@ -1654,7 +1802,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         return count;
 
 
@@ -1673,7 +1821,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         return count;
 
 
@@ -1725,7 +1873,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cn.put(Staff_Fess_COl_8, teacherSalary);
 
         long res = db.insert("Staff_Fees_" + TableName, null, cn);
-
+        db.close();
         return res != -1;
 
 
@@ -1817,7 +1965,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }
         }
 
-
+        db.close();
         return result != -1;
 
     }
@@ -1861,7 +2009,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (val.size() == id.size()) {
             result = 1;
         }
-
+        db.close();
         return result;
 
     }
@@ -1873,6 +2021,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         String query = "SELECT " + BATCH_COL_3 + " FROM " + tableName + " WHERE " + BATCH_COL_2 + "=" + StudentID;
 
+
         Cursor cursor = db.rawQuery(query, null);
         String status = null;
 
@@ -1882,7 +2031,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
+        db.close();
         return status;
 
 
@@ -1917,8 +2066,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         ArrayList<String> labels = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "SELECT " + ALL_BATCH_COL_5 + " FROM " + BATCHES_TABLE;
+        String stat="Active";
+        String query = "SELECT " + ALL_BATCH_COL_5 + " FROM " + BATCHES_TABLE+" where "+ALL_BATCH_COL_8+"='"+stat+"'";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -1940,9 +2089,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT " + STU_COL_4 + " FROM " + STUDENT_TABLE + " WHERE " + STU_COL_1 + "=" + StudentID;
+        String query = "SELECT " + STU_COL_4 + " FROM " + STUDENT_TABLE + " WHERE " + STU_COL_12 + "=" + StudentID;
         Cursor cursor = db.rawQuery(query, null);
-
         if (cursor.moveToFirst()) {
             do {
                 contact = cursor.getString(0);
@@ -2018,6 +2166,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    public void updateName(String id, String Sname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(STU_COL_2, Sname);
+        db.update(STUDENT_TABLE, contentValues, STU_COL_1 + "=" + id, null);
+        db.close();
+
+    }
+
     public void updateEmail(String id, String phoneNum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -2080,6 +2238,71 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return bitmap;
+
+
+    }
+
+
+    public byte[] getTuiThumb() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        byte[] thumb = null;
+        String query = "SELECT " + TUITION_INFO_COL8 + " FROM " + TUITION_INFO_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                thumb = cursor.getBlob(0);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return thumb;
+
+
+    }
+
+
+    public byte[] getStuThumb(String id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        byte[] thumb = null;
+        String query = "SELECT " + STU_COL_13 + " FROM " + STUDENT_TABLE + " WHERE " + STU_COL_1 + "=" + id;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                thumb = cursor.getBlob(0);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return thumb;
+
+
+    }
+
+    public byte[] getStaffThumb(String id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        byte[] thumb = null;
+        String query = "SELECT " + TEACHER_COL_7 + " FROM " + TEACHER_TABLE + " WHERE " + TEACHER_COL_1 + "=" + id;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                thumb = cursor.getBlob(0);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return thumb;
 
 
     }
@@ -2178,7 +2401,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cn.put(TEACHER_COL_7, thumb);
 
         long result = db.insert(TEACHER_TABLE, null, cn);
-
+        db.close();
         return result != -1;
 
     }
@@ -2259,17 +2482,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String name = null;
 
 
-        String nameQuery = "select " + TEACHER_COL_2 + " from " + TEACHER_TABLE + " where " + TEACHER_COL_1 + "=" + StaffId;
-        Cursor namecursor = db.rawQuery(nameQuery, null);
-
-        if (namecursor.moveToFirst()) {
-            do {
-                name = namecursor.getString(0);
-            } while (namecursor.moveToNext());
-        }
-        namecursor.close();
-
-
         String query = "select " + ALL_BATCH_COL_5 + " from " + BATCHES_TABLE + " WHERE " + ALL_BATCH_COL_9 + "=" + StaffId;
 
         Cursor cursor = db.rawQuery(query, null);
@@ -2293,6 +2505,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 } while (cursor1.moveToNext());
             }
             cursor1.close();
+
+
+            String nameQuery = "select " + ALL_BATCH_COL_2 + " from " + BATCHES_TABLE + " where " + ALL_BATCH_COL_5 + "='" + table.get(i) + "'";
+            Cursor namecursor = db.rawQuery(nameQuery, null);
+
+            if (namecursor.moveToFirst()) {
+                do {
+                    name = namecursor.getString(0);
+                } while (namecursor.moveToNext());
+            }
+            namecursor.close();
 
 
             if (count > 0) {
@@ -2405,7 +2628,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         long result = db.update("Staff_Fees_" + TableName, contentValues, Staff_Fess_COl_2 + "=" + id + " and " + Staff_Fess_COl_4 + "=" + monthVal + " and " + Staff_Fess_COl_5 + "=" + yearVal, null);
-
+        db.close();
         return result != -1;
 
 
@@ -2432,13 +2655,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Cursor cursor1 = db.rawQuery("SELECT SUM(" + BATCH_COL_5 + ") as Total FROM " + tables.get(i), null);
             if (cursor1.moveToFirst()) {
                 do {
-                    total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                    total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
                 } while (cursor1.moveToNext());
             }
 
             cursor1.close();
         }
-
+        db.close();
         return total;
 
     }
@@ -2466,13 +2689,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Cursor cursor1 = db.rawQuery("SELECT SUM(" + Staff_Fess_COl_3 + ") as Total FROM Staff_Fees_" + tables.get(i), null);
             if (cursor1.moveToFirst()) {
                 do {
-                    total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                    total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
                 } while (cursor1.moveToNext());
             }
 
             cursor1.close();
         }
-
+        db.close();
         return total;
 
     }
@@ -2500,30 +2723,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Cursor cursor1 = db.rawQuery("SELECT SUM(" + Fess_COl_3 + ") as Total FROM Fees_" + tables.get(i), null);
             if (cursor1.moveToFirst()) {
                 do {
-                    total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                    total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
                 } while (cursor1.moveToNext());
             }
 
             cursor1.close();
         }
-
+        db.close();
         return total;
 
 
     }
 
 
+    public double getAllExtraIncome() {
 
-    public double getAllExtraIncome(){
-
-        SQLiteDatabase db=this.getWritableDatabase();
-        double total=0;
-        String code="I";
-        Cursor cursor1 = db.rawQuery("SELECT SUM(" + IN_EX_COL_4 + ") as Total FROM " +INCOME_EXPENSE_TABLE+" WHERE "+
-                IN_EX_COL_7+"='"+code+"'", null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        double total = 0;
+        String code = "I";
+        Cursor cursor1 = db.rawQuery("SELECT SUM(" + IN_EX_COL_4 + ") as Total FROM " + INCOME_EXPENSE_TABLE + " WHERE " +
+                IN_EX_COL_7 + "='" + code + "'", null);
         if (cursor1.moveToFirst()) {
             do {
-                total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
             } while (cursor1.moveToNext());
         }
 
@@ -2535,16 +2757,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public double getAllExtraExpense(){
+    public double getAllExtraExpense() {
 
-        SQLiteDatabase db=this.getWritableDatabase();
-        double total=0;
-        String code="E";
-        Cursor cursor1 = db.rawQuery("SELECT SUM(" + IN_EX_COL_4 + ") as Total FROM " +INCOME_EXPENSE_TABLE+" WHERE "+
-                IN_EX_COL_7+"='"+code+"'", null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        double total = 0;
+        String code = "E";
+        Cursor cursor1 = db.rawQuery("SELECT SUM(" + IN_EX_COL_4 + ") as Total FROM " + INCOME_EXPENSE_TABLE + " WHERE " +
+                IN_EX_COL_7 + "='" + code + "'", null);
         if (cursor1.moveToFirst()) {
             do {
-                total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
             } while (cursor1.moveToNext());
         }
 
@@ -2588,35 +2810,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     " where " + Fess_COl_6 + " BETWEEN " + "'" + fromDateVal + "'" + " AND " + "'" + toDateVal + "'", null);
             if (cursor1.moveToFirst()) {
                 do {
-                    total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                    total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
                 } while (cursor1.moveToNext());
             }
 
             cursor1.close();
         }
-
+        db.close();
         return total;
 
     }
 
 
-    public double getExtraIncomeInPeriod(String FromDayVal,String fromMonthVal,String fromYearVal,String ToDayVal,String ToMonthVal,String ToYearVal){
+    public double getExtraIncomeInPeriod(String FromDayVal, String fromMonthVal, String fromYearVal, String ToDayVal, String ToMonthVal, String ToYearVal) {
 
-        SQLiteDatabase db=this.getWritableDatabase();
-        double total=0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        double total = 0;
 
         String fromDateVal = FromDayVal + "/" + fromMonthVal + "/" + fromYearVal;
         String toDateVal = ToDayVal + "/" + ToMonthVal + "/" + ToYearVal;
 
-        String code="I";
+        String code = "I";
 
         Cursor cursor1 = db.rawQuery("SELECT SUM(" + IN_EX_COL_4 + ") as Total FROM " + INCOME_EXPENSE_TABLE +
-                " where "+
-                IN_EX_COL_7+"='"+code+"'"+" AND "
+                " where " +
+                IN_EX_COL_7 + "='" + code + "'" + " AND "
                 + IN_EX_COL_5 + " BETWEEN " + "'" + fromDateVal + "'" + " AND " + "'" + toDateVal + "'", null);
         if (cursor1.moveToFirst()) {
             do {
-                total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
             } while (cursor1.moveToNext());
         }
 
@@ -2628,23 +2850,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public double getExtraExpenseInPeriod(String FromDayVal,String fromMonthVal,String fromYearVal,String ToDayVal,String ToMonthVal,String ToYearVal){
+    public double getExtraExpenseInPeriod(String FromDayVal, String fromMonthVal, String fromYearVal, String ToDayVal, String ToMonthVal, String ToYearVal) {
 
-        SQLiteDatabase db=this.getWritableDatabase();
-        double total=0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        double total = 0;
 
         String fromDateVal = FromDayVal + "/" + fromMonthVal + "/" + fromYearVal;
         String toDateVal = ToDayVal + "/" + ToMonthVal + "/" + ToYearVal;
 
-        String code="E";
+        String code = "E";
 
         Cursor cursor1 = db.rawQuery("SELECT SUM(" + IN_EX_COL_4 + ") as Total FROM " + INCOME_EXPENSE_TABLE +
-                " where "+
-                IN_EX_COL_7+"='"+code+"'"+" AND "
+                " where " +
+                IN_EX_COL_7 + "='" + code + "'" + " AND "
                 + IN_EX_COL_5 + " BETWEEN " + "'" + fromDateVal + "'" + " AND " + "'" + toDateVal + "'", null);
         if (cursor1.moveToFirst()) {
             do {
-                total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
             } while (cursor1.moveToNext());
         }
 
@@ -2687,13 +2909,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     " where " + BATCH_COL_13 + " BETWEEN " + "'" + fromDateVal + "'" + " AND " + "'" + toDateVal + "'", null);
             if (cursor1.moveToFirst()) {
                 do {
-                    total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                    total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
                 } while (cursor1.moveToNext());
             }
 
             cursor1.close();
         }
-
+        db.close();
         return total;
 
     }
@@ -2730,13 +2952,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     " where " + Staff_Fess_COl_6 + " BETWEEN " + "'" + fromDateVal + "'" + " AND " + "'" + toDateVal + "'", null);
             if (cursor1.moveToFirst()) {
                 do {
-                    total = cursor1.getDouble(cursor1.getColumnIndex("Total"));
+                    total += cursor1.getDouble(cursor1.getColumnIndex("Total"));
                 } while (cursor1.moveToNext());
             }
 
             cursor1.close();
         }
-
+        db.close();
         return total;
 
     }
@@ -2746,13 +2968,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ArrayList<ExtraInExClass> labels = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "select " + IN_EX_COL_3 + "," + IN_EX_COL_4 + "," + IN_EX_COL_5 + "," + IN_EX_COL_1 + "," + IN_EX_COL_2 +","+IN_EX_COL_7+
+        String query = "select " + IN_EX_COL_3 + "," + IN_EX_COL_4 + "," + IN_EX_COL_5 + "," + IN_EX_COL_1 + "," + IN_EX_COL_2 + "," + IN_EX_COL_7 +
                 " from " + INCOME_EXPENSE_TABLE;
 
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             do {
-                labels.add(new ExtraInExClass(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getString(5)));
+                labels.add(new ExtraInExClass(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
             } while (cursor.moveToNext());
         }
 
@@ -2775,11 +2997,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (paymentType.equals("Income")) {
             cn.put(IN_EX_COL_2, "Received From");
             cn.put(IN_EX_COL_3, receivedFrom);
-            cn.put(IN_EX_COL_7,"I");
+            cn.put(IN_EX_COL_7, "I");
         } else if (paymentType.equals("Expense")) {
             cn.put(IN_EX_COL_2, "Paid To");
             cn.put(IN_EX_COL_3, paidTo);
-            cn.put(IN_EX_COL_7,"E");
+            cn.put(IN_EX_COL_7, "E");
         }
 
         cn.put(IN_EX_COL_4, amount);
@@ -2788,6 +3010,203 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
         db.insert(INCOME_EXPENSE_TABLE, null, cn);
+        db.close();
+    }
+
+    public ArrayList<ExtraDetailsClass> getExtraPaymentInfo(String id) {
+
+        ArrayList<ExtraDetailsClass> labels = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "select " + IN_EX_COL_5 + "," + IN_EX_COL_2 + "," + IN_EX_COL_3 + "," +
+                IN_EX_COL_4 + "," + IN_EX_COL_6 + "," + IN_EX_COL_7 + " from " + INCOME_EXPENSE_TABLE + " where " + IN_EX_COL_1 + "=" + id;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                labels.add(new ExtraDetailsClass(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
+
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        db.close();
+
+        return labels;
+
+
+    }
+
+
+    public ArrayList<TuitionEdit> getTuitionDetails() {
+        ArrayList<TuitionEdit> labels = new ArrayList<>();
+        Bitmap bitmap = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select " + TUITION_INFO_COL2 + "," + TUITION_INFO_COL5 + "," + TUITION_INFO_COL3 + "," + TUITION_INFO_COL4 + "," +
+                TUITION_INFO_COL6 + "," + TUITION_INFO_COL7 + "," + TUITION_INFO_COL8 + " from " + TUITION_INFO_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+
+                byte[] img = cursor.getBlob(6);
+                if (img == null) {
+                    bitmap = null;
+                } else {
+                    bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                }
+
+                labels.add(new TuitionEdit(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), bitmap));
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        db.close();
+
+        return labels;
+
+    }
+
+
+    public boolean updateStuProPic(String id, byte[] img) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cn = new ContentValues();
+        cn.put(STU_COL_13, img);
+        long result = db.update(STUDENT_TABLE, cn, STU_COL_1 + "=" + id, null);
+
+        return result != -1;
+
+    }
+
+
+    public void updatetuiProPic(byte[] img) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cn = new ContentValues();
+        cn.put(TUITION_INFO_COL8, img);
+        db.update(TUITION_INFO_TABLE, cn, TUITION_INFO_COL1 + "=1", null);
+
+
+    }
+
+
+    public boolean updateStaffProPic(String id, byte[] img) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cn = new ContentValues();
+        cn.put(TEACHER_COL_7, img);
+        long result = db.update(TEACHER_TABLE, cn, TEACHER_COL_1 + "=" + id, null);
+
+        return result != -1;
+
+    }
+
+
+    public Bitmap getTuiProImage() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Bitmap bitmap = null;
+        String query = "SELECT " + TUITION_INFO_COL8 + " FROM " + TUITION_INFO_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] img = cursor.getBlob(0);
+                if (img == null) {
+                    bitmap = null;
+                } else {
+                    bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return bitmap;
+    }
+
+
+    public void updateTuiInfo(String T_Name, String T_Add, String T_Phone, String T_Email, String T_Admin1, String T_Admin2, byte[] thumb) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cn = new ContentValues();
+
+        cn.put(TUITION_INFO_COL2, T_Name);
+        cn.put(TUITION_INFO_COL3, T_Phone);
+        cn.put(TUITION_INFO_COL4, T_Email);
+        cn.put(TUITION_INFO_COL5, T_Add);
+        cn.put(TUITION_INFO_COL6, T_Admin1);
+        cn.put(TUITION_INFO_COL7, T_Admin2);
+        //   cn.put(TUITION_INFO_COL8, thumb);
+
+        db.update(TUITION_INFO_TABLE, cn, TUITION_INFO_COL1 + "=1", null);
+        db.close();
+    }
+
+
+    public ArrayList<RemainingStuBatchClass> getBatchesChartInfo() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<RemainingStuBatchClass> labels = new ArrayList<>();
+
+        ArrayList<String> tables = new ArrayList<>();
+
+        String query = "select " + ALL_BATCH_COL_5 + " from " + BATCHES_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                tables.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        String stat = "Active";
+        String stat2 = "Pending";
+        for (int i = 0; i < tables.size(); i++) {
+
+            int count = 0;
+            String query1 = "select " + tables.get(i) + "." + BATCH_COL_2 + " from " + tables.get(i) +
+                    " where " + BATCH_COL_10 + "='" + stat + "'" + " AND " + BATCH_COL_8 + "='" + stat2 + "'";
+
+            Cursor cursor1 = db.rawQuery(query1, null);
+            if (cursor1.moveToFirst()) {
+                do {
+                    count = (cursor1.getCount());
+                } while (cursor1.moveToNext());
+            }
+
+            cursor1.close();
+
+
+            String time = null;
+            String batch = null;
+
+            String query2 = "select " + ALL_BATCH_COL_3 + "," + ALL_BATCH_COL_2 + " from " + BATCHES_TABLE +
+                    " where " + ALL_BATCH_COL_5 + "='" + tables.get(i) + "'";
+
+            Cursor cursor2 = db.rawQuery(query2, null);
+            if (cursor2.moveToFirst()) {
+                do {
+                    time = (cursor2.getString(0));
+                    batch = cursor2.getString(1);
+
+                } while (cursor2.moveToNext());
+            }
+
+            cursor2.close();
+
+
+            labels.add(new RemainingStuBatchClass(batch, time, count));
+
+        }
+
+
+        return labels;
 
     }
 

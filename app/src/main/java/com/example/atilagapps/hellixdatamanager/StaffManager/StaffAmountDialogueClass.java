@@ -20,10 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.PaymentRecievedSMSClass;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.StudentClass;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -53,8 +55,9 @@ public class StaffAmountDialogueClass extends DialogFragment {
         final DataBaseHelper db = new DataBaseHelper(getActivity());
 
 
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(getActivity());
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+       // AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.staff_payment_dialogue, null);
 
@@ -88,7 +91,10 @@ public class StaffAmountDialogueClass extends DialogFragment {
         paidWithEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder=new AlertDialog.Builder(getActivity());
+
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(getActivity());
+
+                //AlertDialog.Builder mBuilder=new AlertDialog.Builder(getActivity());
 
                 mBuilder.setItems(payMethod, new DialogInterface.OnClickListener() {
                     @Override
@@ -97,8 +103,8 @@ public class StaffAmountDialogueClass extends DialogFragment {
                         paidWithEditText.setText(selectedText);
                     }
                 });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+                //AlertDialog mDialogue = mBuilder.create();
+                mBuilder.show();
             }
         });
 
@@ -108,8 +114,8 @@ public class StaffAmountDialogueClass extends DialogFragment {
 
 
 
-        builder.setView(v)
-                .setTitle("Salary")
+        mBuilder.setView(v)
+                .setTitle("Salary Payment")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -139,7 +145,7 @@ public class StaffAmountDialogueClass extends DialogFragment {
 
 
 
-        return builder.create();
+        return mBuilder.create();
     }
 
 

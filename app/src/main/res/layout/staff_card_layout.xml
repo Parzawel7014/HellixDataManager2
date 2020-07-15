@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
+    app:cardBackgroundColor="@color/purpleShade"
     app:cardCornerRadius="4dp"
     android:layout_margin="5dp"
     android:focusable="true">
@@ -62,7 +63,7 @@
                 android:id="@+id/staff_Image_id"
                 android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_add_person"
+                android:background="@drawable/user"
                 android:layout_marginEnd="5dp"
                  />
             </RelativeLayout>
@@ -71,10 +72,10 @@
                 android:id="@+id/paymentButtonId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#62E669"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="Make Payment"
                 android:textStyle="normal"
-                android:textColor="#050505"/>
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </RelativeLayout>
 

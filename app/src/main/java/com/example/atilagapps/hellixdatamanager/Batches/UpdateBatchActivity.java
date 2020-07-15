@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,13 +19,18 @@ import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class UpdateBatchActivity extends AppCompatActivity {
 
-    EditText batchName,batchTime,teacherName,regAmt,monthlyAmt;
+    TextInputEditText batchName,batchTime,teacherName,regAmt,monthlyAmt;
     Button updateButton;
+    String[] teacherListItem, teacherIdListItem;
+    ArrayList<TeacherClass> teacherClasses;
+    String idval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,7 @@ public class UpdateBatchActivity extends AppCompatActivity {
         teacherName=findViewById(R.id.BatchTeacherId);
         updateButton=findViewById(R.id.UpdateBatchButtonId);
 
-
+        teacherClasses = new ArrayList<>();
 
 
 
@@ -77,6 +84,17 @@ public class UpdateBatchActivity extends AppCompatActivity {
         batchTime.setText(BatchTime);
 
 
+        teacherClasses = db.getTeachers(BatchName);
+
+        teacherIdListItem = new String[teacherClasses.size()];
+        teacherListItem = new String[teacherClasses.size()];
+        for (int i = 0; i < teacherClasses.size(); i++) {
+            teacherListItem[i] = (teacherClasses.get(i).getTeacherName());
+            teacherIdListItem[i] = (teacherClasses.get(i).getTeacherID());
+
+        }
+
+
 
         batchTime.setFocusable(false);
         batchTime.setEnabled(false);
@@ -93,19 +111,46 @@ public class UpdateBatchActivity extends AppCompatActivity {
         batchName.setBackgroundColor(Color.rgb(255,194,179));
 
 
+
+        teacherName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(UpdateBatchActivity.this);
+                mBuilder.setTitle("Teachers");
+                mBuilder.setSingleChoiceItems(teacherListItem, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        teacherName.setText(teacherClasses.get(which).getTeacherName());
+                        idval = teacherClasses.get(which).getTeacherID();
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog mDialogue = mBuilder.create();
+                mDialogue.show();
+
+            }
+        });
+
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String batchTeacher=teacherName.getText().toString().trim();
-                String regAmount=regAmt.getText().toString().trim();
-                String monthAmount=monthlyAmt.getText().toString().trim();
+                String batchTeacher = teacherName.getText().toString().trim();
+                String regAmount = regAmt.getText().toString().trim();
+                String monthAmount = monthlyAmt.getText().toString().trim();
 
 
-              boolean result= db.updateBatchInfo(TableName,batchTeacher,regAmount,monthAmount);
+                if ( !validateBatchTeacher() | !validateRegFee() | !validateMonthlyFee()) {
+                    return;
+                } else {
 
-                if (result){
-                    Toast.makeText(UpdateBatchActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+
+                    boolean result = db.updateBatchInfo(TableName, idval, regAmount, monthAmount, batchTeacher);
+
+                    if (result) {
+                        Toast.makeText(UpdateBatchActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -113,4 +158,45 @@ public class UpdateBatchActivity extends AppCompatActivity {
 
 
     }
+
+
+    private boolean validateBatchTeacher(){
+        String phoneInput=teacherName.getText().toString().trim();
+        if (phoneInput.isEmpty()){
+            teacherName.setError("Field can't be empty");
+            return false;
+        }else {
+            teacherName.setError(null);
+
+            return true;
+        }
+    }
+
+    private boolean validateRegFee(){
+        String addressInput=regAmt.getText().toString().trim();
+        if (addressInput.isEmpty()){
+            regAmt.setError("Field can't be empty");
+            return false;
+        }else {
+            regAmt.setError(null);
+            //editTextEmail.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validateMonthlyFee(){
+        String eduInput=monthlyAmt.getText().toString().trim();
+        if (eduInput.isEmpty()){
+            monthlyAmt.setError("Field can't be empty");
+            return false;
+        }else {
+            monthlyAmt.setError(null);
+            // editTextEmail.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager.Charts;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,14 @@ public class ExtraIncomeExpense extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
 
+
+        Toolbar toolbar=findViewById(R.id.ExtraIncomeExpenseToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Other Transactions");
+        //getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final ArrayList<ExtraInExClass> finalExtraInExClasses = extraInExClasses;
         mAdapter.setOnItemClickListener(new ExtraInExRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -53,6 +62,7 @@ public class ExtraIncomeExpense extends AppCompatActivity {
                 startActivity(intent);
 
 
+
             }
         });
 
@@ -61,6 +71,7 @@ public class ExtraIncomeExpense extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),AddIncomeExenseActivity.class));
+                finish();
             }
         });
 

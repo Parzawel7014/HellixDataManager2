@@ -1,5 +1,6 @@
 package com.example.atilagapps.hellixdatamanager.Students;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,14 +13,16 @@ public class FindStudent implements Parcelable {
     private String mStudentAddress;
     private String mStudentGender;
     private String mStudentEducation;
+    Bitmap mStudentImage;
 
 
 
-    public FindStudent(String mStudentName,String Id,String regId) {
+    public FindStudent(String mStudentName,String Id,String regId,Bitmap studentImage) {
 
         this.mStudentName = mStudentName;
         this.mStudentID=Id;
         this.mStudentRegId=regId;
+        this.mStudentImage=studentImage;
     }
 
 
@@ -28,7 +31,16 @@ public class FindStudent implements Parcelable {
         mStudentName = in.readString();
         mStudentID=in.readString();
         mStudentRegId=in.readString();
+        mStudentImage=in.readParcelable(Bitmap.class.getClassLoader());
+    }
 
+
+    public Bitmap getmStudentImage() {
+        return mStudentImage;
+    }
+
+    public void setmStudentImage(Bitmap mStudentImage) {
+        this.mStudentImage = mStudentImage;
     }
 
     public String getmStudentRegId() {
@@ -77,5 +89,6 @@ public class FindStudent implements Parcelable {
         dest.writeString(mStudentName);
         dest.writeString(mStudentID);
         dest.writeString(mStudentRegId);
+        dest.writeParcelable(mStudentImage, flags);
     }
 }

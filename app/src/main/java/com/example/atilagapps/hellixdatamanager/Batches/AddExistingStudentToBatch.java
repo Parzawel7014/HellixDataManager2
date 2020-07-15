@@ -25,6 +25,7 @@ import com.example.atilagapps.hellixdatamanager.Students.FindStudentRecyclerAdap
 import com.example.atilagapps.hellixdatamanager.TuitionFess.AddFeesActivity;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.AmountDialogueClass;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.StudentClass;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -117,6 +118,19 @@ public class AddExistingStudentToBatch extends AppCompatActivity {
                         cnfDialogue.show();
 
                     } else {
+
+
+                        MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddExistingStudentToBatch.this);
+                        //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                        reconfirmBuilder.setTitle("Alert");
+                        reconfirmBuilder.setMessage("Student Already Present.");
+                        reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
                         Toast.makeText(AddExistingStudentToBatch.this, "Student Already Present", Toast.LENGTH_SHORT).show();
                     }
                 }

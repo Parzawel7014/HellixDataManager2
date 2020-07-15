@@ -4,25 +4,58 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Charts.ChartActivity"></activity>
-        <activity android:name=".Charts.AddIncomeExenseActivity" />
-        <activity android:name=".Charts.IncomeExpenseDetailsActivity" />
-        <activity android:name=".Charts.ExtraIncomeExpense" />
-        <activity android:name=".Charts.IncomeExpenseActivity" />
-        <activity android:name=".StaffManager.StaffPaymentActivity" />
-        <activity android:name=".StaffManager.StaffDetailsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".Students.DeleteStudentActivity"
+            android:parentActivityName=".Fragments.StudentActivity" />
+        <activity
+            android:name=".Batches.AllStuInBatchActivity"
+            android:parentActivityName=".Batches.BatchesActivity" />
+        <activity
+            android:name=".EditTuitionInfo"
+            android:parentActivityName=".TuitionProfile" />
+        <activity
+            android:name=".TuitionProfile"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Charts.ChartActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Charts.AddIncomeExenseActivity"
+            android:parentActivityName=".Charts.ExtraIncomeExpense" />
+        <activity
+            android:name=".Charts.IncomeExpenseDetailsActivity"
+            android:parentActivityName=".Charts.ExtraIncomeExpense" />
+        <activity
+            android:name=".Charts.ExtraIncomeExpense"
+            android:parentActivityName=".Charts.ChartActivity" />
+        <activity
+            android:name=".Charts.IncomeExpenseActivity"
+            android:parentActivityName=".Charts.ChartActivity" />
+        <activity
+            android:name=".StaffManager.AddStaffActivity2"
+            android:parentActivityName=".Batches.NewBatchAddActivity" />
+        <activity
+            android:name=".StaffManager.StaffPaymentActivity"
+            android:parentActivityName=".StaffManager.All_Staff" />
+        <activity
+            android:name=".StaffManager.StaffDetailsActivity"
+            android:parentActivityName=".StaffManager.All_Staff" />
         <activity
             android:name=".StaffManager.AddStaffActivity"
             android:parentActivityName=".StaffManager.All_Staff" />
@@ -36,7 +69,9 @@
         <activity
             android:name=".TuitionFess.GetAllStudentActvity"
             android:parentActivityName=".TuitionFess.TuitionFeesActivity" />
-        <activity android:name=".Reciept.CreatePDF" />
+        <activity
+            android:name=".Reciept.CreatePDF"
+            android:parentActivityName=".TuitionFess.GetAllStudentActvity" />
         <activity
             android:name=".Batches.RemoveStudentActivity"
             android:parentActivityName=".Batches.BatchesActivity" />

@@ -4,105 +4,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purpleShade"
     tools:context=".GetTuitionInfo">
 
 
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/TuitionInfoToolbar"/>
+    <include
+        android:id="@+id/TuitionInfoToolbar"
+        layout="@layout/toolbar_layout" />
 
 
     <ScrollView
-        android:layout_below="@+id/TuitionInfoToolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/TuitionInfoToolbar"
         android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
-
-            <EditText
-                android:id="@+id/InstitutionNameId"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
                 android:hint="Institution Name"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
 
-            <EditText
-                android:id="@+id/editTextTuitionPhoneId"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/InstitutionNameId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
                 android:hint="Phone Number"
-                android:inputType="phone"
-                android:paddingLeft="10dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
 
 
-            <EditText
-                android:id="@+id/editTextTuitionEmailId"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTuitionPhoneId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="phone"
+                    android:paddingLeft="10dp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
                 android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:paddingStart="10dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                tools:ignore="RtlSymmetry" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
 
-            <EditText
-                android:id="@+id/editTextTuitionAddressId"
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTuitionEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="10dp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
                 android:hint="Address"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTuitionAddressId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
+            <com.google.android.material.textfield.TextInputLayout
 
-
-            <EditText
-                android:id="@+id/editTextAdmin1Id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
                 android:hint="Admin Name"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
 
 
-            <EditText
-                android:id="@+id/editTextAdmin2Id"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAdmin1Id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
                 android:hint="Admin Name 2"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
 
-
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAdmin2Id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button
@@ -111,12 +176,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="Next" />
         </LinearLayout>
     </ScrollView>
-
 
 
 </RelativeLayout>

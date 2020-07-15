@@ -49,7 +49,7 @@ public class ExtraInExRecyclerAdapter extends RecyclerView.Adapter<ExtraInExRecy
         ExtraInExClass currentItem=mList.get(position);
         holder.paymentType.setText(currentItem.getPayment_type());
         holder.paymentTo.setText(currentItem.getPayment_person());
-        holder.paymentAmount.setText(currentItem.getPayment_amount());
+        holder.paymentAmount.setText("Rs."+currentItem.getPayment_amount());
         holder.paymentDate.setText(currentItem.getPayment_date());
         //holder.paymentImg.setImageBitmap(currentItem.getPayment_image());
         //String paymentType= (String) holder.paymentType.getText();

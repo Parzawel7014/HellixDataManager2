@@ -12,10 +12,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -64,6 +66,8 @@ public class BatchesActivity extends AppCompatActivity {
 
 
 
+
+
         subFloatButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +79,7 @@ public class BatchesActivity extends AppCompatActivity {
 
         final String[] value = new String[]{
                 "Edit Batch",
+                "Show All Students",
                 "Add Existing Student",
                 "Remove Student",
                 "Delete Batch"
@@ -83,7 +88,7 @@ public class BatchesActivity extends AppCompatActivity {
         final ArrayList<SubjectAdapter> finalSubjectAdapters = subjectAdapters;
         mAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(final int position) {
 
                 final String batchName= finalSubjectAdapters.get(position).getMsubject();
                 final String batchTime=finalSubjectAdapters.get(position).getmTime();
@@ -97,14 +102,49 @@ public class BatchesActivity extends AppCompatActivity {
 
                 final String TableName = newBatchName + newBatchTime;
 
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(BatchesActivity.this);
+
+               // AlertDialog.Builder mBuilder = new AlertDialog.Builder(BatchesActivity.this);
+
+
 
                 mBuilder.setItems(value, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         selectedText = Arrays.asList(value).get(which);
-                        Toast.makeText(BatchesActivity.this, selectedText, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(BatchesActivity.this, selectedText, Toast.LENGTH_SHORT).show();
 
+
+                        if (selectedText.equals("Show All Students")){
+
+                            int res1 = db.checkStudentsPresent(TableName);
+                            if (res1 == 1) {
+                                MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(BatchesActivity.this);
+                                //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                                reconfirmBuilder.setTitle("Alert");
+                                reconfirmBuilder.setMessage("No Students to Show");
+                                reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @RequiresApi(api = Build.VERSION_CODES.O)
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).show();
+
+                                // AlertDialog cnfDialogue = reconfirmBuilder.create();
+                                //cnfDialogue.show();
+
+                            }
+                            else {
+                                Intent intent= new Intent(getApplicationContext(), AllStuInBatchActivity.class);
+                                Bundle bundle=new Bundle();
+                                bundle.putString("BatchName", batchName);
+                                bundle.putString("BatchTime", batchTime);
+                                bundle.putString("BatchTeacher", batchTeacher);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        }
 
                         if (selectedText.equals("Edit Batch")){
                             Intent intent= new Intent(getApplicationContext(), UpdateBatchActivity.class);
@@ -122,7 +162,8 @@ public class BatchesActivity extends AppCompatActivity {
 
                             int res1 = db.checkStudentsPresents();
                             if (res1 == 1) {
-                                AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                                MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(BatchesActivity.this);
+                                //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                                 reconfirmBuilder.setTitle("Alert");
                                 reconfirmBuilder.setMessage("No Students to Add");
                                 reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -131,10 +172,10 @@ public class BatchesActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
                                     }
-                                });
+                                }).show();
 
-                                AlertDialog cnfDialogue = reconfirmBuilder.create();
-                                cnfDialogue.show();
+                               // AlertDialog cnfDialogue = reconfirmBuilder.create();
+                                //cnfDialogue.show();
 
                             }
                             else {
@@ -151,7 +192,8 @@ public class BatchesActivity extends AppCompatActivity {
 
                                 int res1 = db.checkStudentsPresent(TableName);
                                 if (res1 == 1) {
-                                    AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
+                                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(BatchesActivity.this);
+                                   // AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                                     reconfirmBuilder.setTitle("Alert");
                                     reconfirmBuilder.setMessage("No Students In Batch");
                                     reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -160,10 +202,10 @@ public class BatchesActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
                                         }
-                                    });
+                                    }).show();
 
-                                    AlertDialog cnfDialogue = reconfirmBuilder.create();
-                                    cnfDialogue.show();
+                                   // AlertDialog cnfDialogue = reconfirmBuilder.create();
+                                    //cnfDialogue.show();
 
                                 } else {
                                     Intent intent = new Intent(getApplicationContext(), RemoveStudentActivity.class);
@@ -178,8 +220,8 @@ public class BatchesActivity extends AppCompatActivity {
 
 
                             if (selectedText.equals("Delete Batch")) {
-
-                                AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(getApplicationContext());
+                                MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(BatchesActivity.this);
+                               // AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(getApplicationContext());
                                 reconfirmBuilder.setTitle("Confirm");
                                 reconfirmBuilder.setMessage("Press Ok to Delete Batch");
                                 reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -189,6 +231,8 @@ public class BatchesActivity extends AppCompatActivity {
 
 
                                         db.deleteBatch(TableName);
+                                        finalSubjectAdapters.remove(position);
+                                        mAdapter.notifyItemRemoved(position);
 
                                         Toast.makeText(BatchesActivity.this, "Successfully Deleted", Toast.LENGTH_SHORT).show();
 
@@ -200,10 +244,10 @@ public class BatchesActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
                                     }
-                                });
+                                }).show();
 
-                                AlertDialog cnfDialogue = reconfirmBuilder.create();
-                                cnfDialogue.show();
+                                //AlertDialog cnfDialogue = reconfirmBuilder.create();
+                                //cnfDialogue.show();
 
 
                             }
@@ -211,10 +255,10 @@ public class BatchesActivity extends AppCompatActivity {
 
 
                     }
-                });
+                }).show();
 
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+               // AlertDialog mDialogue = mBuilder.create();
+               // mDialogue.show();
             }
 
         });

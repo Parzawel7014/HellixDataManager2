@@ -1,18 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_homeId"
-            android:icon="@drawable/ic_home"
-            android:title="Home" />
-        <item
-            android:id="@+id/nav_Add_Student_Id"
-            android:icon="@drawable/ic_add_person"
-            android:title="New Student" />
+            android:icon="@drawable/account"
+            android:title="My Account" />
+
     </group>
+
+
+    <item android:title="Student Section">
+
+        <menu>
+            <item android:id="@+id/nav_student_add_id"
+                android:icon="@drawable/new_student_admission"
+                android:title="Add Student"/>
+            <item android:id="@+id/nav_student_find_id"
+                android:icon="@drawable/find_student"
+                android:title="Find Student"/>
+        </menu>
+
+    </item>
+
+
+
+    <item android:title="Fee Portal">
+
+        <menu>
+            <item android:id="@+id/nav_tui_fee_add_id"
+                android:icon="@drawable/add_fees"
+                android:title="Add Monthly Fees"/>
+
+        </menu>
+
+    </item>
+
+
+
+    <item android:title="Batches">
+
+        <menu>
+            <item android:id="@+id/nav_batch_add_id"
+                android:icon="@drawable/new_batch"
+                android:title="Add Batch"/>
+
+        </menu>
+
+    </item>
+
+
+
+
+
+
+    <item android:title="Income/Expense">
+
+        <menu>
+            <item android:id="@+id/nav_add_Extra_id"
+                android:icon="@drawable/other_expense"
+                android:title="Add Expenditure"/>
+            <item android:id="@+id/nav_profit_loss_id"
+                android:icon="@drawable/profit_loss"
+                android:title="Profit/Loss "/>
+        </menu>
+
+    </item>
+
+    <item android:title="Import/Export">
+
+        <menu>
+            <item android:id="@+id/nav_import_id"
+                android:icon="@drawable/data_import"
+                android:title="Import"/>
+            <item android:id="@+id/nav_export_id"
+                android:icon="@drawable/data_export"
+                android:title="Export "/>
+        </menu>
+
+    </item>
+
+<item android:title="Security">
+        <menu>
+            <item
+            android:id="@+id/fingerprint"
+            android:icon="@drawable/ic_fingerprint_black"
+            app:actionLayout="@layout/fingerprint_toggle"
+            android:title="Fingerprint Authentication" />
+        </menu>
+
+</item>
 
 
 </menu>

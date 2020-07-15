@@ -17,11 +17,14 @@ import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.Batches.RecyclerAdapter;
 import com.example.atilagapps.hellixdatamanager.Batches.SubjectAdapter;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,15 +66,25 @@ public class SendSMSActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
 
+
+        LinearLayout nothingLL=findViewById(R.id.nothingToShowSMSId);
+
+        if (subjectAdapters.isEmpty()){
+            nothingLL.setVisibility(View.VISIBLE);
+        }
+
         Toolbar toolbar = findViewById(R.id.SMSActivityToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Send SMS");
         //getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("TuitionInfo", MODE_PRIVATE);
-        TuitionName = sharedPreferences.getString("Tuition Name", "");
-        String Email = sharedPreferences.getString("Tuition Email", "");
+
+        TuitionName = db.getTuitionName();
+        String Email ;
+
+
 
 
         final String[] msgBody = new String[]{
@@ -95,8 +108,10 @@ public class SendSMSActivity extends AppCompatActivity {
                 newBatchTime = newBatchTime.replace(" ", "_");
 
                 final String TableName = newBatchName + newBatchTime;
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this);
 
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
+
+             //   AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
 
                 mBuilder.setItems(msgBody, new DialogInterface.OnClickListener() {
                     @Override
@@ -114,8 +129,8 @@ public class SendSMSActivity extends AppCompatActivity {
 
                     }
                 });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+               // AlertDialog mDialogue = mBuilder.create();
+                mBuilder.show();
 
             }
         });
@@ -125,8 +140,9 @@ public class SendSMSActivity extends AppCompatActivity {
 
     private void generateCustomMessage(final String tableName) {
 
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this);
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
+       // AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         View v = inflater.inflate(R.layout.sms_body, null);
         final EditText smsBody = v.findViewById(R.id.smsBodyId);
@@ -135,7 +151,7 @@ public class SendSMSActivity extends AppCompatActivity {
 
 
         mBuilder.setView(v)
-                .setTitle("SMS Dialogue")
+                .setTitle("Custom SMS")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -153,14 +169,15 @@ public class SendSMSActivity extends AppCompatActivity {
                         studentsNum = db.getStudentsPhoneNumber(tableName);
 
                         for (int i = 0; i < studentsNum.size(); i++) {
-                            smsManager.sendTextMessage(studentsNum.get(i), null, body, null, null);
+                            smsManager.sendTextMessage(studentsNum.get(i), null, body+"\n\n"+
+                                    " -"+TuitionName, null, null);
                         }
 
                     }
                 });
 
-        AlertDialog mDialogue = mBuilder.create();
-        mDialogue.show();
+       // AlertDialog mDialogue = mBuilder.create();
+        mBuilder.show();
 
 
 
@@ -168,13 +185,14 @@ public class SendSMSActivity extends AppCompatActivity {
     }
 
     private void sendFeeReminder(final String tableName) {
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this);
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
+       // AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         View v = inflater.inflate(R.layout.sms_body, null);
         final EditText smsBody = v.findViewById(R.id.smsBodyId);
 
-        String SMS = " Dear Learner,"+"\n" +"You are requested to pay the Tuition fees for thi month." +"<Date>"+"\n"+
+        String SMS = " Dear Learner,"+"\n" +"You are requested to pay the Tuition fees for this month." +"<Date>"+"\n"+
                     " Ignore if already paid." +"\n"+
                     "-" + TuitionName;
 
@@ -184,7 +202,7 @@ public class SendSMSActivity extends AppCompatActivity {
 
 
         mBuilder.setView(v)
-                .setTitle("SMS Dialogue")
+                .setTitle("Sample SMS!")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -213,8 +231,8 @@ public class SendSMSActivity extends AppCompatActivity {
                     }
                 });
 
-        AlertDialog mDialogue = mBuilder.create();
-        mDialogue.show();
+        //AlertDialog mDialogue = mBuilder.create();
+        mBuilder.show();
 
 
     }

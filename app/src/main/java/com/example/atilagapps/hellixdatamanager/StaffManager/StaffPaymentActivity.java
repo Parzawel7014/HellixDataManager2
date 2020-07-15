@@ -1,15 +1,19 @@
 package com.example.atilagapps.hellixdatamanager.StaffManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.GetStudentRecyclerAdapter;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -40,6 +44,31 @@ public class StaffPaymentActivity extends AppCompatActivity implements StaffAmou
 
         ArrayList<StaffPaymentClass> staffPaymentClasses=new ArrayList<>();
         staffPaymentClasses=db.getStaffPaymentInfo(StaffId);
+
+
+
+
+        Toolbar toolbar=findViewById(R.id.StaffPaymentToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Pending Payments");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        if (staffPaymentClasses.isEmpty()){
+            MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(StaffPaymentActivity.this);
+            mBuilder.setTitle("Alert")
+                    .setIcon(R.drawable.alert)
+                    .setMessage("No Pending Salary")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(StaffPaymentActivity.this,All_Staff.class));
+                            finish();
+                        }
+                    }).show();
+
+        }
 
 
         mRecyclerView = findViewById(R.id.StaffPayRecyclerViewId);

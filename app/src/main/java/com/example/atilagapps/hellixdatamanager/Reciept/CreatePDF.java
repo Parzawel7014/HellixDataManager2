@@ -2,6 +2,7 @@ package com.example.atilagapps.hellixdatamanager.Reciept;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -26,9 +27,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
+import com.example.atilagapps.hellixdatamanager.Batches.BatchesActivity;
 import com.example.atilagapps.hellixdatamanager.Batches.NewBatchAddActivity;
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.MainActivity;
@@ -36,6 +39,8 @@ import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudent;
 import com.example.atilagapps.hellixdatamanager.Students.RegSubClass;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.ReceiptMonthClass;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -69,7 +74,7 @@ import java.util.Random;
 public class CreatePDF extends AppCompatActivity {
 
     Button button;
-    EditText batchName, feeMonth, feeYear;
+    TextInputEditText batchName, feeMonth, feeYear;
     String[] listItems;
     String tableName, batchname, batchTime;
     String monthVal, yearVal;
@@ -90,6 +95,15 @@ public class CreatePDF extends AppCompatActivity {
         TuitionName=db.getTuitionName();
         TuitionAddress=db.getTuitionAddress();
 
+        final LinearLayout ll=findViewById(R.id.hidLLId);
+
+        Toolbar toolbar=findViewById(R.id.PDFToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Generate Receipt");
+        //getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Intent intent = getIntent();
         FindStudent findStudent = intent.getParcelableExtra("STUDENTIDPDF");
@@ -98,6 +112,7 @@ public class CreatePDF extends AppCompatActivity {
         id = findStudent.getmStudentID();
         stuName = findStudent.getmStudentName();
         stuRegId = findStudent.getmStudentRegId();
+
 
 
 
@@ -115,8 +130,11 @@ public class CreatePDF extends AppCompatActivity {
         batchName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
-                mBuilder.setTitle("Subjects");
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+
+               // AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
+                mBuilder.setTitle("Select Subjects");
+
                 mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -125,7 +143,7 @@ public class CreatePDF extends AppCompatActivity {
                         String newBatchName = finalRegSubClasses.get(which).getmBatchName().replace(" ", "_");
                         String newBatchTime = finalRegSubClasses.get(which).getmBatchTime().replace(":", "_");
                         newBatchTime = newBatchTime.replace(" ", "_");
-
+                        ll.setVisibility(View.VISIBLE);
                         tableName = newBatchName + newBatchTime;
 
                         batchname = finalRegSubClasses.get(which).getmBatchName();
@@ -133,8 +151,9 @@ public class CreatePDF extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+                //AlertDialog mDialogue = mBuilder.create();
+                mBuilder.show();
+
             }
 
         });
@@ -153,9 +172,31 @@ public class CreatePDF extends AppCompatActivity {
                 }
 
 
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
-                mBuilder.setTitle("Months");
                 final ArrayList<ReceiptMonthClass> finalReceiptMonths = ReceiptMonths;
+
+                if (finalReceiptMonths.isEmpty()){
+
+                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                    //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
+                    mBuilder.setTitle("Alert");
+                    mBuilder.setMessage("No Months To Fetch");
+                    mBuilder.setIcon(R.drawable.alert);
+                    mBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                        }
+                    });
+
+                    //AlertDialog mDialogue = mBuilder.create();
+                    mBuilder.show();
+
+                }else {
+
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+              //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
+                mBuilder.setTitle("Select Months");
+
                 mBuilder.setSingleChoiceItems(monthItem, -1, new DialogInterface.OnClickListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -165,8 +206,9 @@ public class CreatePDF extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+                //AlertDialog mDialogue = mBuilder.create();
+                mBuilder.show();
+            }
             }
         });
 
@@ -181,11 +223,29 @@ public class CreatePDF extends AppCompatActivity {
                 for (int i = 0; i < ReceiptMonths.size(); i++) {
                     yearItem[i] = ReceiptMonths.get(i).getYear();
                 }
-
-
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
-                mBuilder.setTitle("Year");
                 final ArrayList<ReceiptMonthClass> finalReceiptMonths = ReceiptMonths;
+
+                if (finalReceiptMonths.isEmpty()){
+                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                    //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
+                    mBuilder.setTitle("Alert");
+                    mBuilder.setMessage("No Years To Fetch");
+                    mBuilder.setIcon(R.drawable.alert);
+                    mBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    //AlertDialog mDialogue = mBuilder.create();
+                    mBuilder.show();
+
+                }else {
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                //AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
+                mBuilder.setTitle("Select Year");
+
                 mBuilder.setSingleChoiceItems(yearItem, -1, new DialogInterface.OnClickListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -195,10 +255,10 @@ public class CreatePDF extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+               // AlertDialog mDialogue = mBuilder.create();
+                mBuilder.show();
 
-            }
+            }}
         });
 
 
@@ -211,7 +271,11 @@ public class CreatePDF extends AppCompatActivity {
                             @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onClick(View v) {
-                                createPDFFile();
+
+                                if (!validateBatch() | !validateMonth() | !validateYear()){
+                                    return;
+                                }else {
+                                createPDFFile();}
                             }
                         });
 
@@ -435,6 +499,45 @@ public class CreatePDF extends AppCompatActivity {
 
 
     }
+
+
+    private boolean validateMonth(){
+        String phoneInput=feeMonth.getText().toString().trim();
+        if (phoneInput.isEmpty()){
+            feeMonth.setError("Field can't be empty");
+            return false;
+        }else {
+            feeMonth.setError(null);
+          //  feeMonth.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validateYear(){
+        String phoneInput=feeYear.getText().toString().trim();
+        if (phoneInput.isEmpty()){
+            feeYear.setError("Field can't be empty");
+            return false;
+        }else {
+            feeYear.setError(null);
+            //  feeMonth.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+
+    private boolean validateBatch(){
+        String phoneInput=batchName.getText().toString().trim();
+        if (phoneInput.isEmpty()){
+            batchName.setError("Field can't be empty");
+            return false;
+        }else {
+            batchName.setError(null);
+            //  feeMonth.setErrorEnabled(false);
+            return true;
+        }
+    }
+
 
 
 }

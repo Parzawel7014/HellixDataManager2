@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/purpleShade"
     tools:context=".Batches.NewBatchAddActivity">
 
 
@@ -101,11 +102,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:paddingLeft="10dp"
                 android:id="@+id/RegAmountEditId"
-
-
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -123,10 +122,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:paddingLeft="10dp"
                 android:id="@+id/MonthlyAmountEditId"
-
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>

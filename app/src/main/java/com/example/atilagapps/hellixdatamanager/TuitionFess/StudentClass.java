@@ -1,5 +1,6 @@
 package com.example.atilagapps.hellixdatamanager.TuitionFess;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,17 +11,19 @@ private String RegFeePaymentStatus;
 private String RemainingPayment;
 private String StudentId;
 private String srNo;
+Bitmap stuImg;
 
 
 
 
-    public StudentClass(String studentName,String studentId,String remainingPayment,String RegFeeStatus,String SrNo) {
+    public StudentClass(String studentName,String studentId,String remainingPayment,String RegFeeStatus,String SrNo,Bitmap StuImg) {
         StudentName = studentName;
 
         RemainingPayment=remainingPayment;
         StudentId=studentId;
         RegFeePaymentStatus=RegFeeStatus;
         srNo=SrNo;
+        stuImg=StuImg;
     }
 
     public StudentClass(Parcel in) {
@@ -29,6 +32,7 @@ private String srNo;
         RemainingPayment=in.readString();
         RegFeePaymentStatus=in.readString();
         srNo=in.readString();
+        stuImg=in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public static final Creator<StudentClass> CREATOR = new Creator<StudentClass>() {
@@ -68,6 +72,13 @@ private String srNo;
         StudentName = studentName;
     }
 
+    public Bitmap getStuImg() {
+        return stuImg;
+    }
+
+    public void setStuImg(Bitmap stuImg) {
+        this.stuImg = stuImg;
+    }
 
     public String getRemainingPayment() {
         return RemainingPayment;
@@ -98,5 +109,6 @@ private String srNo;
         dest.writeString(StudentId);
         dest.writeString(RemainingPayment);
         dest.writeString(srNo);
+        dest.writeParcelable(stuImg, flags);
     }
 }

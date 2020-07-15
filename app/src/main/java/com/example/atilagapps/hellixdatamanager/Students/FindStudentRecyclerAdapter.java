@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atilagapps.hellixdatamanager.R;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,9 @@ public class FindStudentRecyclerAdapter extends RecyclerView.Adapter<FindStudent
         FindStudent currentItem=mList.get(position);
         holder.StudentNameText.setText(currentItem.getmStudentName());
         holder.RegId.setText(currentItem.getmStudentRegId());
+        if (currentItem.getmStudentImage()!=null) {
+            holder.stuImg.setImageBitmap(currentItem.getmStudentImage());
+        }
 
     }
 
@@ -103,12 +107,14 @@ public class FindStudentRecyclerAdapter extends RecyclerView.Adapter<FindStudent
     public static class FIndStudentViewHolder extends RecyclerView.ViewHolder{
 
         public TextView StudentNameText,RegId;
+        CircularImageView stuImg;
 
 
         public FIndStudentViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             StudentNameText=itemView.findViewById(R.id.FindStudentNameCardId);
             RegId=itemView.findViewById(R.id.regId);
+            stuImg=itemView.findViewById(R.id.stu_Image_id);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

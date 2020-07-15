@@ -75,6 +75,7 @@ public class All_Staff extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Find Staff");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         addStaff.setOnClickListener(new View.OnClickListener() {
             @Override

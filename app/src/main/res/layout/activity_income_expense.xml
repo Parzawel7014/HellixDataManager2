@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purpleShade"
     tools:context=".Charts.IncomeExpenseActivity">
 
     <include
@@ -61,6 +62,12 @@
                     app:cornerRadius="10dp" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="15dp"
+                android:background="#070707" />
 
             <FrameLayout
                 android:id="@+id/graphFrameLayoutId"
@@ -319,7 +326,7 @@
 
                 <TextView
 
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="Total Profit-"
                     android:textColor="#0C0C0C"
@@ -334,6 +341,19 @@
                     android:text="Profit"
                     android:textColor="#0C0C0C"
                     android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/profitOrLossId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+               android:gravity="end"
+                    android:text="Profit"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="#0C0C0C"
+                    android:textSize="20sp" />
+
+
+
             </LinearLayout>
 
         </LinearLayout>

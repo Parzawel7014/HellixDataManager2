@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purpleShade"
     tools:context=".StaffManager.AddStaffActivity">
 
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/staffAddActivityToolbar"/>
+    <include
+        android:id="@+id/staffAddActivityToolbar"
+        layout="@layout/toolbar_layout" />
 
 
     <ScrollView
-        android:layout_below="@+id/staffAddActivityToolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/staffAddActivityToolbar"
         android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,24 +30,25 @@
                 android:id="@+id/staffProfileImageID"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:background="@drawable/user"
                 app:civ_border_color="#0C0C0C"
                 app:civ_border_width="1dp"
                 app:civ_shadow="true"
-                app:civ_shadow_radius="2dp"
                 app:civ_shadow_color="#0C0C0C"
-                android:src="@drawable/ic_profile_cam"/>
+                app:civ_shadow_radius="2dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="20dp"
                 android:id="@+id/text_input_staff_name_id"
-                android:layout_width="match_parent"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
-
+                android:layout_marginTop="20dp"
                 android:hint="Name"
+
                 android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,14 +61,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_staff_phone_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone Number"
                 android:layout_marginTop="5dp"
-                app:errorEnabled="true"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Phone Number"
                 android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:layout_width="match_parent"
@@ -76,15 +81,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_staff_email_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
                 android:layout_marginTop="5dp"
                 android:hint="Email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:id="@+id/text_input_staff_email_id">
+                app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:layout_width="match_parent"
@@ -101,15 +107,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_staff_Address_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="20dp"
                 android:layout_marginTop="5dp"
                 android:hint="Address"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                app:errorEnabled="true"
-                android:id="@+id/text_input_staff_Address_id">
+                app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:layout_width="match_parent"
@@ -125,24 +132,25 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_staff_subject_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="20dp"
                 android:layout_marginTop="5dp"
-                android:hint="Subject"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:paddingEnd="20dp"
-                app:errorEnabled="true"
                 android:clickable="true"
-                android:id="@+id/text_input_staff_subject_id">
+                android:hint="Subject"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/subjectChooseId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="10dp"
-                    android:inputType="textMultiLine"
                     android:focusable="false"
+                    android:inputType="textMultiLine"
                     android:paddingLeft="10dp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
@@ -150,15 +158,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_staff_salary_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="20dp"
                 android:layout_marginTop="5dp"
                 android:hint="Monthly Salary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                app:errorEnabled="true"
-                android:id="@+id/text_input_staff_salary_id">
+                app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -172,18 +181,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/staffbtn1Id"
                 android:layout_width="120dp"
                 android:layout_height="60dp"
                 android:layout_gravity="end"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="Submit"
-                android:backgroundTint="#F49407"
+
                 app:cornerRadius="20dp"
 
 

@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grad"
     android:orientation="vertical"
     tools:context=".Students.FindStudentActivity">
 
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/FindStuToolbar"/>
+    <include
+        android:id="@+id/FindStuToolbar"
+        layout="@layout/toolbar_layout" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:scrollbars="vertical"
         android:id="@+id/FindStudentRecyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="2dp"
+        android:scrollbars="vertical"
+
         />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/lightGray"
-        />
+
 
 </LinearLayout>

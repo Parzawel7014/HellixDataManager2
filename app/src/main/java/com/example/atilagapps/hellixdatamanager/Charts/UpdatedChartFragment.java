@@ -93,6 +93,19 @@ public class UpdatedChartFragment extends Fragment {
         double Expense = MonthlyExpense + extraExpense;
 
         double Profit = Income - Expense;
+
+        int retVal=Double.compare(Profit, 0.0);
+
+        String profitStat;
+
+        if (retVal<0){
+            profitStat="Loss";
+        }else {
+            profitStat="Profit";
+        }
+
+        UListener.getProfitType(profitStat);
+
         UListener.getExpense(Expense);
         UListener.getIncome(Income);
         UListener.getProfit(Profit);
@@ -195,6 +208,7 @@ public class UpdatedChartFragment extends Fragment {
         void getProfit(double profit);
 
         void getIncome(double income);
+        void getProfitType(String profitType);
 
         void getExpense(double expense);
     }

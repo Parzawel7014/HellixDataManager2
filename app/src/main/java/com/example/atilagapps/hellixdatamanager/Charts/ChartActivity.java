@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager.Charts;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
@@ -21,6 +22,13 @@ public class ChartActivity extends AppCompatActivity {
 
         expCard=findViewById(R.id.ExpenditureCardId);
         profitLossCard=findViewById(R.id.ProfitLossCardId);
+
+        Toolbar toolbar=findViewById(R.id.ChartActivityToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Financial");
+        //getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         expCard.setOnClickListener(new View.OnClickListener() {

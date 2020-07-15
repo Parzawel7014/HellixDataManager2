@@ -1,6 +1,7 @@
 package com.example.atilagapps.hellixdatamanager.Fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -56,6 +57,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+
+    public static final int PICK_IMAGE = 1;
     public TextInputLayout editTextName, editTextAddress, editTextPhone,editTextEmail,editTextEducation;
     private Spinner spinner;
     DataBaseHelper dbRef;
@@ -157,12 +160,14 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         return v;
     }
 
+    @SuppressLint("IntentReset")
     private void chooseImage() {
 
-        Intent intent =CropImage .activity()
+        Intent intent =CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAspectRatio(1,1)
-                .getIntent(requireActivity());
+                .getIntent(requireActivity())
+                ;
         startActivityForResult(intent,CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
 
 
@@ -179,9 +184,12 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
                 profileImage.setImageURI(imageUri);
                 getfile(imageUri);
             }else if (resultCode==CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
+
                 Exception error=result.getError();
             }
         }
+
+
     }
 
     private void getfile(Uri imageUri) {
@@ -191,7 +199,7 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         compressor =new Compressor(getActivity())
                 .setMaxWidth(100)
                 .setMaxHeight(100)
-                .setQuality(50)
+                .setQuality(80)
                 .compressToBitmap(newFile);
         }catch (IOException e){
             e.printStackTrace();

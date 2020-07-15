@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,12 +35,15 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class DetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class DetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, ImageDialogueClass.ImageDialogueListener {
 
 
     private RegBatchesAdapter mAdapter;
     private Spinner spinnerGender, spinnerCast;
-
+    byte[] thumb;
+    private Uri imageUri;
+    private Bitmap compressor;
+     String id;
     String castUpdated, genderUpdated;
     TextView nameText, idText, phoneTxt, emailTxt, genderTxt, addressTxt, eduTxt, castTxt;
     CircularImageView proPic;
@@ -51,7 +56,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
         assert findStudent != null;
         String name = findStudent.getmStudentName();
-        final String id = findStudent.getmStudentID();
+       id = findStudent.getmStudentID();
         nameText = findViewById(R.id.DetailNameTextID);
         idText = findViewById(R.id.IDTextViewId);
         phoneTxt = findViewById(R.id.PhoneId);
@@ -63,8 +68,28 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         proPic=findViewById(R.id.ProfileImageID);
 
 
+
+
+        proPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putByteArray("IMG",thumb);
+                ImageDialogueClass imageDialogueClass=new ImageDialogueClass();
+                imageDialogueClass.setArguments(bundle);
+                imageDialogueClass.show(getSupportFragmentManager(), null);
+            }
+        });
+
+
+
+
+
         Toolbar toolbar = findViewById(R.id.DetailsToolbar);
         final DataBaseHelper db = new DataBaseHelper(this);
+
+        thumb=db.getStuThumb(id);
+
         Bitmap img=db.getProImage(id);
         if (img!=null) {
             proPic.setImageBitmap(img);
@@ -108,10 +133,38 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final RelativeLayout relativeLayout1=findViewById(R.id.rellay1);
 
+
+        final EditText NameEdit=findViewById(R.id.NameEditTextEditId);
+        ImageView nameDone=findViewById(R.id.NameDoneImageId);
+        final LinearLayout nameLinearLayout=findViewById(R.id.NameEditButtonId);
+        final LinearLayout hiddenNameLinearLayout=findViewById(R.id.HiddenNameLinearLayoutId);
+        nameLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name=nameText.getText().toString().trim();
+                NameEdit.setText(name);
+                nameText.setVisibility(View.GONE);
+                hiddenNameLinearLayout.setVisibility(View.VISIBLE);
+                nameLinearLayout.setVisibility(View.GONE);
+                //  relativeLayout1.setVisibility(View.GONE);
+            }
+        });
+        nameDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Sname=NameEdit.getText().toString().trim();
+                nameText.setText(Sname);
+                hiddenNameLinearLayout.setVisibility(View.GONE);
+                nameText.setVisibility(View.VISIBLE);
+                nameLinearLayout.setVisibility(View.VISIBLE);
+                // relativeLayout1.setVisibility(View.VISIBLE);
+                db.updateName(id,Sname);
+            }
+        });
 
 
 
@@ -324,6 +377,19 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void getImage(byte[] img) {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        proPic.setImageBitmap(bitmap);
+        DataBaseHelper db=new DataBaseHelper(this);
+       boolean res= db.updateStuProPic(id,img);
+       if (res){
+           Toast.makeText(this, "Profile Image Updated Successfully", Toast.LENGTH_SHORT).show();
+       }
+
 
     }
 

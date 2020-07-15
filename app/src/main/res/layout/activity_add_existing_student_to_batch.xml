@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grad"
     tools:context=".Batches.AddExistingStudentToBatch">
 
 
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/FindExitingToolbar"/>
+    <include
+        android:id="@+id/FindExitingToolbar"
+        layout="@layout/toolbar_layout" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/FindExitingToolbar"
-        android:scrollbars="vertical"
         android:id="@+id/FindExistingStudentRecyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/FindExitingToolbar"
+        android:background="#FFFFFF"
         android:padding="2dp"
-        android:background="#FFFFFF"/>
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

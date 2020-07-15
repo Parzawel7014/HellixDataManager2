@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad"
+    tools:context=".Batches.AllStuInBatchActivity">
+
+
+    <include
+        android:id="@+id/AllStudentToolbar"
+        layout="@layout/toolbar_layout" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/AllStudentRecyclerViewId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/AllStudentToolbar"
+        android:background="#FFFFFF"
+        android:padding="5dp" />
+
+</RelativeLayout>

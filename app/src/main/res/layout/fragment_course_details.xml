@@ -1,73 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purpleShade"
     tools:context=".Fragments.CourseDetails">
 
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_marginTop="20dp">
 
-
-        <Button
-            android:id="@+id/SubjectButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Subject"/>
-
-
-        <RelativeLayout
-            android:id="@+id/SelectedSubLayoutId"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/Ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fillViewport="true">
-        <androidx.recyclerview.widget.RecyclerView
-            android:scrollbars="vertical"
-            android:id="@+id/CoursesRecyclerViewId"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+          >
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/SubjectButt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Subject"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="@color/colorPrimary"/>
+
+
+            <RelativeLayout
+                android:id="@+id/SelectedSubLayoutId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fillViewport="true">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/CoursesRecyclerViewId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:padding="2dp"
+
+                        android:scrollbars="vertical" />
+                </ScrollView>
+            </RelativeLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-
-            android:background="#FFFFFF"/>
-        </ScrollView>
-        </RelativeLayout>
-
-
-        <EditText
-            android:id="@+id/dateEditText"
+            android:layout_marginTop="30dp"
             android:hint="Admission Date"
-            android:inputType="date"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            app:errorEnabled="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="amount"
-            android:id="@+id/amountText"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
 
-        <Button
-            android:id="@+id/ConfirmButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
+                android:paddingLeft="10dp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_custom"
-            android:layout_marginEnd="20dp"
-            android:text="Confirm"/>
+            <androidx.cardview.widget.CardView
 
-    </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_gravity="center_vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_marginEnd="30dp"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="25dp"
+
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total-"
+                            android:layout_marginStart="20dp"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+
+                            android:id="@+id/amountText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="50dp"
+                            android:text="0"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:visibility="gone"
+                        android:id="@+id/ConfirmButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:layout_marginTop="10dp"
+                        android:text="Confirm"
+                        android:textColor="#000000"
+                        app:cornerRadius="4dp" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
 </FrameLayout>

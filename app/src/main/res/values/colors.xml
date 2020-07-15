@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#354D5E</color>
-    <color name="colorPrimaryDark">#354D5E</color>
-    <color name="colorAccent">#EFD13D</color>
+    <color name="colorPrimary">#6a1b9a</color>
+    <color name="colorPrimaryDark">#6a1b9a</color>
+    <color name="colorAccent">#6a1b9a</color>
     <color name="backgroundColor">#fcfcfc</color>
     <color name="lightGray">#ededed</color>
     <color name="deepPurple">#7c4dff</color>
@@ -18,4 +18,5 @@
     <color name="gradStart">#63C9FF</color>
     <color name="followersBig">#65DCE5</color>
     <color name="grey">#E5E5E5</color>
+    <color name="purpleShade">#f3e5f5</color>
 </resources>

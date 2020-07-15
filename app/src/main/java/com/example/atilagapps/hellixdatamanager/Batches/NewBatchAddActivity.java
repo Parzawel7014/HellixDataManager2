@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.StaffManager.AddStaffActivity2;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -68,6 +70,8 @@ public class NewBatchAddActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("NEW BATCH");
         //getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         //  addBatch.setEnabled(false);
@@ -89,7 +93,10 @@ public class NewBatchAddActivity extends AppCompatActivity {
         batchName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
+
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this);
+
+                //AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
                 mBuilder.setTitle("Subjects");
                 mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -118,8 +125,8 @@ public class NewBatchAddActivity extends AppCompatActivity {
                         }
                     }
                 });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+              //  AlertDialog mDialogue = mBuilder.create();
+                mBuilder.show();
             }
 
         });
@@ -129,22 +136,59 @@ public class NewBatchAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                teacherClasses = db.getTeachers(batchname);
 
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
-                mBuilder.setTitle("Teachers");
-                mBuilder.setSingleChoiceItems(teacherListItem, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        batchTeacher.setText(teacherClasses.get(which).getTeacherName());
-                        idval = teacherClasses.get(which).getTeacherID();
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+                if (teacherClasses.isEmpty()) {
 
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this);
+
+                   // AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
+                    reconfirmBuilder.setTitle("Alert!");
+                    reconfirmBuilder.setMessage("No Teacher Assigned to Subject.\nWant to add new?");
+                    reconfirmBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.O)
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Intent intent = new Intent(NewBatchAddActivity.this, AddStaffActivity2.class);
+                            String SubName = batchName.getText().toString().trim();
+                            intent.putExtra("BatchName", SubName);
+                            startActivity(intent);
+                            finish();
+
+
+
+                        }
+                    });
+                    reconfirmBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                   // AlertDialog cnfDialogue = reconfirmBuilder.create();
+                    reconfirmBuilder.show();
+                } else {
+                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this);
+
+                   // AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
+                    mBuilder.setTitle("Teachers");
+                    mBuilder.setSingleChoiceItems(teacherListItem, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            batchTeacher.setText(teacherClasses.get(which).getTeacherName());
+                            idval = teacherClasses.get(which).getTeacherID();
+                            dialog.dismiss();
+                        }
+                    });
+                   // AlertDialog mDialogue = mBuilder.create();
+                    mBuilder.show();
+
+                }
             }
         });
+
 
 
         batchTime.setOnClickListener(new View.OnClickListener() {
@@ -201,23 +245,27 @@ public class NewBatchAddActivity extends AppCompatActivity {
                 String MonthlyFee = monthlyFee.getText().toString().trim();
 
                 boolean isExist = db.isTableExist(TableName);
-
-
-                if (!isExist) {
-
-                    boolean isInserted = db.CreateBatch(BatchName, BatchTime, BatchTeacher, RegFee, MonthlyFee, idval);
-                    int salary = db.getMonthlySalary(idval);
-                    if (isInserted) {
-                        db.insertIntoStaffFeesTable(BatchName, BatchTime, idval, curr_day, curr_month, curr_year, salary);
-                        Toast.makeText(getApplicationContext(), "Table Created", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Table creation Unsuccessful", Toast.LENGTH_SHORT).show();
-                    }
-                    startActivity(new Intent(NewBatchAddActivity.this, BatchesActivity.class));
-                    finish();
+                if (!validateBatchName() | !validateBachTime() | !validateBatchTeacher() | !validateRegFee() | !validateMonthlyFee()) {
+                    return;
                 } else {
-                    Toast.makeText(NewBatchAddActivity.this, "Batch Already exist", Toast.LENGTH_SHORT).show();
+
+                    if (!isExist) {
+
+                        boolean isInserted = db.CreateBatch(BatchName, BatchTime, BatchTeacher, RegFee, MonthlyFee, idval);
+                        int salary = db.getMonthlySalary(idval);
+                        if (isInserted) {
+                            db.insertIntoStaffFeesTable(BatchName, BatchTime, idval, curr_day, curr_month, curr_year, salary);
+                            Toast.makeText(getApplicationContext(), "Table Created", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Table creation Unsuccessful", Toast.LENGTH_SHORT).show();
+                        }
+                        startActivity(new Intent(NewBatchAddActivity.this, BatchesActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(NewBatchAddActivity.this, "Batch Already exist", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             }
 
         });
@@ -225,10 +273,82 @@ public class NewBatchAddActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(NewBatchAddActivity.this,BatchesActivity.class));
+        finish();
+    }
+
     private boolean validateBatchNameIsEmpty() {
         String nameInput = batchName.getText().toString().trim();
         return !nameInput.isEmpty();
     }
+
+
+
+    private boolean validateBatchName(){
+        String nameInput=batchName.getText().toString().trim();
+        if (nameInput.isEmpty()){
+            batchName.setError("Field can't be empty");
+            return false;
+        }else {
+            batchName.setError(null);
+            return true;
+        }
+    }
+
+
+    private boolean validateBatchTeacher(){
+        String phoneInput=batchTeacher.getText().toString().trim();
+        if (phoneInput.isEmpty()){
+            batchTeacher.setError("Field can't be empty");
+            return false;
+        }else {
+            batchTeacher.setError(null);
+
+            return true;
+        }
+    }
+
+
+    private boolean validateBachTime(){
+        String emailInput=batchTime.getText().toString().trim();
+        if (emailInput.isEmpty()){
+            batchTime.setError("Field can't be empty");
+            return false;
+        }else {
+            batchTime.setError(null);
+
+            return true;
+        }
+    }
+
+
+    private boolean validateRegFee(){
+        String addressInput=regFee.getText().toString().trim();
+        if (addressInput.isEmpty()){
+            regFee.setError("Field can't be empty");
+            return false;
+        }else {
+            regFee.setError(null);
+            //editTextEmail.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validateMonthlyFee(){
+        String eduInput=monthlyFee.getText().toString().trim();
+        if (eduInput.isEmpty()){
+            monthlyFee.setError("Field can't be empty");
+            return false;
+        }else {
+            monthlyFee.setError(null);
+            // editTextEmail.setErrorEnabled(false);
+            return true;
+        }
+    }
+
 
 
 }
