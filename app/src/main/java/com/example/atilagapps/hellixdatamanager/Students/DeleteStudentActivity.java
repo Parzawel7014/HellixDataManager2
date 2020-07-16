@@ -54,7 +54,7 @@ public class DeleteStudentActivity extends AppCompatActivity {
 
 
         if (findStudents.isEmpty()){
-            MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(DeleteStudentActivity.this);
+            MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(DeleteStudentActivity.this,R.style.AlertDialogTheme);
             mBuilder.setTitle("Alert")
                     .setIcon(R.drawable.alert)
                     .setMessage("No Student Data To Fetch")
@@ -69,7 +69,7 @@ public class DeleteStudentActivity extends AppCompatActivity {
         }
 
 
-        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(DeleteStudentActivity.this);
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(DeleteStudentActivity.this,R.style.AlertDialogTheme);
         mBuilder.setTitle("Caution!")
                 .setIcon(R.drawable.alert)
                 .setMessage("Data will be permanently deleted for the selected student including fee entry data.")
@@ -89,7 +89,7 @@ public class DeleteStudentActivity extends AppCompatActivity {
             @Override
             public void onItemClick(final int position) {
 
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(DeleteStudentActivity.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(DeleteStudentActivity.this,R.style.AlertDialogTheme);
                 mBuilder.setTitle("Caution!")
                         .setIcon(R.drawable.alert)
                         .setMessage("Data will be permanently deleted for the selected student including fee entry data.\nProceed to delete?")

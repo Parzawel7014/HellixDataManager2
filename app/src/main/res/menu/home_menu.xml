@@ -4,8 +4,9 @@
 
 
     <item android:id="@+id/action_home"
-        android:icon="@drawable/ic_home"
-        android:title="Home"
+        android:icon="@drawable/ic_acc"
+        android:title="Profile"
+
         app:showAsAction="ifRoom|collapseActionView"
       />
 

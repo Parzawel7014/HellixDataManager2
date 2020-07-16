@@ -94,7 +94,7 @@ public class AddExistingStudentToBatch extends AppCompatActivity {
                         LocalDate today = LocalDate.now();
                         final String formattedDate = today.format(DateTimeFormatter.ofPattern("d/M/yyyy"));
 
-                        AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(AddExistingStudentToBatch.this);
+                        MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(AddExistingStudentToBatch.this,R.style.AlertDialogTheme);
                         reconfirmBuilder.setTitle("Confirm");
                         reconfirmBuilder.setMessage("Press Ok to add student to batch");
                         reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -113,14 +113,12 @@ public class AddExistingStudentToBatch extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         });
-
-                        AlertDialog cnfDialogue = reconfirmBuilder.create();
-                        cnfDialogue.show();
+                        reconfirmBuilder.show();
 
                     } else {
 
 
-                        MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddExistingStudentToBatch.this);
+                        MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddExistingStudentToBatch.this,R.style.AlertDialogTheme);
                         //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                         reconfirmBuilder.setTitle("Alert");
                         reconfirmBuilder.setMessage("Student Already Present.");

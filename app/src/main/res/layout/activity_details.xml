@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="15dp"
+
     tools:context=".Students.DetailsActivity">
 
     <include
@@ -17,14 +17,13 @@
         android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/DetailsToolbar"
         android:orientation="vertical">
 
         <RelativeLayout
 
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/grad2"
             android:paddingBottom="10dp">
 
@@ -63,6 +62,7 @@
                 <EditText
                     android:id="@+id/NameEditTextEditId"
                     android:layout_width="150dp"
+                    android:textColor="#FFFFFF"
                     android:layout_height="wrap_content"
                     android:hint="Name" />
 
@@ -184,8 +184,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linlay1"
+        android:layout_height="match_parent"
+        android:background="@color/purpleShade"
         tools:ignore="ScrollViewCount">
 
         <LinearLayout
@@ -780,19 +780,22 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/rellay2">
+                android:background="@color/purpleShade"
+
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_height="match_parent"
+
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="30dp"
+
                         android:text="Registered Subjects"
                         android:textColor="@color/heading"
                         android:textSize="13sp" />
@@ -801,7 +804,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/RegisteredSubRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:background="@color/purpleShade"
+                        android:layout_height="match_parent" />
 
 
                 </LinearLayout>

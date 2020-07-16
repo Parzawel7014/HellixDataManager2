@@ -60,6 +60,7 @@ public class StaffDetailsActivity extends AppCompatActivity implements StaffImag
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putByteArray("Staff_IMG",thumb);
+                bundle.putString("Staff_Id_img",id);
                 StaffImageDialogueClass staffImageDialogueClass=new StaffImageDialogueClass();
                 staffImageDialogueClass.setArguments(bundle);
                 staffImageDialogueClass.show(getSupportFragmentManager(), null);
@@ -280,5 +281,10 @@ public class StaffDetailsActivity extends AppCompatActivity implements StaffImag
             Toast.makeText(this, "Profile Image Updated Successfully", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @Override
+    public void deleteImage() {
+        proPic.setImageResource(R.drawable.user);
     }
 }

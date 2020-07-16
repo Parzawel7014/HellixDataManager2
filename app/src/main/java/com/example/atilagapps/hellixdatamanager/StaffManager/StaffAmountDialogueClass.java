@@ -55,7 +55,7 @@ public class StaffAmountDialogueClass extends DialogFragment {
         final DataBaseHelper db = new DataBaseHelper(getActivity());
 
 
-        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(getActivity());
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
 
        // AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();

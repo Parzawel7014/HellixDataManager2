@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,7 +43,7 @@ public class FindStudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_student);
         ArrayList<FindStudent> findStudents=new ArrayList<>();
-        DataBaseHelper db=new DataBaseHelper(this);
+        final DataBaseHelper db=new DataBaseHelper(this);
         findStudents=db.getStudentInfo();
         RecyclerView mRecyclerView = findViewById(R.id.FindStudentRecyclerViewId);
         mRecyclerView.setHasFixedSize(true);
@@ -53,9 +54,30 @@ public class FindStudentActivity extends AppCompatActivity {
 
 
 
+        final SwipeRefreshLayout swipeRefreshLayout=findViewById(R.id.swipeRefreshFindStudent);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ArrayList<FindStudent> findStudents=new ArrayList<>();
+             //   DataBaseHelper db=new DataBaseHelper(this);
+                findStudents=db.getStudentInfo();
+                RecyclerView mRecyclerView = findViewById(R.id.FindStudentRecyclerViewId);
+                mRecyclerView.setHasFixedSize(true);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(FindStudentActivity.this);
+                mAdapter=new FindStudentRecyclerAdapter(findStudents);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mRecyclerView.setAdapter(mAdapter);
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
+
+
+
 
         if (findStudents.isEmpty()){
-            MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(FindStudentActivity.this);
+            MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(FindStudentActivity.this,R.style.AlertDialogTheme);
             mBuilder.setTitle("Alert")
                     .setIcon(R.drawable.alert)
                     .setMessage("No Student Data To Fetch")
@@ -104,8 +126,6 @@ public class FindStudentActivity extends AppCompatActivity {
         inflater.inflate(R.menu.find_student_menu,menu);
       //  inflater.inflate(R.menu.home_menu,menu);
         MenuItem searchItem=menu.findItem(R.id.action_search);
-
-
         androidx.appcompat.widget.SearchView searchView=(androidx.appcompat.widget.SearchView)searchItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

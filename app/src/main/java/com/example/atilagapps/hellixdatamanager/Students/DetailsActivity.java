@@ -75,6 +75,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putByteArray("IMG",thumb);
+                bundle.putString("ProStuId",id);
                 ImageDialogueClass imageDialogueClass=new ImageDialogueClass();
                 imageDialogueClass.setArguments(bundle);
                 imageDialogueClass.show(getSupportFragmentManager(), null);
@@ -391,6 +392,11 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
        }
 
 
+    }
+
+    @Override
+    public void deleteImage() {
+        proPic.setImageResource(R.drawable.user);
     }
 
 

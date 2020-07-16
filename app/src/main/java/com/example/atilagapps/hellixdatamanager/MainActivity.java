@@ -12,8 +12,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.telephony.SmsManager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.biometric.BiometricManager;
 import androidx.core.app.ActivityCompat;
@@ -39,6 +42,7 @@ import com.example.atilagapps.hellixdatamanager.Charts.IncomeExpenseActivity;
 import com.example.atilagapps.hellixdatamanager.Fragments.HomeFragment;
 import com.example.atilagapps.hellixdatamanager.SendSMS.SMSInfoClass;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudentActivity;
+import com.example.atilagapps.hellixdatamanager.Students.FindStudentRecyclerAdapter;
 import com.example.atilagapps.hellixdatamanager.Students.StudentAddActivity;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.AddFeesActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -79,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String TuitionName;
 
     String databaseName;
+
+    boolean doubleBackToExitPressedOnce = false;
 
 
     private Uri fileUri;
@@ -234,7 +240,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (curr_mont > (staff_month)) {
 
 
-                        MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                        MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme
+                        );
                         //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                         reconfirmBuilder.setTitle("Alert");
                         reconfirmBuilder.setIcon(R.drawable.alert);
@@ -260,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
                 if (curr_year > (staff_year)) {
-                    MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                    MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                     //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                     reconfirmBuilder.setTitle("Alert");
                     reconfirmBuilder.setIcon(R.drawable.alert);
@@ -302,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (curr_year == year) {
                         if (curr_mont > (month)) {
 
-                            MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(MainActivity.this);
+                            MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                             //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                             reconfirmBuilder1.setTitle("Alert");
                             reconfirmBuilder1.setIcon(R.drawable.alert);
@@ -323,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             boolean res1 = db.insertIntoFeesTable(allTableName.get(i), curr_mont, curr_year);
                             if (res1) {
-                                MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                                MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                                 //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                                 reconfirmBuilder.setTitle("Alert");
                                 reconfirmBuilder.setIcon(R.drawable.alert);
@@ -353,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(getApplicationContext());
+                                        MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(getApplicationContext(),R.style.AlertDialogTheme);
                                         //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                                         reconfirmBuilder1.setMessage("You can send reminders later by going to send notification portal.");
                                         reconfirmBuilder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -375,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     if (curr_year > (year)) {
 
-                        MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(MainActivity.this);
+                        MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                         //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                         reconfirmBuilder1.setTitle("Alert");
                         reconfirmBuilder1.setIcon(R.drawable.alert);
@@ -398,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (res2)
                         //Toast.makeText(MainActivity.this, "Ok", Toast.LENGTH_SHORT).show();
                         {
-                            MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                            MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                             //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                             reconfirmBuilder.setTitle("Alert");
                             reconfirmBuilder.setIcon(R.drawable.alert);
@@ -428,7 +435,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(getApplicationContext());
+                                    MaterialAlertDialogBuilder reconfirmBuilder1 = new MaterialAlertDialogBuilder(getApplicationContext(),R.style.AlertDialogTheme);
                                     //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                                     reconfirmBuilder1.setMessage("You can send reminders later by going to send notification portal.");
                                     reconfirmBuilder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -494,10 +501,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        } else if(!drawerLayout.isDrawerOpen(GravityCompat.START)) {
 
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+
+        }
     }
 
     @Override
@@ -521,7 +543,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
                 if (finalSubjectAdapters.isEmpty()) {
-                    MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(getApplicationContext());
+                    MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(getApplicationContext(),R.style.AlertDialogTheme);
 
                     //  AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(v.getContext());
                     reconfirmBuilder.setTitle("Alert");
@@ -584,7 +606,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 LoadingBar.setCanceledOnTouchOutside(false);
                 boolean res = importDB();
                 if (res) {
-                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                     mBuilder.setTitle("Alert!")
                             .setIcon(R.drawable.alert)
                             .setMessage("Data Imported Successfully!")
@@ -596,7 +618,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }).show();
 
                 } else {
-                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                     mBuilder.setTitle("Alert!")
                             .setIcon(R.drawable.alert)
                             .setMessage("Data Importing Failed!\nMake sure you have exported database!\nIf problem continues please contact support! ")
@@ -622,7 +644,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 LoadingBar.dismiss();
                 if (res1) {
 
-                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
                     mBuilder.setTitle("Alert!")
                             .setIcon(R.drawable.alert)
                             .setMessage("Data Exported Successfully!")
@@ -636,7 +658,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //   Toast.makeText(ImportExportActivity.this, "Data Exported Successfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this);
+                    MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(MainActivity.this,R.style.AlertDialogTheme);
 
                     mBuilder.setTitle("Alert!")
                             .setIcon(R.drawable.alert)
@@ -798,6 +820,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.home_menu,menu);
+        //  inflater.inflate(R.menu.home_menu,menu);
+     //   MenuItem searchItem=menu.findItem(R.id.action_search);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_home) {
+            startActivity(new Intent(getApplicationContext(),TuitionProfile.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
 }

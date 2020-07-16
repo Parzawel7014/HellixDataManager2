@@ -177,10 +177,15 @@ public class Students_In_Batch extends AppCompatActivity implements AmountDialog
             public void onItemClick(int position) {
                 String Id = studentClasses.get(position).getStudentId();
 
-                SharedPreferences sharedPreferences=getSharedPreferences("TuitionInfo",MODE_PRIVATE);
-                String admin1=sharedPreferences.getString("Tuition Admin1","");
-                String admin2=sharedPreferences.getString("Tuition Admin2","");
-                String tuitionName=sharedPreferences.getString("Tuition Name","");
+
+
+                String admin1=db.getAdminName1();
+
+                String admin2=db.getAdminName2();
+
+                String tuitionName=db.getTuitionName();
+
+
 
                 Bundle bundle = new Bundle();
 

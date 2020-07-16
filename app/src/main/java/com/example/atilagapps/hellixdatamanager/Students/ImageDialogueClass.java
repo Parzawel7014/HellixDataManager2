@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.AmountDialogueClass;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -32,13 +34,13 @@ import static android.app.Activity.RESULT_OK;
 
 public class ImageDialogueClass extends DialogFragment {
 
-    ImageView proImgD,editProImgD;
+    ImageView proImgD,editProImgD,deleteProImg;
     byte[] thumb;
     byte[] initThumb;
     private Uri imageUri;
     private Bitmap compressor;
     private ImageDialogueListener listener;
-
+String id;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -53,10 +55,12 @@ public class ImageDialogueClass extends DialogFragment {
 
         proImgD=v.findViewById(R.id.dialogueImgId);
         editProImgD=v.findViewById(R.id.dialogueEditImageId);
+        deleteProImg=v.findViewById(R.id.dialogueDeleteImageId);
 
 
         assert getArguments() != null;
         initThumb=getArguments().getByteArray("IMG");
+        id=getArguments().getString("ProStuId");
 
         if (initThumb!=null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(initThumb, 0, initThumb.length);
@@ -70,11 +74,26 @@ public class ImageDialogueClass extends DialogFragment {
             }
         });
 
+        deleteProImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteStuImg();
+            }
+        });
+
         builder.setView(v);
 
 
 
         return builder.create();
+    }
+
+    private void deleteStuImg() {
+        DataBaseHelper db=new DataBaseHelper(getContext());
+        db.deleteStuImage(id);
+        proImgD.setImageResource(R.drawable.user);
+        listener.deleteImage();
+        Toast.makeText(getContext(), "Profile Image deleted Successfully", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -91,6 +110,7 @@ public class ImageDialogueClass extends DialogFragment {
 
     public interface ImageDialogueListener {
         void getImage(byte[] img);
+        void deleteImage();
 
     }
 

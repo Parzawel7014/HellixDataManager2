@@ -130,7 +130,7 @@ public class CreatePDF extends AppCompatActivity {
         batchName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this,R.style.AlertDialogTheme);
 
                // AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
                 mBuilder.setTitle("Select Subjects");
@@ -176,7 +176,7 @@ public class CreatePDF extends AppCompatActivity {
 
                 if (finalReceiptMonths.isEmpty()){
 
-                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this,R.style.AlertDialogTheme);
                     //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
                     mBuilder.setTitle("Alert");
                     mBuilder.setMessage("No Months To Fetch");
@@ -193,7 +193,7 @@ public class CreatePDF extends AppCompatActivity {
 
                 }else {
 
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this,R.style.AlertDialogTheme);
               //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
                 mBuilder.setTitle("Select Months");
 
@@ -226,7 +226,7 @@ public class CreatePDF extends AppCompatActivity {
                 final ArrayList<ReceiptMonthClass> finalReceiptMonths = ReceiptMonths;
 
                 if (finalReceiptMonths.isEmpty()){
-                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this,R.style.AlertDialogTheme);
                     //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
                     mBuilder.setTitle("Alert");
                     mBuilder.setMessage("No Years To Fetch");
@@ -242,7 +242,7 @@ public class CreatePDF extends AppCompatActivity {
                     mBuilder.show();
 
                 }else {
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(CreatePDF.this,R.style.AlertDialogTheme);
                 //AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatePDF.this);
                 mBuilder.setTitle("Select Year");
 

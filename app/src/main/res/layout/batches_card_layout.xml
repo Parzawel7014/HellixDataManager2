@@ -46,19 +46,39 @@
             android:textSize="15sp" />
         </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/ActiveStatCardId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:padding="5dp"
+                    android:maxLines="1"
+                    android:text="Suspended"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    tools:ignore="RtlHardcoded" />
+
             <TextView
                 android:id="@+id/TeacherCardId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 android:layout_marginEnd="10dp"
-                android:gravity="end|bottom"
+                android:gravity="end"
                 android:maxLines="1"
+                android:padding="5dp"
                 android:text="Teacher"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 tools:ignore="RtlHardcoded" />
         </LinearLayout>
+        </LinearLayout>
+
     </RelativeLayout>
 
 

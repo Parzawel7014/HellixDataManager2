@@ -55,7 +55,7 @@ public class StudentActivity extends AppCompatActivity {
 
 
                 if (finalSubjectAdapters.isEmpty()){
-                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(StudentActivity.this);
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(StudentActivity.this,R.style.AlertDialogTheme);
 
                   //  AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(v.getContext());
                     reconfirmBuilder.setTitle("Alert");

@@ -108,7 +108,7 @@ public class SendSMSActivity extends AppCompatActivity {
                 newBatchTime = newBatchTime.replace(" ", "_");
 
                 final String TableName = newBatchName + newBatchTime;
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this,R.style.AlertDialogTheme);
 
 
              //   AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
@@ -185,7 +185,7 @@ public class SendSMSActivity extends AppCompatActivity {
     }
 
     private void sendFeeReminder(final String tableName) {
-        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this);
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this,R.style.AlertDialogTheme);
 
        // AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
         LayoutInflater inflater = getLayoutInflater();

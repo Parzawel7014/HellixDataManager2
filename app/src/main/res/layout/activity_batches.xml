@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/BatchesActivityToolbar"
-        android:background="#FFFFFF"
-        android:padding="2dp"
+        android:padding="1dp"
         android:scrollbars="vertical" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

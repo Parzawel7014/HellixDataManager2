@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -31,10 +33,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class StaffImageDialogueClass extends DialogFragment {
 
-    ImageView proImgD,editProImgD;
+    ImageView proImgD,editProImgD,deleteProImage;
     byte[] thumb;
     byte[] initThumb;
     private Uri imageUri;
+    String id;
     private Bitmap compressor;
     private StaffImageDialogueListener listener;
 
@@ -44,7 +47,7 @@ public class StaffImageDialogueClass extends DialogFragment {
        // return super.onCreateDialog(savedInstanceState);
 
 
-        MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(requireActivity());
+        MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
         //  AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.image_dialogue, null);
@@ -52,10 +55,12 @@ public class StaffImageDialogueClass extends DialogFragment {
 
         proImgD=v.findViewById(R.id.dialogueImgId);
         editProImgD=v.findViewById(R.id.dialogueEditImageId);
+        deleteProImage=v.findViewById(R.id.dialogueDeleteImageId);
 
 
         assert getArguments() != null;
         initThumb=getArguments().getByteArray("Staff_IMG");
+        id=getArguments().getString("Staff_Id_img");
 
         if (initThumb!=null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(initThumb, 0, initThumb.length);
@@ -69,11 +74,27 @@ public class StaffImageDialogueClass extends DialogFragment {
             }
         });
 
+        deleteProImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteStaffImg();
+            }
+        });
+
         builder.setView(v);
 
 
 
         return builder.create();
+    }
+
+
+    private void deleteStaffImg() {
+        DataBaseHelper db=new DataBaseHelper(getContext());
+        db.deleteStaffImage(id);
+        proImgD.setImageResource(R.drawable.user);
+        listener.deleteImage();
+        Toast.makeText(getContext(), "Profile Image deleted Successfully", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -90,6 +111,7 @@ public class StaffImageDialogueClass extends DialogFragment {
 
     public interface StaffImageDialogueListener {
         void getStaffImage(byte[] img);
+        void deleteImage();
 
     }
 

@@ -95,7 +95,7 @@ public class AddStaffActivity extends AppCompatActivity {
         edtTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(AddStaffActivity.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(AddStaffActivity.this,R.style.AlertDialogTheme);
 
                 //AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddStaffActivity.this);
                 mBuilder.setTitle("Subjects");

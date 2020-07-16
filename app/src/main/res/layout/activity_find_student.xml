@@ -11,6 +11,11 @@
         android:id="@+id/FindStuToolbar"
         layout="@layout/toolbar_layout" />
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshFindStudent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FindStudentRecyclerViewId"
@@ -19,6 +24,7 @@
         android:scrollbars="vertical"
 
         />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </LinearLayout>

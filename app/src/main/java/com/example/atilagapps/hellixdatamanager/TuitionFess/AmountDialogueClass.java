@@ -95,7 +95,7 @@ public class AmountDialogueClass extends DialogFragment {
 
         final DataBaseHelper db = new DataBaseHelper(getActivity());
 
-        MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(requireActivity());
+        MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
       //  AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.payment_dialogue, null);
@@ -140,7 +140,7 @@ public class AmountDialogueClass extends DialogFragment {
         altImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity());
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
                 mBuilder.setTitle("Instruction");
                 mBuilder.setIcon(R.drawable.alert);
                 mBuilder.setMessage("By clicking the checkbox the transaction for this month will be closed.Meaning their will be no pending" +
@@ -175,7 +175,7 @@ public class AmountDialogueClass extends DialogFragment {
 
 
 
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity());
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
                 mBuilder.setTitle("Paid With");
 
                 mBuilder.setItems(payMethod, new DialogInterface.OnClickListener() {
@@ -196,7 +196,7 @@ public class AmountDialogueClass extends DialogFragment {
             public void onClick(View v) {
                // AlertDialog.Builder mBuilder=new AlertDialog.Builder(getActivity());
 
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity());
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
 
                 mBuilder.setTitle("Received By");
 

@@ -356,7 +356,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
         DataBaseHelper db = new DataBaseHelper(getContext());
         timeItems = db.getBatchTime(listItem).toArray(new String[0]);
-        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity());
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
 
       //  AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
         mBuilder.setTitle("Select Slot");
@@ -452,7 +452,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void openRegistrationFeesDialogue() {
-        MaterialAlertDialogBuilder mBuilder1=new MaterialAlertDialogBuilder(requireActivity());
+        MaterialAlertDialogBuilder mBuilder1=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
 
       //  AlertDialog.Builder mBuilder1 = new AlertDialog.Builder(getContext());
         mBuilder1.setTitle("Registration Fees Paid?");
@@ -486,7 +486,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
                 }
                 Log.i(TAG, Arrays.toString(regFeeArray));
-                MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(requireActivity());
+                MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
 
              //   AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(getContext());
                 reconfirmBuilder.setTitle("Confirm");
@@ -496,7 +496,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(requireActivity());
+                        MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(requireActivity(),R.style.AlertDialogTheme);
                         //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                         reconfirmBuilder.setMessage("Do you want to send welcome message with students registration number to students?\n\nCaution:This may cause you charges as messages will be sent by your network carrier!");
                         reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

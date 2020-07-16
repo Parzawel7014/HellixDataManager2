@@ -105,7 +105,7 @@ public class AddFeesActivity extends AppCompatActivity {
                 int res=db.checkStudentsPresent(TableName);
 
                 if (res==1){
-                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddFeesActivity.this);
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddFeesActivity.this,R.style.AlertDialogTheme);
 
                    // AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(AddFeesActivity.this);
                     reconfirmBuilder.setTitle("Alert");

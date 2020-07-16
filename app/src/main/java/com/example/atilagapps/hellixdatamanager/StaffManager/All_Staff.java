@@ -5,6 +5,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class All_Staff extends AppCompatActivity {
         setContentView(R.layout.activity_all__staff);
         addStaff=findViewById(R.id.staffAddFloatingButtId);
 
-        DataBaseHelper db=new DataBaseHelper(this);
+        final DataBaseHelper db=new DataBaseHelper(this);
         ArrayList<Staff_Class> staff_classes=new ArrayList<>();
         staff_classes=db.getStaffInfo();
 
@@ -47,6 +48,29 @@ public class All_Staff extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+
+
+        final SwipeRefreshLayout swipeRefreshLayout=findViewById(R.id.swipeRefreshFindStaff);
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                ArrayList<Staff_Class> staff_classes=new ArrayList<>();
+                staff_classes=db.getStaffInfo();
+
+                RecyclerView mRecyclerView = findViewById(R.id.staff_recycler_view_id);
+                mRecyclerView.setHasFixedSize(true);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(All_Staff.this);
+                mAdapter=new Staff_Recycler_Adapter(staff_classes);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
 
         final ArrayList<Staff_Class> finalStaff_classes = staff_classes;

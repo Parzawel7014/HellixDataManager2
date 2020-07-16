@@ -23,6 +23,7 @@ import com.example.atilagapps.hellixdatamanager.Students.DetailsActivity;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudent;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudentRecyclerAdapter;
 import com.example.atilagapps.hellixdatamanager.TuitionFess.AddFeesActivity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -79,7 +80,7 @@ public class RemoveStudentActivity extends AppCompatActivity {
             public void onItemClick(int position) {
 
                 final String id = finalFindStudents.get(position).getmStudentID();
-                AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(RemoveStudentActivity.this);
+                MaterialAlertDialogBuilder reconfirmBuilder = new MaterialAlertDialogBuilder(RemoveStudentActivity.this,R.style.AlertDialogTheme);
                 reconfirmBuilder.setTitle("Confirm");
                 reconfirmBuilder.setMessage("Confirm to delete record");
                 reconfirmBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -100,10 +101,7 @@ public class RemoveStudentActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                });
-
-                AlertDialog cnfDialogue = reconfirmBuilder.create();
-                cnfDialogue.show();
+                }).show();
 
             }
         });

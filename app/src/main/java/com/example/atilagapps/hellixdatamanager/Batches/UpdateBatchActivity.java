@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ public class UpdateBatchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(UpdateBatchActivity.this);
+                MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(UpdateBatchActivity.this,R.style.AlertDialogTheme);
                 mBuilder.setTitle("Teachers");
                 mBuilder.setSingleChoiceItems(teacherListItem, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -125,9 +126,7 @@ public class UpdateBatchActivity extends AppCompatActivity {
                         idval = teacherClasses.get(which).getTeacherID();
                         dialog.dismiss();
                     }
-                });
-                AlertDialog mDialogue = mBuilder.create();
-                mDialogue.show();
+                }).show();
 
             }
         });

@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
             public void onClick(final View v) {
 
                 if (finalSubjectAdapters.isEmpty()){
-                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(v.getContext());
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(v.getContext(),R.style.AlertDialogTheme);
 
                     //  AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(v.getContext());
                     reconfirmBuilder.setTitle("Alert");

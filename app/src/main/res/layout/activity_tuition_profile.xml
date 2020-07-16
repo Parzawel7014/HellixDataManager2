@@ -71,6 +71,7 @@
                             android:layout_marginTop="50dp"
                             android:maxLines="2"
                             android:text="Institute Name"
+                            android:textColor="#000000"
                             android:textSize="25sp"
                             android:textStyle="bold" />
 
@@ -81,6 +82,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+                            android:textColor="#000000"
                             android:maxLines="2"
                             android:text="Address"
                             android:textSize="17sp" />
@@ -115,7 +117,7 @@
                 android:backgroundTint="@color/purpleShade"
                 android:text="Edit Profile"
                 android:textColor="#000000"
-                app:strokeColor="#FFFFFF"
+                app:strokeColor="@color/colorPrimary"
                 app:strokeWidth="2dp" />
         </LinearLayout>
 

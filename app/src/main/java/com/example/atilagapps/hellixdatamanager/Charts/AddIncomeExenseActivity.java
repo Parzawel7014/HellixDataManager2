@@ -136,7 +136,7 @@ public class AddIncomeExenseActivity extends AppCompatActivity implements Adapte
                     }
                 }else if (paymentType.equals("Select Payment Type")){
 
-                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddIncomeExenseActivity.this);
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(AddIncomeExenseActivity.this,R.style.AlertDialogTheme);
                     //AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(BatchesActivity.this);
                     reconfirmBuilder.setTitle("Alert");
                     reconfirmBuilder.setCancelable(false);

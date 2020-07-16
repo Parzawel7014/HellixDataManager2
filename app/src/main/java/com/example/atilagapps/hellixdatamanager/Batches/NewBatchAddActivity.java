@@ -94,7 +94,7 @@ public class NewBatchAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this);
+                MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this,R.style.AlertDialogTheme);
 
                 //AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
                 mBuilder.setTitle("Subjects");
@@ -140,7 +140,7 @@ public class NewBatchAddActivity extends AppCompatActivity {
 
                 if (teacherClasses.isEmpty()) {
 
-                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this);
+                    MaterialAlertDialogBuilder reconfirmBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this,R.style.AlertDialogTheme);
 
                    // AlertDialog.Builder reconfirmBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
                     reconfirmBuilder.setTitle("Alert!");
@@ -170,7 +170,7 @@ public class NewBatchAddActivity extends AppCompatActivity {
                    // AlertDialog cnfDialogue = reconfirmBuilder.create();
                     reconfirmBuilder.show();
                 } else {
-                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this);
+                    MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(NewBatchAddActivity.this,R.style.AlertDialogTheme);
 
                    // AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewBatchAddActivity.this);
                     mBuilder.setTitle("Teachers");

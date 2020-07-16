@@ -65,7 +65,7 @@ public class EditTuitionInfo extends AppCompatActivity implements TuitionImageDi
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putByteArray("IMG1",thumb);
+                bundle.putByteArray("IMG1",thumb1);
                 //ImageDialogueClass imageDialogueClass=new ImageDialogueClass();
                 TuitionImageDialogueClass tuitionImageDialogueClass=new TuitionImageDialogueClass();
                 tuitionImageDialogueClass.setArguments(bundle);
@@ -90,6 +90,8 @@ public class EditTuitionInfo extends AppCompatActivity implements TuitionImageDi
                     img.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
                     thumb=byteArrayOutputStream.toByteArray();
 
+
+
                     String T_Name=TuiName.getText().toString().trim();
                     String T_Add=TuiAddress.getText().toString().trim();
                     String T_Phone=TuiPhone.getText().toString().trim();
@@ -112,6 +114,9 @@ public class EditTuitionInfo extends AppCompatActivity implements TuitionImageDi
 
 
         thumb1=db.getTuiThumb();
+        if (thumb1==null){
+            imgPro.setImageResource(R.drawable.camera);
+        }
 
         assert tuitionEdit != null;
         String T_Name=tuitionEdit.getTuiName();
@@ -224,6 +229,11 @@ public class EditTuitionInfo extends AppCompatActivity implements TuitionImageDi
         DataBaseHelper db=new DataBaseHelper(this);
         db.updatetuiProPic(img);
 
+    }
+
+    @Override
+    public void deleteImage() {
+        imgPro.setImageResource(R.drawable.camera);
     }
 
 

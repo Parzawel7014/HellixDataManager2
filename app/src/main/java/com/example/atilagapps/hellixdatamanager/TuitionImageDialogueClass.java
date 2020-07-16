@@ -30,7 +30,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class TuitionImageDialogueClass extends DialogFragment {
 
-    ImageView proImgD,editProImgD;
+    ImageView proImgD,editProImgD,deleteProImgId;
     byte[] thumb;
     byte[] initThumb;
     private Uri imageUri;
@@ -46,11 +46,12 @@ public class TuitionImageDialogueClass extends DialogFragment {
         MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(requireActivity());
         //  AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.image_dialogue, null);
+        View v = inflater.inflate(R.layout.tui_image_dialogue, null);
 
 
         proImgD=v.findViewById(R.id.dialogueImgId);
         editProImgD=v.findViewById(R.id.dialogueEditImageId);
+        deleteProImgId=v.findViewById(R.id.dialogueDeleteImageId);
 
 
         assert getArguments() != null;
@@ -68,6 +69,14 @@ public class TuitionImageDialogueClass extends DialogFragment {
             }
         });
 
+        deleteProImgId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteImg();
+            }
+        });
+
+
         builder.setView(v);
 
 
@@ -75,6 +84,12 @@ public class TuitionImageDialogueClass extends DialogFragment {
         return builder.create();
     }
 
+    private void deleteImg() {
+        DataBaseHelper db=new DataBaseHelper(getContext());
+        db.deleteTuiImage();
+        proImgD.setImageResource(R.drawable.camera);
+        listener.deleteImage();
+    }
 
 
     @Override
@@ -89,6 +104,7 @@ public class TuitionImageDialogueClass extends DialogFragment {
 
     public interface ImageDialogueListener {
         void getImage(byte[] img);
+        void deleteImage();
 
     }
 

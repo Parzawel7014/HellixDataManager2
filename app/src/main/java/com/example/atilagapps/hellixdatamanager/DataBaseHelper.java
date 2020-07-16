@@ -366,6 +366,79 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+    public String getAdminName1(){
+        String name=null;
+        SQLiteDatabase db=this.getWritableDatabase();
+        String query="select "+TUITION_INFO_COL6+" from "+TUITION_INFO_TABLE;
+        Cursor cursor=db.rawQuery(query,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                name= (cursor.getString(0));
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return name;
+
+    }
+
+
+    public String getAdminName2(){
+        String name=null;
+        SQLiteDatabase db=this.getWritableDatabase();
+        String query="select "+TUITION_INFO_COL7+" from "+TUITION_INFO_TABLE;
+        Cursor cursor=db.rawQuery(query,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                name= (cursor.getString(0));
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return name;
+
+    }
+
+
+    public void deleteTuiImage(){
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cn=new ContentValues();
+        cn.putNull(TUITION_INFO_COL8);
+        db.update(TUITION_INFO_TABLE,cn,TUITION_INFO_COL1+"=1",null);
+
+
+    }
+
+
+    public void deleteStaffImage(String ID){
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cn=new ContentValues();
+        cn.putNull(TEACHER_COL_7);
+        db.update(TEACHER_TABLE,cn,TEACHER_COL_1+"="+ID,null);
+
+
+    }
+
+
+    public void deleteStuImage(String ID){
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cn=new ContentValues();
+        cn.putNull(STU_COL_13);
+        db.update(STUDENT_TABLE,cn,STU_COL_1+"="+ID,null);
+
+
+    }
+
     // public static String getDBName() {
 
     //  DataBaseHelper db = new DataBaseHelper();
@@ -633,14 +706,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public ArrayList<SubjectAdapter> getDialogueLabelsAdapter() {
         ArrayList<SubjectAdapter> labels = new ArrayList();
         String stat = "Active";
-        String selectQuery = "SELECT * FROM " + BATCHES_TABLE + " WHERE " + ALL_BATCH_COL_8 + "=" + "'" + stat + "'";
+        String selectQuery = "SELECT "+ ALL_BATCH_COL_2+","+ALL_BATCH_COL_3+","+ALL_BATCH_COL_4+","+ALL_BATCH_COL_8  +" FROM " + BATCHES_TABLE ;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                labels.add(new SubjectAdapter(cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                labels.add(new SubjectAdapter(cursor.getString(0), cursor.getString(1), cursor.getString(2),cursor.getString(3)));
             } while (cursor.moveToNext());
         }
 
@@ -1148,7 +1221,7 @@ String stat="Active";
     }
 
 
-    public void deleteBatch(String TableName) {
+    public void suspendBatch(String TableName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1157,11 +1230,40 @@ String stat="Active";
 
         db.update(BATCHES_TABLE, contentValues, ALL_BATCH_COL_5 + "='" + TableName+"'", null);
 
-        db.execSQL("DROP TABLE IF EXISTS " + TableName);
+       // db.execSQL("DROP TABLE IF EXISTS " + TableName);
 
         db.close();
     }
 
+
+
+    public void activateBatch(String TableName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ALL_BATCH_COL_8, "Active");
+
+     db.update(BATCHES_TABLE, contentValues, ALL_BATCH_COL_5 + "='" + TableName+"'", null);
+
+        // db.execSQL("DROP TABLE IF EXISTS " + TableName);
+
+        db.close();
+
+    }
+
+    public void deleteBatch(String TableName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+      //  ContentValues contentValues = new ContentValues();
+        //contentValues.put(ALL_BATCH_COL_8, "In-Active");
+        //db.update(BATCHES_TABLE, contentValues, ALL_BATCH_COL_5 + "='" + TableName+"'", null);
+        db.delete(BATCHES_TABLE,ALL_BATCH_COL_5+"='"+TableName+"'",null);
+        db.execSQL("DROP TABLE IF EXISTS " + TableName);
+
+        db.close();
+    }
 
     public ArrayList<RegSubClass> getAllRegisteredBathes(String id) {
 

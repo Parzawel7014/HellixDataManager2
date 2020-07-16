@@ -56,7 +56,7 @@ public class StaffPaymentActivity extends AppCompatActivity implements StaffAmou
 
 
         if (staffPaymentClasses.isEmpty()){
-            MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(StaffPaymentActivity.this);
+            MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(StaffPaymentActivity.this,R.style.AlertDialogTheme);
             mBuilder.setTitle("Alert")
                     .setIcon(R.drawable.alert)
                     .setMessage("No Pending Salary")
