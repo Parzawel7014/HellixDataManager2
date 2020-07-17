@@ -28,6 +28,7 @@
                 android:id="@+id/inc_exp_spinner_id"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
+                android:popupBackground="@drawable/spinner_custom"
                 android:layout_margin="10dp" />
 
 

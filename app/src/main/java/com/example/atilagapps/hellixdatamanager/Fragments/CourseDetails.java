@@ -235,7 +235,7 @@ public class CourseDetails extends Fragment implements AdapterView.OnItemSelecte
 
     private void OpenDialogue() {
 
-        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireContext());
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(requireContext(),R.style.AlertDialogTheme);
 
        // AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
         mBuilder.setTitle("Select Subjects");

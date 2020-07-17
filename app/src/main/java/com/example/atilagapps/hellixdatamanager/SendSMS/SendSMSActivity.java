@@ -140,7 +140,7 @@ public class SendSMSActivity extends AppCompatActivity {
 
     private void generateCustomMessage(final String tableName) {
 
-        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this);
+        MaterialAlertDialogBuilder mBuilder=new MaterialAlertDialogBuilder(SendSMSActivity.this,R.style.AlertDialogTheme);
 
        // AlertDialog.Builder mBuilder = new AlertDialog.Builder(SendSMSActivity.this);
         LayoutInflater inflater = getLayoutInflater();
