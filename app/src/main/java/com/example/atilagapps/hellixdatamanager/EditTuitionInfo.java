@@ -163,7 +163,10 @@ public class EditTuitionInfo extends AppCompatActivity implements TuitionImageDi
         if (phoneInput.isEmpty()){
             TuiPhone.setError("Field can't be empty");
             return false;
-        }else {
+        }else if (phoneInput.length()<10){
+            TuiPhone.setError("Phone number not valid!");
+            return false;
+        } else {
             TuiPhone.setError(null);
 
             return true;

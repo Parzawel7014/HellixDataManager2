@@ -101,9 +101,11 @@ public class GetTuitionInfo extends AppCompatActivity {
         if (phoneInput.isEmpty()){
             phoneNum.setError("Field can't be empty");
             return false;
-        }else {
+        }else if (phoneInput.length()<10){
+            phoneNum.setError("Phone number not valid!");
+            return false;
+        } else {
             phoneNum.setError(null);
-
             return true;
         }
     }

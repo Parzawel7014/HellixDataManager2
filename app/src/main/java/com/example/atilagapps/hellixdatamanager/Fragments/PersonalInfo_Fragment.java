@@ -229,7 +229,10 @@ public class PersonalInfo_Fragment extends Fragment implements AdapterView.OnIte
         if (phoneInput.isEmpty()){
             editTextPhone.setError("Field can't be empty");
             return false;
-        }else {
+        }else if (phoneInput.length()<10){
+            editTextPhone.setError("Phone number not valid!");
+            return false;
+        } else {
             editTextPhone.setError(null);
              editTextEmail.setErrorEnabled(false);
             return true;

@@ -186,12 +186,17 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         phoneDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNum=phoneEdit.getText().toString().trim();
-                phoneTxt.setText(phoneNum);
-                hiddenPhoneLinearLayout.setVisibility(View.GONE);
-                phoneTxt.setVisibility(View.VISIBLE);
-                relativeLayout1.setVisibility(View.VISIBLE);
-                db.updatePhone(id,phoneNum);
+                 if (phoneTxt.length()<10){
+                     Toast.makeText(DetailsActivity.this, "Invalid Phone Number!", Toast.LENGTH_SHORT).show();
+
+                }else {
+                     String phoneNum = phoneEdit.getText().toString().trim();
+                     phoneTxt.setText(phoneNum);
+                     hiddenPhoneLinearLayout.setVisibility(View.GONE);
+                     phoneTxt.setVisibility(View.VISIBLE);
+                     relativeLayout1.setVisibility(View.VISIBLE);
+                     db.updatePhone(id, phoneNum);
+                 }
             }
         });
 

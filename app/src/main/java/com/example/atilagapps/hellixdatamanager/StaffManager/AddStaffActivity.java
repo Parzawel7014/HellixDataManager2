@@ -206,7 +206,10 @@ public class AddStaffActivity extends AppCompatActivity {
         if (phoneInput.isEmpty()){
             phone.setError("Field can't be empty");
             return false;
-        }else {
+        }else if (phoneInput.length()<10){
+            phone.setError("Phone number not valid!");
+            return false;
+        } else {
             phone.setError(null);
             phone.setErrorEnabled(false);
             return true;

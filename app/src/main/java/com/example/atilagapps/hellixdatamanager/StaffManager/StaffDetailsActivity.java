@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.atilagapps.hellixdatamanager.DataBaseHelper;
 import com.example.atilagapps.hellixdatamanager.R;
+import com.example.atilagapps.hellixdatamanager.Students.DetailsActivity;
 import com.example.atilagapps.hellixdatamanager.Students.FindStudent;
 import com.example.atilagapps.hellixdatamanager.Students.RegBatchesAdapter;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -163,13 +164,16 @@ public class StaffDetailsActivity extends AppCompatActivity implements StaffImag
         phoneDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (phoneTxt.length()<10){
+                    Toast.makeText(StaffDetailsActivity.this, "Invalid Phone Number!", Toast.LENGTH_SHORT).show();
+                }else {
                 String phoneNum=phoneEdit.getText().toString().trim();
                 phoneTxt.setText(phoneNum);
                 hiddenPhoneLinearLayout.setVisibility(View.GONE);
                 phoneTxt.setVisibility(View.VISIBLE);
                 relativeLayout1.setVisibility(View.VISIBLE);
                db.updateStaffPhone(id,phoneNum);
-            }
+            }}
         });
 
 
